@@ -17,10 +17,13 @@
 	
     <table>
       <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
+        <td colspan="2" style="font-weight:bold;">Available methods:</td>        
       </tr>
       <tr>
-        <td><a href="rozac_framework">Rozac_framework</a></td>
+        <td><a href="/auth/hash/?userEmail=teste@teste.com&userPassword=abc">auth/getToken (valid) (via GET)</a></td>
+      </tr>
+      <tr>
+        <td><a href="/auth/hash/?userEmail=teste@teste.com&userPassword=">auth/getToken (invalid) (via GET)</a></td>
       </tr>
     </table>
   </body>
