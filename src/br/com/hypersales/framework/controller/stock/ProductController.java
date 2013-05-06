@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
-import br.com.hypersales.framework.model.stock.ProductGroup;
-import br.com.hypersales.framework.service.stock.ProductGroupService;
+import br.com.hypersales.framework.model.stock.Product;
+import br.com.hypersales.framework.service.stock.ProductService;
 
 @Controller
-@RequestMapping("/productgroups")
-public class ProductGroupController {
+@RequestMapping("/products")
+public class ProductController {
 
-	ProductGroupService productGroupService = new ProductGroupService();
+	ProductService productService = new ProductService();
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody List<ProductGroup> getList(
-										@RequestParam("hashCode") String hashCode
+	public @ResponseBody List<Product> getList(
+										@RequestParam("hashCode") String hashCode,
+										@RequestParam("productGroupId") String productGroupId
 										) {
-		List<ProductGroup> productGroups = productGroupService.getAllProductGroups();
-		return productGroups;
+		List<Product> products = productService.getAllProducts();
+		return products;
 	}
 	
 }
