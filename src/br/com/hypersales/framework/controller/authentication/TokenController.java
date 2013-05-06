@@ -13,27 +13,29 @@ import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
 @RequestMapping("/auth")
+// teste
 public class TokenController {
-	
+
 	@RequestMapping(value = "/hash/", method = RequestMethod.GET)
-	public @ResponseBody JsonResult<Token> getHash(@RequestParam("userEmail") String email, 
-										@RequestParam("userPassword") String password) {
-		
+	public @ResponseBody
+	JsonResult<Token> getHash(@RequestParam("userEmail") String email,
+			@RequestParam("userPassword") String password) {
+
 		JsonResult<Token> tokenResult;
-		
+
 		TokenService tokenService = new TokenService();
-		
-		//1 - validar valores informados
-		if(email.trim().equals("") || password.trim().equals(""))
-		{
-			//TODO: método generico para setar status de retorno
+
+		// 1 - validar valores informados
+		if (email.trim().equals("") || password.trim().equals("")) {
+			// TODO: mï¿½todo generico para setar status de retorno
 			tokenResult = new JsonResult<Token>();
 			tokenResult.setResponseId(RequestStatus.BAD_REQUEST.statusCode());
-			tokenResult.setResponseMessage(RequestStatus.BAD_REQUEST.toString());
+			tokenResult
+					.setResponseMessage(RequestStatus.BAD_REQUEST.toString());
 		} else {
 			tokenResult = tokenService.generateToken(email, password);
 		}
-		
+
 		return tokenResult;
 	}
 }
