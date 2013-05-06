@@ -19,7 +19,8 @@ public class ProductGroupController {
 
 	ProductGroupService productGroupService = new ProductGroupService();
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	// /productgroups/getlist/?hashCode=asfd1234
+	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
 	public @ResponseBody List<ProductGroup> getList(
 										@RequestParam("hashCode") String hashCode
 										) {

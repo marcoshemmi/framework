@@ -19,7 +19,7 @@ public class ProductStockController {
 
 	ProductStockService productStockService = new ProductStockService();
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/getlistbyproductid", method = RequestMethod.GET)
 	public @ResponseBody List<ProductStock> getListByProductId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("productId") String productId

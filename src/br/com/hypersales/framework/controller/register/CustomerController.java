@@ -3,12 +3,10 @@ package br.com.hypersales.framework.controller.register;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.portlet.ModelAndView;
 
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.service.register.CustomerService;
@@ -19,7 +17,8 @@ public class CustomerController {
 	
 	CustomerService customerService = new CustomerService();
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	// /customers/getallcustomers/?hashCode=asdf1234
+	@RequestMapping(value = "/getallcustomers", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getAllCustomers(
 										@RequestParam("hashCode") String hashCode
 										) {
@@ -27,7 +26,8 @@ public class CustomerController {
 		return customers;
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	// /customers/getlistbysellerid/?hashCode=asdf1234&sellerId=001
+	@RequestMapping(value = "/getlistbysellerid", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getListBySellerId(
 										@RequestParam("hashCode") String hashCode, 
 										@RequestParam("sellerId") String sellerId
@@ -36,7 +36,8 @@ public class CustomerController {
 		return customers;
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	// /customers/getunitlistbycustomerid/?hashCode=asdf1234&customerId=001
+	@RequestMapping(value = "/getunitlistbycustomerid", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getUnitListByCustomerId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("customerId") String customerId
@@ -45,7 +46,8 @@ public class CustomerController {
 		return customers;
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	// /customers/getdataBycustomerid/?hashCode=asdf1234&customerId=001&customerUnitId=001
+	@RequestMapping(value = "/getdataBycustomerid", method = RequestMethod.GET)
 	public @ResponseBody Customer getDataByCustomerId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("customerId") String customerId,
