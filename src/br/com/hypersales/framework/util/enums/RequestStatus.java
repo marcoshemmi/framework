@@ -1,6 +1,6 @@
-package br.com.rozac.framework.util;
+package br.com.hypersales.framework.util.enums;
 
-public enum EnumRequestStatus {
+public enum RequestStatus {
 	SUCCESS(200),
 	SERVICE_UNAVAILABLE(300),
 	BAD_REQUEST(400),
@@ -11,7 +11,7 @@ public enum EnumRequestStatus {
 	
 	private final int statusCode;   
 
-	EnumRequestStatus(int statusCode) {
+	RequestStatus(int statusCode) {
         this.statusCode = statusCode;
     }
 

@@ -1,6 +1,6 @@
-package br.com.rozac.framework.model.authentication;
+package br.com.hypersales.framework.model.authentication;
 
-import br.com.rozac.framework.util.JsonResult;
+import br.com.hypersales.framework.util.JsonResult;
 
 public class Token  extends JsonResult {
 	

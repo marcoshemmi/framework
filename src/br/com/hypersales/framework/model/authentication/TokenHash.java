@@ -1,4 +1,4 @@
-package br.com.rozac.framework.model.authentication;
+package br.com.hypersales.framework.model.authentication;
 
 public class TokenHash {
 	private String code;

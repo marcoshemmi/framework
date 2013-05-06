@@ -1,4 +1,4 @@
-package br.com.rozac.framework.controller;
+package br.com.hypersales.framework.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
-import br.com.rozac.framework.model.Customer;
-import br.com.rozac.framework.service.CustomerService;
+import br.com.hypersales.framework.model.register.Customer;
+import br.com.hypersales.framework.service.CustomerService;
 
 @Controller
 @RequestMapping("/customers")

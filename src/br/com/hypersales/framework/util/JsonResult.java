@@ -1,4 +1,4 @@
-package br.com.rozac.framework.util;
+package br.com.hypersales.framework.util;
 
 public abstract class JsonResult {
 	
