@@ -13,7 +13,7 @@ import org.springframework.web.portlet.ModelAndView;
 import br.com.hypersales.framework.model.commercial.SalesOrder;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.service.SalesOrderService;
+import br.com.hypersales.framework.service.commercial.SalesOrderService;
 
 @Controller
 @RequestMapping("/salesorder")

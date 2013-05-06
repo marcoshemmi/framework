@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.authentication.Token;
 import br.com.hypersales.framework.presentation.JsonResult;
-import br.com.hypersales.framework.service.TokenService;
+import br.com.hypersales.framework.service.authentication.TokenService;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
