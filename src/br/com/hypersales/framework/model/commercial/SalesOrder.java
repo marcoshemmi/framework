@@ -2,12 +2,12 @@ package br.com.hypersales.framework.model.commercial;
 
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
-import br.com.hypersales.framework.util.JsonResult;
+import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.util.enums.FreightType;
 import br.com.hypersales.framework.util.enums.ReservationType;
 import br.com.hypersales.framework.util.enums.SalesOrderStatus;
 
-public class SalesOrder extends JsonResult {
+public class SalesOrder {
 	
 	private String id;
 	private SalesOrderStatus salesOrderStatus;

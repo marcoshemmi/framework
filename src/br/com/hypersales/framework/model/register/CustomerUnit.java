@@ -1,8 +1,8 @@
 package br.com.hypersales.framework.model.register;
 
-import br.com.hypersales.framework.util.JsonResult;
+import br.com.hypersales.framework.presentation.JsonResult;
 
-public class CustomerUnit  extends JsonResult {
+public class CustomerUnit {
 	//loja do cliente
 	
 	private String id;

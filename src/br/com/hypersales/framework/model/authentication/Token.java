@@ -1,8 +1,8 @@
 package br.com.hypersales.framework.model.authentication;
 
-import br.com.hypersales.framework.util.JsonResult;
+import br.com.hypersales.framework.presentation.JsonResult;
 
-public class Token  extends JsonResult {
+public class Token {
 	
 	private String sellerId;
 	private TokenHash tokenHash;

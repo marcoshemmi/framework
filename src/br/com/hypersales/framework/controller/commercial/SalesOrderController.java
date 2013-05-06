@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
 import br.com.hypersales.framework.model.commercial.SalesOrder;
-import br.com.hypersales.framework.service.commercial.SalesOrderService;
-import br.com.hypersales.framework.util.JsonResultList;
+import br.com.hypersales.framework.presentation.JsonResult;
+import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.service.SalesOrderService;
 
 @Controller
 @RequestMapping("/salesorder")
@@ -31,4 +32,15 @@ public class SalesOrderController {
 		JsonResultList<SalesOrder> salesOrders = salesOrderService.getList(hashCode, sellerId, dateFrom, dateTo, customerId);
 		return salesOrders;
 	}
+	
+	@RequestMapping(value = "/getbyorderid/", method = RequestMethod.GET)
+	public @ResponseBody JsonResult<SalesOrder> getDataByOrderId(
+									@RequestParam("hashCode") String hashCode, 
+									@RequestParam("salesOrderId") String salesOrderId
+									) {
+		JsonResult<SalesOrder> salesOrder = salesOrderService.getDataByOrderId(hashCode, salesOrderId);
+		return salesOrder;
+	}
+
+	
 }

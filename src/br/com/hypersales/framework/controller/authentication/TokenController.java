@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.authentication.Token;
-import br.com.hypersales.framework.service.authentication.TokenService;
+import br.com.hypersales.framework.presentation.JsonResult;
+import br.com.hypersales.framework.service.TokenService;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
@@ -15,10 +16,10 @@ import br.com.hypersales.framework.util.enums.RequestStatus;
 public class TokenController {
 	
 	@RequestMapping(value = "/hash/", method = RequestMethod.GET)
-	public @ResponseBody Token getHash(@RequestParam("userEmail") String email, 
+	public @ResponseBody JsonResult<Token> getHash(@RequestParam("userEmail") String email, 
 										@RequestParam("userPassword") String password) {
 		
-		Token tokenResult;
+		JsonResult<Token> tokenResult;
 		
 		TokenService tokenService = new TokenService();
 		
@@ -26,8 +27,7 @@ public class TokenController {
 		if(email.trim().equals("") || password.trim().equals(""))
 		{
 			//TODO: método generico para setar status de retorno
-			tokenResult = new Token();
-
+			tokenResult = new JsonResult<Token>();
 			tokenResult.setResponseId(RequestStatus.BAD_REQUEST.statusCode());
 			tokenResult.setResponseMessage(RequestStatus.BAD_REQUEST.toString());
 		} else {

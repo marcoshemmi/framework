@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.util;
+package br.com.hypersales.framework.presentation;
 
 import java.util.ArrayList;
 import java.util.List;

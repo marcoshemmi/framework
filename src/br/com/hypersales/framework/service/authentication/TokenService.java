@@ -2,11 +2,12 @@ package br.com.hypersales.framework.service.authentication;
 
 import br.com.hypersales.framework.model.authentication.Token;
 import br.com.hypersales.framework.model.authentication.TokenHash;
+import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class TokenService {
 
-	public Token generateToken(String user, String password) {
+	public JsonResult<Token> generateToken(String user, String password) {
 		/*
 		DUMMY OBJ
 		TODO: chamar MODEL, quando estiver disponivel
@@ -21,10 +22,12 @@ public class TokenService {
 
 		tokenResult.setSellerId("000001");
 		
-		tokenResult.setResponseId(RequestStatus.SUCCESS.statusCode());
-		tokenResult.setResponseMessage(RequestStatus.SUCCESS.toString());
+		JsonResult<Token> resultJson = new JsonResult<Token>(tokenResult);
+		//resultJson.set(tokenResult);
+		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
 
-		return tokenResult;
+		return resultJson;
 	}
 
 }
