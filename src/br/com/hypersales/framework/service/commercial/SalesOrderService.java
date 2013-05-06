@@ -47,7 +47,7 @@ public class SalesOrderService {
 
 			CustomerUnit cunit = new CustomerUnit();
 			cunit.setCustomer(c);
-			cunit.setId("01");
+			cunit.setId("1");
 			cunit.setName("Cliente 1 loja " + i);
 			cunit.setCNPJ("01.001.0001/0001-0" + i);
 			cunit.setCity("SAO PAULO");
@@ -84,7 +84,7 @@ public class SalesOrderService {
 
 		CustomerUnit cunit = new CustomerUnit();
 		cunit.setCustomer(c);
-		cunit.setId("01");
+		cunit.setId("2");
 		cunit.setName("Cliente 1 loja 1");
 		cunit.setCNPJ("01.001.0001/0001-01");
 		cunit.setCity("SAO PAULO");

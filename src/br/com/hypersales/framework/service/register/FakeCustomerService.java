@@ -46,7 +46,7 @@ public class FakeCustomerService {
 			 null
 			 );
 
-			 c.setId(i);
+			 c.setId(""+i);
 
 			custumers.add(c);
 		}
@@ -105,12 +105,12 @@ public class FakeCustomerService {
 			 "contactName" + i,
 			 null, // payment
 			 null, //carrier
-			 s1, // intercala entre os dois seller
+			 s1, 
 			 null,//freightType
 			 null
 			 );
 
-			 c.setId(i);
+			 c.setId(""+i);
 			 return c;
 	}
 

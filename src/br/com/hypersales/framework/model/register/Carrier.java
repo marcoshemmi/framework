@@ -35,4 +35,10 @@ public class Carrier {
 	public String getId() {
 		return id;
 	}
+
+	// TODO método somente para teste
+	public void setId(String id) {
+		this.id = id;
+	}
+
 }

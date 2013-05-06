@@ -3,7 +3,7 @@ package br.com.hypersales.framework.model.register;
 import br.com.hypersales.framework.util.enums.FreightType;
 
 public class Customer {
-	private int id;
+	private String id;
 	private String name;
 	private String tradeName;//
 	private String cnpj;
@@ -73,12 +73,12 @@ public class Customer {
 		this.customerUnit = customerUnit;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 	// TODO somente para testes
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
