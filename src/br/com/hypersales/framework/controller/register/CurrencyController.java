@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.controller;
+package br.com.hypersales.framework.controller.register;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
 import br.com.hypersales.framework.model.register.Currency;
-import br.com.hypersales.framework.service.CurrencyService;
+import br.com.hypersales.framework.service.register.CurrencyService;
 
 @Controller
 @RequestMapping("/currencies")

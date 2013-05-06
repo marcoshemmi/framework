@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.controller;
+package br.com.hypersales.framework.controller.register;
 
 import java.util.List;
 
@@ -10,29 +10,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
-import br.com.hypersales.framework.model.register.Seller;
-import br.com.hypersales.framework.service.SellerService;
+import br.com.hypersales.framework.model.register.Carrier;
+import br.com.hypersales.framework.service.register.CarrierService;
 
 @Controller
-@RequestMapping("/sellers")
-public class SellerController {
+@RequestMapping("/carriers")
+public class CarrierController {
 
-	SellerService sellerService = new SellerService();
+	CarrierService carrierService = new CarrierService();
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody List<Seller> getList(
+	public @ResponseBody List<Carrier> getList(
 										@RequestParam("hashCode") String hashCode
 										) {
-		List<Seller> sellers = sellerService.getAllSellers();
-		return sellers;
+		List<Carrier> carriers = carrierService.getAllCarriers();
+		return carriers;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public @ResponseBody Seller getDataBySellerId(
+	public @ResponseBody Carrier getDataByCarrierId(
 										@RequestParam("hashCode") String hashCode,
-										@RequestParam("sellerId") String sellerId
+										@RequestParam("carrierId") String carrierId
 										) {
-		return new Seller();		
+		return new Carrier();		
 	}
 	
 }

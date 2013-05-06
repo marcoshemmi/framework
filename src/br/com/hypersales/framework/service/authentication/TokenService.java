@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.service;
+package br.com.hypersales.framework.service.authentication;
 
 import br.com.hypersales.framework.model.authentication.Token;
 import br.com.hypersales.framework.model.authentication.TokenHash;

@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.controller;
+package br.com.hypersales.framework.controller.commercial;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.portlet.ModelAndView;
 
 import br.com.hypersales.framework.model.commercial.SalesOrder;
-import br.com.hypersales.framework.service.SalesOrderService;
+import br.com.hypersales.framework.service.commercial.SalesOrderService;
 import br.com.hypersales.framework.util.JsonResultList;
 
 @Controller

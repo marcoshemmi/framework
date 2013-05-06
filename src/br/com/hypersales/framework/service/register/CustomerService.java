@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.service;
+package br.com.hypersales.framework.service.register;
 
 import java.util.ArrayList;
 import java.util.List;

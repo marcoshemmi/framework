@@ -1,4 +1,4 @@
-package br.com.hypersales.framework.controller;
+package br.com.hypersales.framework.controller.authentication;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.authentication.Token;
-import br.com.hypersales.framework.service.TokenService;
+import br.com.hypersales.framework.service.authentication.TokenService;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
