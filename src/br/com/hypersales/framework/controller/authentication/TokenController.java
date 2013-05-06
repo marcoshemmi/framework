@@ -13,7 +13,7 @@ import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
 @RequestMapping("/auth")
-// teste
+// teste 2
 public class TokenController {
 
 	@RequestMapping(value = "/hash/", method = RequestMethod.GET)
