@@ -1,7 +1,6 @@
 package br.com.hypersales.framework.controller.register;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.register.Currency;
+import br.com.hypersales.framework.presentation.JsonResult;
+import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.CurrencyService;
 
 @Controller
@@ -21,23 +22,23 @@ public class CurrencyController {
 	// /currencies/getlistbydate/?hashCode=asdf1234&currencyDate=20130606
 	// TODO erro de bad request pode ser a data.
 	@RequestMapping(value = "/getlistbydate", method = RequestMethod.GET)
-	public @ResponseBody List<Currency> getListByDate(
+	public @ResponseBody JsonResultList<Currency> getListByDate(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("currencyDate") Date currencyDate
 										) {
-		List<Currency> currencies = currencyService.getAllCurrencies();
+		JsonResultList<Currency> currencies = currencyService.getAllCurrencies();
 		return currencies;
 	}
 
 	// /currencies/getdatabycurrencyid/?hashCode=asdf1234&currencyId=001&currencyDate=20130606
 	// TODO erro de bad request pode ser a data.
 	@RequestMapping(value = "/getdatabycurrencyid", method = RequestMethod.GET)
-	public @ResponseBody Currency getDataByCurrencyId(
+	public @ResponseBody JsonResult<Currency> getDataByCurrencyId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("currencyId") String currencyId,
 										@RequestParam("currencyDate") Date currencyDate
 										) {
-		return new Currency();		
+		return new JsonResult<Currency>();		
 	}
 	
 }

@@ -1,8 +1,11 @@
 package br.com.hypersales.framework.service.register;
 
+import br.com.hypersales.framework.model.register.Carrier;
 import br.com.hypersales.framework.model.register.Customer;
+import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.model.register.Seller;
 import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.util.enums.FreightType;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class FakeCustomerService {
@@ -14,6 +17,13 @@ public class FakeCustomerService {
 		s1.setId("1");
 		Seller s2 = new Seller("name2", "shortName2");
 		s2.setId("2");
+		
+		Payment p = new Payment("description");
+		p.setId("00001");
+		
+		Carrier car = new Carrier("name", "shortName");
+		car.setId("00001");
+		
 
 		for (int i = 0; i < 20; i++) {
 
@@ -39,10 +49,10 @@ public class FakeCustomerService {
 			 "deliveryAddress" + i,
 			 "receptionAddress" + i,
 			 "contactName" + i,
-			 null, // payment
-			 null, //carrier
+			 p, // payment
+			 car, //carrier
 			 i%2==0?s1:s2, // intercala entre os dois seller
-			 null,//freightType
+			 FreightType.C,//freightType
 			 null
 			 );
 
@@ -75,6 +85,7 @@ public class FakeCustomerService {
 
 		return resposta;
 	}
+	// TODO TESTE método para teste
 	public static Customer createOneCustomer(){
 		int i = 9;
 		
