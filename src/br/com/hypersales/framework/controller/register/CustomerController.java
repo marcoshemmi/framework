@@ -41,15 +41,7 @@ public class CustomerController {
 		return customers;
 	}
 	
-	// /customers/getunitlistbycustomerid/?hashCode=asdf1234&customerId=001
-	@RequestMapping(value = "/getunitlistbycustomerid", method = RequestMethod.GET)
-	public @ResponseBody JsonResultList<Customer> getUnitListByCustomerId(
-										@RequestParam("hashCode") String hashCode,
-										@RequestParam("customerId") String customerId
-										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getUnitListByCustomerId(hashCode, customerId);
-		return customers;
-	}
+
 	
 	// /customers/getdataBycustomerid/?hashCode=asdf1234&customerId=001&customerUnitId=001
 	@RequestMapping(value = "/getdataBycustomerid", method = RequestMethod.GET)
@@ -58,7 +50,7 @@ public class CustomerController {
 										@RequestParam("customerId") String customerId,
 										@RequestParam("customerUnitId") String customerUnitId
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getDataByCustomerId(hashCode, customerId,customerUnitId);
+		JsonResult<Customer> customers = fakeCustomerService.getDataByCustomerId(hashCode, customerId, customerUnitId);
 		return customers;
 	}
 	
