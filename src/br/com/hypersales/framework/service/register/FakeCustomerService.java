@@ -77,12 +77,12 @@ public class FakeCustomerService {
 		
 		custumers.setResponseId(RequestStatus.SUCCESS.statusCode());
 		custumers.setResponseMessage(RequestStatus.SUCCESS.toString());
+		
 		return custumers;
 	}
 
 	public JsonResultList<Customer> getListBySellerId(String hashCode,
 			String sellerId) {
-
 		
 		JsonResultList<Customer> resposta = new JsonResultList<Customer>();
 		
@@ -90,7 +90,7 @@ public class FakeCustomerService {
 		resposta.setResponseMessage(RequestStatus.SUCCESS.toString());
 
 		for (Customer customer : getAllCustomers().getList()) {
-			if (customer.getSeller().getId() == sellerId.trim()) {
+			if (customer.getSeller().getId().equals(sellerId.trim())) {
 				resposta.add(customer);
 			}
 		}
@@ -166,7 +166,7 @@ public class FakeCustomerService {
 		resposta.setResponseMessage(RequestStatus.SUCCESS.toString());
 
 		for (Customer customer : getAllCustomers().getList()) {
-			if (customer.getId() == customerId.trim() && customer.getCustomerUnit().getId() == customerUnitId.trim()) {
+			if (customer.getId().equals(customerId.trim())  && customer.getCustomerUnit().getId().equals(customerUnitId.trim())) {
 				resposta.setObject(customer);
 				break;
 			}

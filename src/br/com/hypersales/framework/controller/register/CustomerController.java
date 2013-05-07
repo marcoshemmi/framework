@@ -31,7 +31,7 @@ public class CustomerController {
 		return customers;
 	}
 	
-	// /customers/getlistbysellerid/?hashCode=asdf1234&sellerId=001
+	// /customers/getlistbysellerid/?hashCode=asdf1234&sellerId=000001
 	@RequestMapping(value = "/getlistbysellerid", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Customer> getListBySellerId(
 										@RequestParam("hashCode") String hashCode, 

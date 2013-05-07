@@ -17,7 +17,7 @@ public class FakeCustomerUnitService {
 
 		for (Customer customer : new FakeCustomerService().getAllCustomers()
 				.getList()) {
-			if (customer.getId() == customerId) {
+			if (customer.getId().equals(customerId.trim()) ) {
 				custUnit.add(customer.getCustomerUnit());
 			}
 		}
