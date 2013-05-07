@@ -37,7 +37,7 @@ public class CustomerController {
 										@RequestParam("hashCode") String hashCode, 
 										@RequestParam("sellerId") String sellerId
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getListBySellerId(hashCode, sellerId);
 		return customers;
 	}
 	
@@ -47,7 +47,7 @@ public class CustomerController {
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("customerId") String customerId
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getUnitListByCustomerId(hashCode, customerId);
 		return customers;
 	}
 	
@@ -58,7 +58,8 @@ public class CustomerController {
 										@RequestParam("customerId") String customerId,
 										@RequestParam("customerUnitId") String customerUnitId
 										) {
-		return new JsonResult<Customer>();
+		JsonResultList<Customer> customers = fakeCustomerService.getDataByCustomerId(hashCode, customerId,customerUnitId);
+		return customers;
 	}
 	
 	

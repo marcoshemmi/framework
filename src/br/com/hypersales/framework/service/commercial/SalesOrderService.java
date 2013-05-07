@@ -1,8 +1,5 @@
 package br.com.hypersales.framework.service.commercial;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.hypersales.framework.model.commercial.SalesOrder;
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;

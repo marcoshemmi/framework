@@ -1,8 +1,11 @@
 package br.com.hypersales.framework.service.register;
 
+import br.com.hypersales.framework.model.register.Carrier;
 import br.com.hypersales.framework.model.register.Customer;
+import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.model.register.Seller;
 import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.util.enums.FreightType;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class FakeCustomerService {
@@ -14,8 +17,15 @@ public class FakeCustomerService {
 		s1.setId("1");
 		Seller s2 = new Seller("name2", "shortName2");
 		s2.setId("2");
+		
+		Payment p = new Payment("description");
+		p.setId("000001");
+		
+		Carrier car = new Carrier("name", "shortName");
+		car.setId("000001");
+		
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 1; i < 10; i++) {
 
 			 Customer c = new Customer(	 
 			 "name" + i,
@@ -39,14 +49,14 @@ public class FakeCustomerService {
 			 "deliveryAddress" + i,
 			 "receptionAddress" + i,
 			 "contactName" + i,
-			 null, // payment
-			 null, //carrier
+			 p, // payment
+			 car, //carrier
 			 i%2==0?s1:s2, // intercala entre os dois seller
-			 null,//freightType
-			 null
+			 FreightType.C,//freightType
+			 null // 
 			 );
 
-			 c.setId(""+i);
+			 c.setId("00000"+i);
 
 			custumers.add(c);
 		}
@@ -75,6 +85,7 @@ public class FakeCustomerService {
 
 		return resposta;
 	}
+	// TODO TESTE método para teste
 	public static Customer createOneCustomer(){
 		int i = 9;
 		
@@ -112,6 +123,18 @@ public class FakeCustomerService {
 
 			 c.setId(""+i);
 			 return c;
+	}
+
+	public JsonResultList<Customer> getUnitListByCustomerId(String hashCode,
+			String customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JsonResultList<Customer> getDataByCustomerId(String hashCode,
+			String customerId, String customerUnitId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
