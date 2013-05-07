@@ -1,14 +1,15 @@
 package br.com.hypersales.framework.util.enums;
 
 public enum FreightType {
-	C {
-		public String toString() {
-			return "CIF";
-		}
-	},
-	F {
-		public String toString() {
-			return "FOB";
-		}
-	},
+	C("CIF"), F("FOB");
+
+	private final String label;
+
+	FreightType(String s) {
+		this.label = s;
+	}
+
+	public String toString() {
+		return label;
+	}
 }

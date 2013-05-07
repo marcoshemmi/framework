@@ -4,13 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hypersales.framework.model.register.Customer;
+import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class CustomerService {
 
-	public List<Customer> getAllCustomers() {	
-		List<Customer> result = new ArrayList<Customer>();
-		result.add(new Customer("aaaaaaaaaaa", "00001"));
-		result.add(new Customer("bbbbbbbbbbbbbb", "00002"));
+	public JsonResultList<Customer> getAllCustomers() {	
+		//List<Customer> result = new ArrayList<Customer>();
+		
+		JsonResultList<Customer> result = new JsonResultList<Customer>();
+		//result.add(new Customer("aaaaaaaaaaa", "00001"));
+		//result.add(new Customer("bbbbbbbbbbbbbb", "00002"));
+		
+		result.setResponseId(RequestStatus.SUCCESS.hashCode());
+		result.setResponseMessage(RequestStatus.SUCCESS.toString());
+		
 		return result;
 	}
 
