@@ -1,9 +1,7 @@
 package br.com.hypersales.framework.presentation;
 
-public class JsonResult<T> {
+public class JsonResult<T> extends AbstractJsonResult<T> {
 
-	private int responseId;
-	private String responseMessage;
 	private T t;
 
 	public JsonResult(T t) {
@@ -13,22 +11,6 @@ public class JsonResult<T> {
 
 	public JsonResult() {
 		super();
-	}
-
-	public int getResponseId() {
-		return responseId;
-	}
-
-	public void setResponseId(int responseId) {
-		this.responseId = responseId;
-	}
-
-	public String getResponseMessage() {
-		return responseMessage;
-	}
-
-	public void setResponseMessage(String responseMessage) {
-		this.responseMessage = responseMessage;
 	}
 
 	public void setObject(T t) {
