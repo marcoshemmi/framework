@@ -53,7 +53,7 @@ public class FakeCustomerService {
 			 car, //carrier
 			 i%2==0?s1:s2, // intercala entre os dois seller
 			 FreightType.C,//freightType
-			 null
+			 null // 
 			 );
 
 			 c.setId(""+i);

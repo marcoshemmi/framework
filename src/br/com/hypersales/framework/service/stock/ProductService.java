@@ -1,14 +1,12 @@
 package br.com.hypersales.framework.service.stock;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.hypersales.framework.model.stock.Product;
+import br.com.hypersales.framework.presentation.JsonResultList;
 
 public class ProductService {
 
-	public List<Product> getAllProducts() {	
-		List<Product> result = new ArrayList<Product>();
+	public JsonResultList<Product> getAllProducts() {	
+		JsonResultList<Product> result = new JsonResultList<Product>();
 		result.add(new Product("aaaaaaaaaaa", "00001"));
 		result.add(new Product("bbbbbbbbbbbbbb", "00002"));
 		return result;

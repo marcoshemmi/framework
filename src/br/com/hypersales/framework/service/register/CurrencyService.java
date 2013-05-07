@@ -1,15 +1,14 @@
 package br.com.hypersales.framework.service.register;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import br.com.hypersales.framework.model.register.Currency;
+import br.com.hypersales.framework.presentation.JsonResultList;
 
 public class CurrencyService {
 
-	public List<Currency> getAllCurrencies() {
-		List<Currency> result = new ArrayList<Currency>();
+	public JsonResultList<Currency> getAllCurrencies() {
+		JsonResultList<Currency> result = new JsonResultList<Currency>();
 
 		for (int i = 0; i < 5; i++) {
 			Currency c = new Currency("name" + i, Calendar.getInstance(), "R$",
