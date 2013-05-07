@@ -19,13 +19,13 @@ public class FakeCustomerService {
 		s2.setId("2");
 		
 		Payment p = new Payment("description");
-		p.setId("00001");
+		p.setId("000001");
 		
 		Carrier car = new Carrier("name", "shortName");
-		car.setId("00001");
+		car.setId("000001");
 		
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 1; i < 10; i++) {
 
 			 Customer c = new Customer(	 
 			 "name" + i,
@@ -56,7 +56,7 @@ public class FakeCustomerService {
 			 null // 
 			 );
 
-			 c.setId(""+i);
+			 c.setId("00000"+i);
 
 			custumers.add(c);
 		}
@@ -123,6 +123,18 @@ public class FakeCustomerService {
 
 			 c.setId(""+i);
 			 return c;
+	}
+
+	public JsonResultList<Customer> getUnitListByCustomerId(String hashCode,
+			String customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JsonResultList<Customer> getDataByCustomerId(String hashCode,
+			String customerId, String customerUnitId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
