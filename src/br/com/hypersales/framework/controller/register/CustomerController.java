@@ -12,19 +12,22 @@ import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.CustomerService;
+import br.com.hypersales.framework.service.register.FakeCustomerService;
 
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
 	
-	CustomerService customerService = new CustomerService();
+	//CustomerService customerService = new CustomerService();
+	
+	FakeCustomerService fakeCustomerService = new FakeCustomerService();
 
 	// /customers/getallcustomers/?hashCode=asdf1234
 	@RequestMapping(value = "/getallcustomers", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Customer> getAllCustomers(
 										@RequestParam("hashCode") String hashCode
 										) {
-		JsonResultList<Customer> customers = customerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
 		return customers;
 	}
 	
@@ -34,7 +37,7 @@ public class CustomerController {
 										@RequestParam("hashCode") String hashCode, 
 										@RequestParam("sellerId") String sellerId
 										) {
-		JsonResultList<Customer> customers = customerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
 		return customers;
 	}
 	
@@ -44,7 +47,7 @@ public class CustomerController {
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("customerId") String customerId
 										) {
-		JsonResultList<Customer> customers = customerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
 		return customers;
 	}
 	

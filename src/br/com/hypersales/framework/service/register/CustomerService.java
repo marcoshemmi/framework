@@ -13,8 +13,8 @@ public class CustomerService {
 		//List<Customer> result = new ArrayList<Customer>();
 		
 		JsonResultList<Customer> result = new JsonResultList<Customer>();
-		result.add(new Customer("aaaaaaaaaaa", "00001"));
-		result.add(new Customer("bbbbbbbbbbbbbb", "00002"));
+		//result.add(new Customer("aaaaaaaaaaa", "00001"));
+		//result.add(new Customer("bbbbbbbbbbbbbb", "00002"));
 		
 		result.setResponseId(RequestStatus.SUCCESS.hashCode());
 		result.setResponseMessage(RequestStatus.SUCCESS.toString());
