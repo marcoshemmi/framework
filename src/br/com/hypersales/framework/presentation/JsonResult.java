@@ -1,5 +1,7 @@
 package br.com.hypersales.framework.presentation;
 
+import br.com.hypersales.framework.util.enums.RequestStatus;
+
 public class JsonResult<T> extends AbstractJsonResult<T> {
 
 	private T t;
@@ -11,6 +13,12 @@ public class JsonResult<T> extends AbstractJsonResult<T> {
 
 	public JsonResult() {
 		super();
+	}
+	
+	public JsonResult(RequestStatus requestStatus) {
+		super();
+		super.setResponseId(requestStatus.statusCode());
+		super.setResponseMessage(requestStatus.toString());
 	}
 
 	public void setObject(T t) {

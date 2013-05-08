@@ -12,11 +12,8 @@ import br.com.hypersales.framework.util.enums.OperationType;
 import br.com.hypersales.framework.util.enums.ReservationType;
 import br.com.hypersales.framework.util.enums.SalesOrderStatus;
 
-public class SalesOrder {
+public class SalesOrder extends SalesOrderMicro {
 	
-	private String id;
-	private SalesOrderStatus salesOrderStatus;
-	private int salesOrderStatusId;
 	private String salesOrderDate;
 	private ReservationType reservationType;
 	private String reservationTypeId;
@@ -34,18 +31,7 @@ public class SalesOrder {
 	private List<SalesOrderItem> salesOrderItems;
 	
 	//TODO: popular objeto com campos adicionais de "cadastro"
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public SalesOrderStatus getSalesOrderStatus() {
-		return salesOrderStatus;
-	}
-	public void setSalesOrderStatus(SalesOrderStatus salesOrderStatus) {
-		this.salesOrderStatus = salesOrderStatus;
-	}
+
 	public String getSalesOrderDate() {
 		return salesOrderDate;
 	}
@@ -81,12 +67,6 @@ public class SalesOrder {
 	}
 	public void setFreightType(FreightType freightType) {
 		this.freightType = freightType;
-	}
-	public int getSalesOrderStatusId() {
-		return salesOrderStatusId;
-	}
-	public void setSalesOrderStatusId(int salesOrderStatusId) {
-		this.salesOrderStatusId = salesOrderStatusId;
 	}
 	public String getReservationTypeId() {
 		return reservationTypeId;

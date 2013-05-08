@@ -5,10 +5,12 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import br.com.hypersales.framework.model.commercial.SalesOrder;
+import br.com.hypersales.framework.model.commercial.SalesOrderMicro;
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.presentation.KeyValueResult;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 import br.com.hypersales.framework.util.enums.ReservationType;
 import br.com.hypersales.framework.util.enums.SalesOrderStatus;
@@ -26,15 +28,10 @@ public class SalesOrderService {
 			SalesOrder so = new SalesOrder();
 			so.setId("00000" + i);
 			if (i > 7) {
-				so.setSalesOrderStatusId(SalesOrderStatus.PROCESSING
-						.statusCode());
 				so.setSalesOrderStatus(SalesOrderStatus.PROCESSING);
 			} else if (i > 4) {
-				so.setSalesOrderStatusId(SalesOrderStatus.PICKING.statusCode());
 				so.setSalesOrderStatus(SalesOrderStatus.PICKING);
 			} else {
-				so.setSalesOrderStatusId(SalesOrderStatus.WAITING_ADVANCE_PAYMENT
-						.statusCode());
 				so.setSalesOrderStatus(SalesOrderStatus.WAITING_ADVANCE_PAYMENT);
 			}
 			so.setSalesOrderDate("20130303"); // TODO: usar FormatFrameworkDate
@@ -73,7 +70,6 @@ public class SalesOrderService {
 
 		SalesOrder so = new SalesOrder();
 		so.setId("000001");
-		so.setSalesOrderStatusId(SalesOrderStatus.PROCESSING.statusCode());
 		so.setSalesOrderStatus(SalesOrderStatus.PROCESSING);
 		so.setSalesOrderDate("20130303"); // TODO: usar FormatFrameworkDate do
 											// datehelper
@@ -101,17 +97,63 @@ public class SalesOrderService {
 		return result;
 	}
 
-	public JsonResult<Hashtable<String, String>> insert(String hashCode, SalesOrder so)
+	public JsonResultList<KeyValueResult<String, String>> insert(String hashCode, SalesOrder so)
 	{
-		Hashtable<String, String> result = new Hashtable<>();
-		result.put("salesOrderId", "000003");
+		JsonResultList<KeyValueResult<String, String>> resultJson = new JsonResultList<>();
 		
-		JsonResult<Hashtable<String, String>> resultJson = new JsonResult<Hashtable<String, String>>(result);
+		for (int i=1; i<4; i++) {
+			KeyValueResult<String, String> soInsertReturn = new KeyValueResult<>("salesOrderId", "00000" + i);
+			resultJson.add(soInsertReturn);
+		}
 		
 		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
 		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
 
 		return resultJson;
+	}
+	
+	public JsonResult<KeyValueResult<String, String>> update(String hashCode, SalesOrder so)
+	{
+		JsonResult<KeyValueResult<String, String>> resultJson = new JsonResult<>();
+		
+		KeyValueResult<String, String> soInsertReturn = new KeyValueResult<>("salesOrderId", "000001-01");
+		resultJson.setObject(soInsertReturn);
+		
+		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+
+		return resultJson;
+	}
+	
+	public JsonResult<KeyValueResult<String, String>> delete(String hashCode, String salesOrderId)
+	{
+		JsonResult<KeyValueResult<String, String>> resultJson = new JsonResult<>();
+		
+		KeyValueResult<String, String> soInsertReturn = new KeyValueResult<>("salesOrderId", salesOrderId);
+		resultJson.setObject(soInsertReturn);
+		
+		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+
+		return resultJson;
+	}
+	
+	public JsonResultList<SalesOrderMicro> getInsertResult(String hashCode, String portalSalesOrderId)
+	{
+		JsonResultList<SalesOrderMicro> resultJson = new JsonResultList<>();
+		
+		for (int i=1; i<4; i++) {
+			SalesOrderMicro soInsertReturn = new SalesOrderMicro();
+			soInsertReturn.setId("00000" + i);
+			soInsertReturn.setSalesOrderStatus(SalesOrderStatus.WAITING_CREDIT_RELEASE);
+			resultJson.add(soInsertReturn);
+		}
+		
+		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+
+		return resultJson;
+	
 	}
 	
 }

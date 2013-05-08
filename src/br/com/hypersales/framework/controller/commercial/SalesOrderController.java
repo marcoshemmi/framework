@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.commercial.SalesOrder;
+import br.com.hypersales.framework.model.commercial.SalesOrderMicro;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.presentation.KeyValueResult;
 import br.com.hypersales.framework.service.commercial.SalesOrderService;
 import br.com.hypersales.framework.util.JSONHelper;
 import br.com.hypersales.framework.util.enums.RequestStatus;
@@ -48,9 +50,9 @@ public class SalesOrderController {
 		return salesOrder;
 	}
 
-	// /salesorder/insert/hashCode=asdf1234&json
-	@RequestMapping(value = "/insert/", method = RequestMethod.GET)
-	public @ResponseBody JsonResult<Hashtable<String, String>> insert(
+	// /salesorder/insert/hashCode=asdf1234&json={}
+	@RequestMapping(value = "/insert/", method = RequestMethod.POST)
+	public @ResponseBody JsonResultList<KeyValueResult<String, String>> insert(
 									@RequestParam("hashCode") String hashCode, 
 									@RequestParam("json") String salesOrderJSON
 									) {
@@ -59,7 +61,36 @@ public class SalesOrderController {
 		SalesOrder so;
 		try {
 			so = helper.FromJSONToObject(salesOrderJSON, SalesOrder.class);
-			JsonResult<Hashtable<String, String>> salesOrder = salesOrderService.insert(hashCode, so);
+			JsonResultList<KeyValueResult<String, String>> salesOrder = salesOrderService.insert(hashCode, so);
+			return salesOrder;
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new JsonResultList<>(RequestStatus.BAD_REQUEST);
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new JsonResultList<>(RequestStatus.BAD_REQUEST);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new JsonResultList<>(RequestStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	// /salesorder/update/hashCode=asdf1234&json={}
+	@RequestMapping(value = "/update/", method = RequestMethod.POST)
+	public @ResponseBody JsonResult<KeyValueResult<String, String>> update(
+									@RequestParam("hashCode") String hashCode, 
+									@RequestParam("json") String salesOrderJSON
+									) {
+		
+		JSONHelper<SalesOrder> helper = new JSONHelper<SalesOrder>();
+		SalesOrder so;
+		try {
+			so = helper.FromJSONToObject(salesOrderJSON, SalesOrder.class);
+			JsonResult<KeyValueResult<String, String>> salesOrder = salesOrderService.update(hashCode, so);
 			return salesOrder;
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -74,6 +105,26 @@ public class SalesOrderController {
 			e.printStackTrace();
 			return new JsonResult<>(RequestStatus.BAD_REQUEST);
 		}
+	}
+	
+	// /salesorder/delete/hashCode=asdf1234&salesOrderId=001
+	@RequestMapping(value = "/delete/", method = RequestMethod.GET)
+	public @ResponseBody JsonResult<KeyValueResult<String, String>> delete(
+									@RequestParam("hashCode") String hashCode, 
+									@RequestParam("salesOrderId") String salesOrderId
+									) {
+		JsonResult<KeyValueResult<String, String>> salesOrder = salesOrderService.delete(hashCode, salesOrderId);
+		return salesOrder;
+	}
+	
+	// /salesorder/getinsertresult/hashCode=asdf1234&portalSalesOrderId=001
+	@RequestMapping(value = "/getinsertresult/", method = RequestMethod.GET)
+	public @ResponseBody JsonResultList<SalesOrderMicro> getInsertResult(
+									@RequestParam("hashCode") String hashCode, 
+									@RequestParam("portalSalesOrderId") String portalSalesOrderId
+									) {
+		JsonResultList<SalesOrderMicro> salesOrders = salesOrderService.getInsertResult(hashCode, portalSalesOrderId);
+		return salesOrders;
 	}
 	
 }
