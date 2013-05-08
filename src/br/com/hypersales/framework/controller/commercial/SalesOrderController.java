@@ -49,8 +49,7 @@ public class SalesOrderController {
 	}
 
 	// /salesorder/insert/hashCode=asdf1234&json
-	// TODO tirar o comentario do método
-	/*@RequestMapping(value = "/insert/", method = RequestMethod.GET)
+	@RequestMapping(value = "/insert/", method = RequestMethod.GET)
 	public @ResponseBody JsonResult<Hashtable<String, String>> insert(
 									@RequestParam("hashCode") String hashCode, 
 									@RequestParam("json") String salesOrderJSON
@@ -75,6 +74,6 @@ public class SalesOrderController {
 			e.printStackTrace();
 			return new JsonResult<>(RequestStatus.BAD_REQUEST);
 		}
-	}*/
+	}
 	
 }
