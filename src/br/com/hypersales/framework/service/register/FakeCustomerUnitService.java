@@ -15,7 +15,7 @@ public class FakeCustomerUnitService {
 		custUnit.setResponseId(RequestStatus.SUCCESS.statusCode());
 		custUnit.setResponseMessage(RequestStatus.SUCCESS.toString());
 
-		for (Customer customer : new FakeCustomerService().getAllCustomers()
+		for (Customer customer : new FakeCustomerService().getAllCustomers("")
 				.getList()) {
 			if (customer.getId().equals(customerId.trim()) ) {
 				custUnit.add(customer.getCustomerUnit());

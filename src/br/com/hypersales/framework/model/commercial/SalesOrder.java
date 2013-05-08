@@ -7,7 +7,6 @@ import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
 import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.model.register.Seller;
-import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.util.enums.FreightType;
 import br.com.hypersales.framework.util.enums.OperationType;
 import br.com.hypersales.framework.util.enums.ReservationType;

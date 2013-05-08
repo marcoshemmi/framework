@@ -27,7 +27,7 @@ public class CustomerController {
 	public @ResponseBody JsonResultList<Customer> getAllCustomers(
 										@RequestParam("hashCode") String hashCode
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers();
+		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers(hashCode);
 		return customers;
 	}
 	

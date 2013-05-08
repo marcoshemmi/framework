@@ -7,8 +7,8 @@ public class ProductStockService {
 
 	public JsonResultList<ProductStock> getAllProductsStock() {	
 		JsonResultList<ProductStock> result = new JsonResultList<ProductStock>();
-		result.add(new ProductStock("aaaaaaaaaaa", "00001"));
-		result.add(new ProductStock("bbbbbbbbbbbbbb", "00002"));
+		//result.add(new ProductStock("aaaaaaaaaaa", "00001"));
+		//result.add(new ProductStock("bbbbbbbbbbbbbb", "00002"));
 		return result;
 	}
 

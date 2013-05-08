@@ -7,9 +7,16 @@ public class ProductService {
 
 	public JsonResultList<Product> getAllProducts() {	
 		JsonResultList<Product> result = new JsonResultList<Product>();
-		result.add(new Product("aaaaaaaaaaa", "00001"));
-		result.add(new Product("bbbbbbbbbbbbbb", "00002"));
+		//result.add(new Product("aaaaaaaaaaa", "00001"));
+		//result.add(new Product("bbbbbbbbbbbbbb", "00002"));
 		return result;
+	}
+
+	public JsonResultList<Product> getListByProductGroupId(String hashCode,
+			String productGroupId) {
+		
+		// TODO JsonResultList<Product> getListByProductGroupId
+		return null;
 	}
 
 }
