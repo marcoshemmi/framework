@@ -8,6 +8,7 @@ public class JsonResultList<T> extends AbstractJsonResult<T> {
 	private List<T> list;
 
 	public List<T> getList() {
+
 		return list;
 	}
 
