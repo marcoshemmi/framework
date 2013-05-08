@@ -1,11 +1,14 @@
 package br.com.hypersales.framework.service.commercial;
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 import br.com.hypersales.framework.model.commercial.SalesOrder;
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.service.register.FakeCustomerService;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 import br.com.hypersales.framework.util.enums.ReservationType;
 import br.com.hypersales.framework.util.enums.SalesOrderStatus;
@@ -39,7 +42,9 @@ public class SalesOrderService {
 			so.setReservationType(ReservationType.C);
 			so.setReservationTypeId(ReservationType.C.name());
 
-			Customer c = FakeCustomerService.createOneCustomer();
+			Customer c = new Customer();
+			c.setId("00001");
+			c.setName("cliente 1");
 			so.setCustomer(c);
 
 			CustomerUnit cunit = new CustomerUnit();
@@ -75,7 +80,9 @@ public class SalesOrderService {
 		so.setReservationType(ReservationType.C);
 		so.setReservationTypeId(ReservationType.C.name());
 
-		Customer c = FakeCustomerService.createOneCustomer();
+		Customer c = new Customer();
+		c.setId("00001");
+		c.setName("cliente 1");
 		so.setCustomer(c);
 
 		CustomerUnit cunit = new CustomerUnit();
@@ -94,4 +101,17 @@ public class SalesOrderService {
 		return result;
 	}
 
+	public JsonResult<Hashtable<String, String>> insert(String hashCode, SalesOrder so)
+	{
+		Hashtable<String, String> result = new Hashtable<>();
+		result.put("salesOrderId", "000003");
+		
+		JsonResult<Hashtable<String, String>> resultJson = new JsonResult<Hashtable<String, String>>(result);
+		
+		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+
+		return resultJson;
+	}
+	
 }

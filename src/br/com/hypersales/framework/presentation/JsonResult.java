@@ -1,5 +1,7 @@
 package br.com.hypersales.framework.presentation;
 
+import br.com.hypersales.framework.util.enums.RequestStatus;
+
 public class JsonResult<T> {
 
 	private int responseId;
@@ -14,7 +16,13 @@ public class JsonResult<T> {
 	public JsonResult() {
 		super();
 	}
-
+	
+	public JsonResult(RequestStatus requestStatus) {
+		super();
+		this.responseId = requestStatus.statusCode();
+		this.responseMessage = requestStatus.toString();
+	}
+	
 	public int getResponseId() {
 		return responseId;
 	}
