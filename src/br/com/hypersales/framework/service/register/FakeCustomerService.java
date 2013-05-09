@@ -98,7 +98,6 @@ public class FakeCustomerService {
 		return resposta;
 	}
 	
-	// TODO TESTE método para teste
 	public static Customer createOneCustomer(){
 		int i = 1;
 		

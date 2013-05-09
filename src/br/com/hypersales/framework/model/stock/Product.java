@@ -5,16 +5,19 @@ public class Product {
 	private String description;
 	private String measureUnit;
 	private double price;
+	private ProductGroup productGroup;
 
 	public Product() {
 		super();
 	}
 
-	public Product(String description, String measureUnit, double price) {
+	public Product(String description, String measureUnit, double price,
+			ProductGroup productGroup) {
 		super();
 		this.description = description;
 		this.measureUnit = measureUnit;
 		this.price = price;
+		this.productGroup = productGroup;
 	}
 
 	public String getId() {
@@ -24,6 +27,14 @@ public class Product {
 	// TODO método somente para testes
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
 	}
 
 	public String getDescription() {

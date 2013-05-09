@@ -22,7 +22,7 @@ public class ProductController {
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("productGroupId") String productGroupId
 										) {
-		JsonResultList<Product> products = productService.getAllProducts();
+		JsonResultList<Product> products = productService.getAllProducts("");
 		return products;
 	}
 	
