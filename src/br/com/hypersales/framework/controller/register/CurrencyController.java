@@ -1,5 +1,6 @@
 package br.com.hypersales.framework.controller.register;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import br.com.hypersales.framework.model.register.Currency;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.CurrencyService;
+import br.com.hypersales.framework.util.DateHelper;
+import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
 @RequestMapping("/currencies")
@@ -24,21 +27,38 @@ public class CurrencyController {
 	@RequestMapping(value = "/getlistbydate", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Currency> getListByDate(
 										@RequestParam("hashCode") String hashCode,
-										@RequestParam("currencyDate") Date currencyDate
+										@RequestParam("currencyDate") String currencyDate
 										) {
-		JsonResultList<Currency> currencies = currencyService.getAllCurrencies();
+		
+		Date cDate;
+		try {
+			cDate = DateHelper.FromFrameworkDateToDate(currencyDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new JsonResultList<>(RequestStatus.BAD_REQUEST);
+		}
+		JsonResultList<Currency> currencies = currencyService.getListByDate(cDate);
 		return currencies;
 	}
 
 	// /currencies/getdatabycurrencyid/?hashCode=asdf1234&currencyId=001&currencyDate=20130606
-	// TODO erro de bad request pode ser a data.
 	@RequestMapping(value = "/getdatabycurrencyid", method = RequestMethod.GET)
 	public @ResponseBody JsonResult<Currency> getDataByCurrencyId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("currencyId") String currencyId,
-										@RequestParam("currencyDate") Date currencyDate
+										@RequestParam("currencyDate") String currencyDate
 										) {
-		return new JsonResult<Currency>();		
+		Date cDate;
+		try {
+			cDate = DateHelper.FromFrameworkDateToDate(currencyDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new JsonResult<>(RequestStatus.BAD_REQUEST);
+		}
+		JsonResult<Currency> currency = currencyService.getDataByCurrencyId(currencyId, cDate);
+		return currency;
 	}
 	
 }
