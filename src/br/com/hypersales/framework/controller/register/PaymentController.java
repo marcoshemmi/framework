@@ -6,28 +6,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.service.register.FakePaymentService;
+import br.com.hypersales.framework.service.register.PaymentService;
+import br.com.hypersales.framework.model.register.Payment;
 
 @Controller
 @RequestMapping("/payments")
 public class PaymentController {
 	
 	
-	FakePaymentService fakePaymentService = new FakePaymentService();
+	PaymentService paymentService = new PaymentService();
 
 	// /payments/getlist/?hashCode=asdf1234
 	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Payment> getList(
 										@RequestParam("hashCode") String hashCode
 										) {
-		JsonResultList<Payment> customers = fakePaymentService.getList(hashCode);
+		JsonResultList<Payment> customers = paymentService.getList(hashCode);
 		
 		return customers;
 	}
-	
-	
-	
 	
 }

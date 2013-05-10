@@ -5,12 +5,12 @@ import java.util.List;
 import br.com.hypersales.framework.model.register.Carrier;
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
-import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.model.register.Seller;
 import br.com.hypersales.framework.util.enums.FreightType;
 import br.com.hypersales.framework.util.enums.OperationType;
 import br.com.hypersales.framework.util.enums.ReservationType;
 import br.com.hypersales.framework.util.enums.SalesOrderStatus;
+import br.com.hypersales.framework.model.register.Payment;
 
 public class SalesOrder extends SalesOrderMicro {
 	
