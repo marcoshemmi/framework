@@ -15,14 +15,14 @@ import br.com.hypersales.framework.model.register.Payment;
 public class PaymentController {
 	
 	
-	PaymentService fakePaymentService = new PaymentService();
+	PaymentService paymentService = new PaymentService();
 
 	// /payments/getlist/?hashCode=asdf1234
 	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Payment> getList(
 										@RequestParam("hashCode") String hashCode
 										) {
-		JsonResultList<Payment> customers = fakePaymentService.getList(hashCode);
+		JsonResultList<Payment> customers = paymentService.getList(hashCode);
 		
 		return customers;
 	}
