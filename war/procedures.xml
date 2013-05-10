@@ -157,10 +157,10 @@
 			</param>
 		</parameters>
 		<query>
-				SELECT       Stock.B2_COD            AS productId, 
-							 Stock.B2_FILIAL		 AS branchId, 
-							 ''PE''					 AS reservationTypeId, 
-							 ''Estoque''				 AS reservationTypeDescription, 
+				SELECT       Stock.B2_COD              AS productId, 
+							 Stock.B2_FILIAL		   AS branchId, 
+							 ''PE''					   AS reservationTypeId, 
+							 ''Estoque''			   AS reservationTypeDescription, 
 							 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
 							 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
 							 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
