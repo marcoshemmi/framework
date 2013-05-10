@@ -27,7 +27,4 @@ public class PaymentController {
 		return customers;
 	}
 	
-	
-	
-	
 }

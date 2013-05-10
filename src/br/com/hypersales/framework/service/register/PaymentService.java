@@ -55,6 +55,7 @@ public class PaymentService {
 
 	private List<Payment> getAllPayments() { 
 
+		//TODO: este método deveria ser generico, e nao ser replicado em todos os locais.
 		List<Payment> listRet = new ArrayList<Payment>();
 
 		Wsp daoWs = new Wsp();
