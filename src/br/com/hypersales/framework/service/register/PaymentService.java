@@ -62,7 +62,7 @@ public class PaymentService {
 		try {
 			STRUCTRETURN retorno = daoWs.execute("Payment_getList", null);
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
-				int count = 0;
+				//int count = 0;
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for(String record : item.getSTRING()) {
 					record = record.substring(1);
@@ -71,8 +71,6 @@ public class PaymentService {
 					String[] keyValueRecord = record.split("\",\"");
 
 					Payment pRet = new Payment();
-					pRet.setDescription(keyValueRecord[0]);
-					listRet.add(pRet);
 
 					for(String kv : keyValueRecord) {
 						String[] keyValue = kv.split("\":\""); //posicao 0: name e 1:value
@@ -82,9 +80,11 @@ public class PaymentService {
 						if (keyValue[0].toUpperCase().equals("PAYMENTDESCRIPTION")) {
 							pRet.setDescription(keyValue[1]);
 						}
-						listRet.add(pRet);
 					}
-					count++;
+					listRet.add(pRet);
+					
+					//listRet.add(pRet);
+					//count++;
 					//if(count == 5) break;
 				}
 			}
