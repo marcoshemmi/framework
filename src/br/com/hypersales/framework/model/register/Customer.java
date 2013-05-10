@@ -1,6 +1,7 @@
 package br.com.hypersales.framework.model.register;
 
 import br.com.hypersales.framework.util.enums.FreightType;
+import br.com.hypersales.framework.model.register.Payment;
 
 public class Customer {
 	private String id;

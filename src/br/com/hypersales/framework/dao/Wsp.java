@@ -1,6 +1,8 @@
 package br.com.hypersales.framework.dao;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.MessageFormat;
 
 import org.w3c.dom.*;
@@ -10,7 +12,6 @@ import br.com.hypersales.framework.dao.protheus.*;
 
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
-
 
 public class Wsp {
 
@@ -30,7 +31,12 @@ public class Wsp {
 		DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 		domFactory.setNamespaceAware(true);
 		DocumentBuilder builder = domFactory.newDocumentBuilder();
-		Document doc = builder.parse("procedures.xml");
+		
+		//ServletContext context = getServletContext();
+		//InputStream is = context.getRealPath("/WEB-INF/procedures.xml");
+		FileInputStream fis = new FileInputStream("procedures.xml");
+				
+		Document doc = builder.parse(fis);
 		
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xpath = factory.newXPath();
