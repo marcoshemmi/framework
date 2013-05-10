@@ -141,15 +141,14 @@
 							 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
 							 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
 							 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
-							 Stock.B2_QATU - 
-							 Stock.B2_RESERVA		 AS productQuantity 
+							 Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
 
 				FROM SB2010 AS Stock 
 				
 				WHERE Stock.B2_COD = {0} 
 				  AND Stock.D_E_L_E_T_ != ''*'' 
 				  AND Stock.B2_FILIAL IN (''103'', ''104'') 
-				  AND Stock.B2_QATU - Stock.B2_RESERVA &gt; 0 
+				  AND Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA &gt; 0 
 				
 				UNION 
 				SELECT       Stock.C1_PRODUTO					  AS productId, 
