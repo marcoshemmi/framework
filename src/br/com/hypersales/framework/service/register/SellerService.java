@@ -25,6 +25,8 @@ public class SellerService {
 		Wsp daoWs = new Wsp();
 		try {
 			STRUCTRETURN retorno = daoWs.execute("Seller_getList", null);
+			result.setResponseId(Integer.parseInt(retorno.responseid));
+			result.setResponseMessage(retorno.responsemessage);
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for(String record : item.getSTRING()) {
@@ -54,19 +56,47 @@ public class SellerService {
 			e.printStackTrace();
 		}
 		
-		
-		/*
-		result.setResponseId(RequestStatus.SUCCESS.statusCode());
-		result.setResponseMessage(RequestStatus.SUCCESS.toString());
-
-		for (int i = 1; i < 10; i++) {
-			Seller s = new Seller("name" + i, "shortName" + 1);
-			s.setId("00000" + i);
-
-			result.add(s);
-		}
-		*/
 		return result;
 	}
 
+	public JsonResultList<Seller> getDataBySellerId(String sellerId) {
+		JsonResultList<Seller> result = new JsonResultList<Seller>();
+		
+		
+		Wsp daoWs = new Wsp();
+		try {
+			STRUCTRETURN retorno = daoWs.execute("Seller_getDataBySellerId", new String[] {sellerId});
+			result.setResponseId(Integer.parseInt(retorno.responseid));
+			result.setResponseMessage(retorno.responsemessage);
+			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+				ARRAYOFSTRING item = retorno.getSALESORDERID();
+				for(String record : item.getSTRING()) {
+					record = record.substring(1);
+					record = record.substring(0, record.length() -2);
+
+					String[] keyValueRecord = record.split("\",\"");
+
+					Seller pRet = new Seller();
+					pRet.setShortName("");
+
+					for(String kv : keyValueRecord) {
+						String[] keyValue = kv.split("\":\"");
+						if (keyValue[0].toUpperCase().equals("SELLERID")) {
+							pRet.setId(keyValue[1]);
+						}
+						if (keyValue[0].toUpperCase().equals("SELLERNAME")) {
+							pRet.setName(keyValue[1]);
+						}
+					}
+					result.add(pRet);
+				}
+			}
+		} catch (XPathExpressionException | ParserConfigurationException
+				| SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.register.Seller;
-import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.SellerService;
 
@@ -28,10 +27,11 @@ public class SellerController {
 	// /sellers/getdatabysellerid/?hashCode=asfd1234&sellerId=001
 	@RequestMapping(value = "/getdatabysellerid", method = RequestMethod.GET)
 	public @ResponseBody
-	JsonResult<Seller> getDataBySellerId(
+	JsonResultList<Seller> getDataBySellerId(
 			@RequestParam("hashCode") String hashCode,
 			@RequestParam("sellerId") String sellerId) {
-		return new JsonResult<Seller>();
+		JsonResultList<Seller> sellers = sellerService.getDataBySellerId(sellerId);
+		return sellers;
 	}
 
 }
