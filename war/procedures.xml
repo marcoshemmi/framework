@@ -431,7 +431,4 @@
 				WHERE Carrier.A4_COD = {0} -- @carrierId
 		</query>
 	</proc>		
-	
-	
-	
 </procedures>
