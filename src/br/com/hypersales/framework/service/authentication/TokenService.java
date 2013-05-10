@@ -1,7 +1,23 @@
 package br.com.hypersales.framework.service.authentication;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.UUID;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.xml.sax.SAXException;
+
+import br.com.hypersales.framework.dao.Wsp;
+import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
+import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.authentication.Token;
 import br.com.hypersales.framework.model.authentication.TokenHash;
+import br.com.hypersales.framework.model.authentication.User;
+import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
@@ -12,22 +28,62 @@ public class TokenService {
 		DUMMY OBJ
 		TODO: chamar MODEL, quando estiver disponivel
 		 */
-		Token tokenResult = new Token();
+		JsonResult<Token> resultJson; 
 		
-		TokenHash t = new TokenHash();
-		t.setCode("98r78jkfdsasdsafasd34rwd");
-		t.setValidDate("20130520");
-		t.setValidTime("235959");
-		tokenResult.setTokenHash(t);
-
-		tokenResult.setSellerId("000001");
+		User userFramework = authenticateUser(user, password);
 		
-		JsonResult<Token> resultJson = new JsonResult<Token>(tokenResult);
-		//resultJson.set(tokenResult);
-		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
-		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+		if(userFramework == null) {
+			resultJson = new JsonResult<Token>(RequestStatus.UNAUTHORIZED_WRONG_AUTHENTICATION);
+		} else { 
+		
+			//usuario valido. gera hash.
+			
+			String hashCode = UUID.randomUUID().toString(); 
+			
+			Token tokenResult = new Token();
+			
+			TokenHash t = new TokenHash();
+			t.setCode(hashCode);
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(new Date());
+			cal.add(Calendar.HOUR_OF_DAY, 1);
 
+			//Date today = Calendar.getInstance().getTime();
+			
+			SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+			SimpleDateFormat formatTime = new SimpleDateFormat("hhmss");
+			
+			t.setValidDate(formatDate.format(cal.getTime()));
+			t.setValidTime(formatTime.format(cal.getTime()));
+			tokenResult.setTokenHash(t);
+	
+			tokenResult.setSellerId(userFramework.getId());
+			
+			resultJson = new JsonResult<Token>(tokenResult);
+			resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
+			resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
+		}
+		
 		return resultJson;
+	}
+	
+	private User authenticateUser(String user, String password) {
+		Wsp daoWs = new Wsp();
+		
+		User uRet = null;
+		
+		STRUCTRETURN retorno = daoWs.doIsUserValid(user, password);
+		if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+			ARRAYOFSTRING item = retorno.getSALESORDERID();
+			for(String record : item.getSTRING()) {
+				uRet = new User();
+				uRet.setId(record);
+				uRet.setName(record);
+				break; //(apenas um registro)
+			}
+		}
+		return uRet;
 	}
 
 }

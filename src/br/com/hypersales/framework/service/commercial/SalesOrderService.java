@@ -3,6 +3,7 @@ package br.com.hypersales.framework.service.commercial;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 import br.com.hypersales.framework.model.commercial.SalesOrder;
 import br.com.hypersales.framework.model.commercial.SalesOrderMicro;
@@ -156,4 +157,15 @@ public class SalesOrderService {
 	
 	}
 	
+	
+	
+	private List<SalesOrder> getOrderList(String sellerId,
+			String dateFrom, String dateTo, String customerId) {
+	
+		List<SalesOrder> listRet = null;
+		
+		
+		
+		return listRet;
+	}
 }

@@ -62,4 +62,15 @@ public class Wsp {
 	    }
 		return message;
 	}
+	  
+	  public STRUCTRETURN doIsUserValid(String user, String password) {
+		  
+		  STRUCTRETURN message = new STRUCTRETURN();
+		  
+		  HYPERSALESSOAP salesordersoap = new HYPERSALES().getHYPERSALESSOAP();
+		  message = salesordersoap.isuservalid(user, password);
+		  
+		  return message;
+		  
+	  }
 }
