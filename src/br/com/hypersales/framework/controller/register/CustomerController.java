@@ -12,7 +12,6 @@ import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.CustomerService;
-import br.com.hypersales.framework.service.register.FakeCustomerService;
 
 @Controller
 @RequestMapping("/customers")

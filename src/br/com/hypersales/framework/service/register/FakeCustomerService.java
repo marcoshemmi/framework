@@ -1,5 +1,10 @@
 package br.com.hypersales.framework.service.register;
 
+/*
+
+
+DEPRECATED CLASS! USE CUSTOMERSERVICE INSTEAD!!
+
 import br.com.hypersales.framework.model.register.Carrier;
 import br.com.hypersales.framework.model.register.Customer;
 import br.com.hypersales.framework.model.register.CustomerUnit;
@@ -175,3 +180,4 @@ public class FakeCustomerService {
 	}
 
 }
+*/
