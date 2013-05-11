@@ -86,14 +86,14 @@ public class Wsp {
 		  setsalesorder.setCUSTOMERUNITDELIVERID(salesorder.getDeliveryUnitId());
 		  setsalesorder.setSALESORDERDATE(salesorder.getSalesOrderDate());
 		  setsalesorder.setOPERATIONTYPEID(String.valueOf(salesorder.getOperationType().ordinal()));
-		  setsalesorder.setFREIGHTTYPEID(salesorder.getFreightType().getLabel());
+		  setsalesorder.setFREIGHTTYPEID(salesorder.getFreightType().getNome());
 		  setsalesorder.setCARRIERID(salesorder.getCarrier().getId());
 		  setsalesorder.setPAYMENTID(salesorder.getPayment().getId());
 		  setsalesorder.setSALESORDERNOTE(salesorder.getNote());
 		  ARRAYOFSALESITEMLIST sil = new ARRAYOFSALESITEMLIST();
 		  for(SalesOrderItem soi : salesorder.getSalesOrderItems()){
 			  SALESITEMLIST salesitemlist = new SALESITEMLIST();
-			  salesitemlist.setPRODUCTID(soi.getId());
+			  salesitemlist.setPRODUCTID(soi.getProduct().getId());
 			  salesitemlist.setCURRENCYID(soi.getCurrency().getId());
 			  salesitemlist.setSALESORDERUNITVALUE(soi.getUnitValue());
 			  salesitemlist.setSALESORDERDISCOUNTVALUE(soi.getUnitDiscount());
