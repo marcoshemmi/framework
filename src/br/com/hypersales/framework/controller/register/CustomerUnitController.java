@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.hypersales.framework.model.register.CustomerUnit;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.service.register.FakeCustomerUnitService;
+import br.com.hypersales.framework.service.register.CustomerUnitService;
 
 @Controller
 @RequestMapping("/customersunit")
 public class CustomerUnitController {
 
-	FakeCustomerUnitService fakeCustomerUnitService = new FakeCustomerUnitService();
+	CustomerUnitService fakeCustomerUnitService = new CustomerUnitService();
 
 	// /customerunit/getunitlistbycustomerid/?hashCode=asdf1234&customerId=00001
 	@RequestMapping(value = "/getunitlistbycustomerid", method = RequestMethod.GET)
