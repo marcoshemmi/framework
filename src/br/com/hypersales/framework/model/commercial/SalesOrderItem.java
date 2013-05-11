@@ -10,6 +10,7 @@ public class SalesOrderItem {
 	private Product product;
 	private Currency currency;
 	private float unitValue;
+	private float unitDiscount;
 	private Branch branch;
 	private ReservationType reservationType;
 	private int itemQuantity;
@@ -37,6 +38,12 @@ public class SalesOrderItem {
 	}
 	public void setUnitValue(float unitValue) {
 		this.unitValue = unitValue;
+	}
+	public float getUnitDiscount() {
+		return unitDiscount;
+	}
+	public void setUnitDiscount(float unitDiscount) {
+		this.unitDiscount = unitDiscount;
 	}
 	public Branch getBranch() {
 		return branch;

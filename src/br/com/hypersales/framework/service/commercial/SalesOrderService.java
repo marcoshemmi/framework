@@ -40,7 +40,7 @@ public class SalesOrderService {
 		//JsonResultList<SalesOrder> result =  this.getOrderList(sellerId, dateFrom, dateTo, customerId);
 		
 		/*
-		 * DUMMY OBJ TODO: chamar MODEL, quando estiver dispon�vel
+		 * DUMMY OBJ TODO: chamar MODEL, quando estiver disponivel
 		 */
 		/*
 		JsonResultList<SalesOrder> result = new JsonResultList<SalesOrder>();
@@ -86,7 +86,7 @@ public class SalesOrderService {
 			String salesOrderId) {
 
 		/*
-		 * DUMMY OBJ TODO: chamar MODEL, quando estiver dispon�vel
+		 * DUMMY OBJ TODO: chamar MODEL, quando estiver disponivel
 		 */
 
 		SalesOrder so = new SalesOrder();
@@ -122,14 +122,20 @@ public class SalesOrderService {
 	{
 		JsonResultList<KeyValueResult<String, String>> resultJson = new JsonResultList<>();
 		
-		for (int i=1; i<4; i++) {
+		Wsp daoWs = new Wsp();
+		STRUCTRETURN retorno = daoWs.insert(so);
+		resultJson.setResponseId(Integer.parseInt(retorno.responseid));
+		resultJson.setResponseMessage(retorno.responsemessage);
+		resultJson.add(new KeyValueResult("salesOrderId", retorno.getSALESORDERID()));
+		
+		/*for (int i=1; i<4; i++) {
 			KeyValueResult<String, String> soInsertReturn = new KeyValueResult<>("salesOrderId", "00000" + i);
 			resultJson.add(soInsertReturn);
 		}
 		
 		resultJson.setResponseId(RequestStatus.SUCCESS.statusCode());
 		resultJson.setResponseMessage(RequestStatus.SUCCESS.toString());
-
+*/
 		return resultJson;
 	}
 	
@@ -182,8 +188,8 @@ public class SalesOrderService {
 	
 		List<SalesOrder> listRet = null;
 
-		//TODO: este m�todo deveria ser generico, e nao ser replicado em todos os locais.
-		//TODO:colocar este m�todo em uma camada apropriada 
+		//TODO: este metodo deveria ser generico, e nao ser replicado em todos os locais.
+		//TODO:colocar este metodo em uma camada apropriada 
 
 		Wsp daoWs = new Wsp();
 

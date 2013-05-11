@@ -15,11 +15,11 @@ public class Customer {
 	private String city;
 	private String state;
 	private String district;
-	private int zipCode;
-	private int intAreaCode;
-	private int areaCode;
-	private int phoneNumber;
-	private int faxNumber;
+	private String zipCode;
+	private String intAreaCode;
+	private String areaCode;
+	private String phoneNumber;
+	private String faxNumber;
 	private String countryCode;
 	private String countryName;
 	private String inovicingAddress;
@@ -39,8 +39,8 @@ public class Customer {
 	public Customer(String name, String tradeName, String cnpj,
 			String stateRegistration, String districtRegistration,
 			String idCard, String address, String city, String state,
-			String district, int zipCode, int intAreaCode, int areaCode,
-			int phoneNumber, int faxNumber, String countryCode,
+			String district, String zipCode, String intAreaCode, String areaCode,
+			String phoneNumber, String faxNumber, String countryCode,
 			String countryName, String inovicingAddress,
 			String deliveryAddress, String receptionAddress,
 			String contactName, Payment payment, Carrier carrier,
@@ -163,43 +163,43 @@ public class Customer {
 		this.district = district;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public int getIntAreaCode() {
+	public String getIntAreaCode() {
 		return intAreaCode;
 	}
 
-	public void setIntAreaCode(int intAreaCode) {
+	public void setIntAreaCode(String intAreaCode) {
 		this.intAreaCode = intAreaCode;
 	}
 
-	public int getAreaCode() {
+	public String getAreaCode() {
 		return areaCode;
 	}
 
-	public void setAreaCode(int areaCode) {
+	public void setAreaCode(String areaCode) {
 		this.areaCode = areaCode;
 	}
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getFaxNumber() {
+	public String getFaxNumber() {
 		return faxNumber;
 	}
 
-	public void setFaxNumber(int faxNumber) {
+	public void setFaxNumber(String faxNumber) {
 		this.faxNumber = faxNumber;
 	}
 

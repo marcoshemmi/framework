@@ -20,14 +20,14 @@ public class CustomerController {
 	
 	//CustomerService customerService = new CustomerService();
 	
-	FakeCustomerService fakeCustomerService = new FakeCustomerService();
+	CustomerService CustomerService = new CustomerService();
 
 	// /customers/getallcustomers/?hashCode=asdf1234
 	@RequestMapping(value = "/getallcustomers", method = RequestMethod.GET)
 	public @ResponseBody JsonResultList<Customer> getAllCustomers(
 										@RequestParam("hashCode") String hashCode
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getAllCustomers(hashCode);
+		JsonResultList<Customer> customers = CustomerService.getAllCustomers(hashCode);
 		return customers;
 	}
 	
@@ -37,7 +37,7 @@ public class CustomerController {
 										@RequestParam("hashCode") String hashCode, 
 										@RequestParam("sellerId") String sellerId
 										) {
-		JsonResultList<Customer> customers = fakeCustomerService.getListBySellerId(hashCode, sellerId);
+		JsonResultList<Customer> customers = CustomerService.getListBySellerId(sellerId);
 		return customers;
 	}
 	
@@ -50,7 +50,7 @@ public class CustomerController {
 										@RequestParam("customerId") String customerId,
 										@RequestParam("customerUnitId") String customerUnitId
 										) {
-		JsonResult<Customer> customers = fakeCustomerService.getDataByCustomerId(hashCode, customerId, customerUnitId);
+		JsonResult<Customer> customers = CustomerService.getDataByCustomerId(customerId, customerUnitId);
 		return customers;
 	}
 	
