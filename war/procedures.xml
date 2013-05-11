@@ -45,7 +45,7 @@
 			</param>			
 		</parameters>		
 		<query>
-<<<<<<< HEAD
+
 				SELECT	DISTINCT 
 				      salesOrder.C5_NUM	   AS salesOrderId, 
 					  salesOrder.C5_FILIAL AS branchId, 
@@ -217,7 +217,7 @@
 				@productId
 			</param>
 		</parameters>
-<<<<<<< HEAD
+
 		<query>
 			SELECT Stock.B2_COD              AS productId, 
 				   Stock.B2_FILIAL		     AS branchId, 
