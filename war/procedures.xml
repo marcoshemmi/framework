@@ -156,74 +156,74 @@
 			</param>
 		</parameters>
 		<query>
-		    	SELECT Stock.B2_COD            AS productId, 
-					   Stock.B2_FILIAL		 AS branchId, 
-					   ''PE''					 AS reservationTypeId, 
-					   ''Estoque''				 AS reservationTypeDescription, 
-					   CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
-					   CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
-					   CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
-					   Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
+			SELECT Stock.B2_COD              AS productId, 
+				   Stock.B2_FILIAL		     AS branchId, 
+				   ''PE''					 AS reservationTypeId, 
+				   ''Estoque''				 AS reservationTypeDescription, 
+				   CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
+				   CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
+				   CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
+				   Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
 
-				FROM SB2010 AS Stock 
-				
-				WHERE Stock.B2_COD = ''{0}'' 
-				  AND Stock.D_E_L_E_T_ != ''*'' 
-				  AND Stock.B2_FILIAL IN (''103'', ''104'') 
-				  AND Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA &gt; 0 
-				
-				UNION 
-				SELECT       Stock.C1_PRODUTO					  AS productId, 
-							 Stock.C1_FILIAL					  AS branchId, 
-							 ''SC''								  AS reservationTypeId, 
-							 ''S.C. '' + 
-							  Stock.C1_NUM + '' '' + 
-							 CONVERT(VARCHAR, 
-							 CAST(Stock.C1_DATPRF AS DATE), 103)  AS reservationTypeDescription, 
-							 Stock.C1_NUM						  AS purchaseRequestId, 
-							 Stock.C1_ITEM						  AS purchaseRequestItemId, 
-							 Stock.C1_DATPRF 					  AS purchaseRequestDate, 
-							 Stock.C1_QUANT - 
-							 ISNULL(SUM(Reservation.ZZ_QUANT), 0) AS productQuantity 
+			FROM SB2010 AS Stock 
+			
+			WHERE Stock.B2_COD = ''{0}'' 
+			  AND Stock.D_E_L_E_T_ != ''*'' 
+			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
+			  AND Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA &gt; 0 
 
-				FROM SC1010 AS Stock 
+			UNION 
+			SELECT       Stock.C1_PRODUTO					  AS productId, 
+						 Stock.C1_FILIAL					  AS branchId, 
+						 ''SC''								  AS reservationTypeId, 
+						 ''S.C. '' + 
+						  Stock.C1_NUM + '' '' + 
+						 CONVERT(VARCHAR, 
+						 CAST(Stock.C1_DATPRF AS DATE), 103)  AS reservationTypeDescription, 
+						 Stock.C1_NUM						  AS purchaseRequestId, 
+						 Stock.C1_ITEM						  AS purchaseRequestItemId, 
+						 Stock.C1_DATPRF 					  AS purchaseRequestDate, 
+						 Stock.C1_QUANT - 
+						 ISNULL(SUM(Reservation.ZZ_QUANT), 0) AS productQuantity 
 
-				LEFT JOIN SZZ010 AS Reservation 
-				ON Reservation.ZZ_PO_NUM = Stock.C1_NUM + Stock.C1_ITEM 
-				AND Reservation.ZZ_CANCEL != ''T'' 
-				AND Reservation.D_E_L_E_T_ != ''*'' 
+			FROM SC1010 AS Stock 
+			
+			LEFT JOIN SZZ010 AS Reservation 
+			ON Reservation.ZZ_PO_NUM = Stock.C1_NUM + Stock.C1_ITEM 
+			AND Reservation.ZZ_CANCEL != ''T'' 
+			AND Reservation.D_E_L_E_T_ != ''*'' 
+			
+			WHERE Stock.C1_PRODUTO = ''{1}'' 
+			  AND Stock.D_E_L_E_T_ != ''*'' 
+			  AND Stock.C1_FILIAL IN (''103'', ''104'') 
 
-				WHERE Stock.C1_PRODUTO = ''{1}'' 
-				  AND Stock.D_E_L_E_T_ != ''*'' 
-				  AND Stock.C1_FILIAL IN (''103'', ''104'') 
+			GROUP BY  Stock.C1_PRODUTO, 
+					  Stock.C1_FILIAL, 
+					  Stock.C1_NUM, 
+					  Stock.C1_DATPRF, 
+					  Stock.C1_ITEM, 
+					  Stock.C1_DATPRF, 
+					  Stock.C1_QUANT 
 
-				GROUP BY  Stock.C1_PRODUTO, 
-						  Stock.C1_FILIAL, 
-						  Stock.C1_NUM, 
-						  Stock.C1_DATPRF, 
-						  Stock.C1_ITEM, 
-						  Stock.C1_DATPRF, 
-						  Stock.C1_QUANT 
+			HAVING ISNULL(SUM(Reservation.ZZ_QUANT), 0) &lt; Stock.C1_QUANT 
+			
+			UNION 
+			SELECT       DISTINCT 
+						 ''{2}''             	 AS productId, 
+						 Stock.B2_FILIAL		 AS branchId, 
+						 ''EN''					 AS reservationTypeId, 
+						 ''Encomenda''			 AS reservationTypeDescription, 
+						 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
+						 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
+						 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
+						 0						 AS productQuantity 
 
-				HAVING ISNULL(SUM(Reservation.ZZ_QUANT), 0) &lt; Stock.C1_QUANT 
-					
-				UNION 
-				SELECT       DISTINCT 
-							 ''{2}''             		 AS productId, 
-							 Stock.B2_FILIAL		 AS branchId, 
-							 ''EN''					 AS reservationTypeId, 
-							 ''Encomenda''			 AS reservationTypeDescription, 
-							 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
-							 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
-							 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
-							 0						 AS productQuantity 
+			FROM SB2010 AS Stock 
+			
+			WHERE Stock.D_E_L_E_T_ != ''*'' 
+			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
 
-				FROM SB2010 AS Stock 
-				
-				WHERE Stock.D_E_L_E_T_ != ''*'' 
-				  AND Stock.B2_FILIAL IN (''103'', ''104'') 
-
-				ORDER BY branchId, reservationTypeId, purchaseRequestId, purchaseRequestItemId 
+		    ORDER BY branchId, reservationTypeId, purchaseRequestId, purchaseRequestItemId 
 		</query>
 	</proc>
 			
