@@ -46,7 +46,7 @@
 		</parameters>		
 		<query>
 				SELECT	DISTINCT 
-					  salesOrder.C5_NUM	   AS salesOrderId, 
+				      salesOrder.C5_NUM	   AS salesOrderId, 
 					  salesOrder.C5_FILIAL AS branchId, 
 
 					  CASE WHEN salesOrder.C5_NOTA &lt;&gt; '''' THEN ''600'' 
