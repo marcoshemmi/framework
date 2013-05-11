@@ -273,7 +273,7 @@
 							 Customer.A1_MUN	 AS customerCity,
 							 Customer.A1_EST	 AS customerState
 				FROM SA1010 AS Customer
-				WHERE Customer.A1_COD     = {0}
+				WHERE Customer.A1_COD     = ''{0}''
 				  AND Customer.D_E_L_E_T_ != '*'
 				ORDER BY customerName
 		</query>
@@ -291,13 +291,35 @@
 							 Customer.A1_COD	AS customerId,		 
 					   LTRIM(Customer.A1_NOME)	AS customerName
 				FROM SA1010 AS Customer
-				WHERE Customer.A1_VEND = ''{0}'''
+				WHERE Customer.A1_VEND = ''{0}''
 				  AND Customer.D_E_L_E_T_ != ''*''
 				ORDER BY customerName
 		</query>
 	</proc>
 			
-
+	<proc name="Customer_getUnitListByCustomerId">
+		<parameters>
+			<param id="0" name="customerId" type="string" size="6">
+				@customerId
+			</param>
+		</parameters>		
+		<query>
+			SELECT       Customer.A1_COD	 AS customerId,		 
+						 Customer.A1_LOJA	 AS customerUnitId,
+						 Customer.A1_CGC	 AS customerCnpj,
+				   LTRIM(Customer.A1_NOME)	 AS customerName,
+				   LTRIM(Customer.A1_NREDUZ) AS customerUnitName,
+						 Customer.A1_MUN	 AS customerCity,
+						 Customer.A1_EST	 AS customerState
+				   
+			FROM [dbo].[SA1010] AS Customer
+			
+			WHERE Customer.A1_COD = ''{0}''
+			  AND Customer.D_E_L_E_T_ &lt;&gt; '*'
+			ORDER BY customerName
+		</query>
+	</proc>
+	
 	<proc name="Customer_getDataByCustomerId">
 		<parameters>
 			<param id="0" name="customerId" type="string" size="6">
