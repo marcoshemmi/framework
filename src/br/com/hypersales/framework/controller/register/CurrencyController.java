@@ -1,8 +1,5 @@
 package br.com.hypersales.framework.controller.register;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +10,6 @@ import br.com.hypersales.framework.model.register.Currency;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.service.register.CurrencyService;
-import br.com.hypersales.framework.util.DateHelper;
-import br.com.hypersales.framework.util.enums.RequestStatus;
 
 @Controller
 @RequestMapping("/currencies")
@@ -29,35 +24,20 @@ public class CurrencyController {
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("currencyDate") String currencyDate
 										) {
-		
-		Date cDate;
-		try {
-			cDate = DateHelper.FromFrameworkDateToDate(currencyDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new JsonResultList<>(RequestStatus.BAD_REQUEST);
-		}
-		JsonResultList<Currency> currencies = currencyService.getListByDate(cDate);
+
+		JsonResultList<Currency> currencies = currencyService.getListByDate(currencyDate);
 		return currencies;
 	}
 
-	// /currencies/getdatabycurrencyid/?hashCode=asdf1234&currencyId=001&currencyDate=20130606
+	// /currencies/getdatabycurrencyid/?hashCode=asdf1234&currencyId=1&currencyDate=20130606
 	@RequestMapping(value = "/getdatabycurrencyid", method = RequestMethod.GET)
 	public @ResponseBody JsonResult<Currency> getDataByCurrencyId(
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("currencyId") String currencyId,
 										@RequestParam("currencyDate") String currencyDate
 										) {
-		Date cDate;
-		try {
-			cDate = DateHelper.FromFrameworkDateToDate(currencyDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return new JsonResult<>(RequestStatus.BAD_REQUEST);
-		}
-		JsonResult<Currency> currency = currencyService.getDataByCurrencyId(currencyId, cDate);
+
+		JsonResult<Currency> currency = currencyService.getDataByCurrencyId(currencyId, currencyDate);
 		return currency;
 	}
 	

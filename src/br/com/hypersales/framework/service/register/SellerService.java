@@ -10,17 +10,14 @@ import org.xml.sax.SAXException;
 import br.com.hypersales.framework.dao.Wsp;
 import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
 import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
-import br.com.hypersales.framework.model.register.Payment;
 import br.com.hypersales.framework.model.register.Seller;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class SellerService {
 
 	public JsonResultList<Seller> getAllSellers() {
 		JsonResultList<Seller> result = new JsonResultList<Seller>();
-		
 		
 		Wsp daoWs = new Wsp();
 		try {
@@ -59,8 +56,8 @@ public class SellerService {
 		return result;
 	}
 
-	public JsonResultList<Seller> getDataBySellerId(String sellerId) {
-		JsonResultList<Seller> result = new JsonResultList<Seller>();
+	public JsonResult<Seller> getDataBySellerId(String sellerId) {
+		JsonResult<Seller> result = new JsonResult<Seller>();
 		
 		
 		Wsp daoWs = new Wsp();
@@ -88,7 +85,7 @@ public class SellerService {
 							pRet.setName(keyValue[1]);
 						}
 					}
-					result.add(pRet);
+					result.setObject(pRet);
 				}
 			}
 		} catch (XPathExpressionException | ParserConfigurationException
