@@ -372,30 +372,30 @@
 				FROM
 
 				(SELECT TOP 1
-					   '1'					         AS currencyId
-					  ,'R$'							 AS currencySymbol
-					  ,'REAL'						 AS currencyName
+					   ''1''					         AS currencyId
+					  ,''R$''							 AS currencySymbol
+					  ,''REAL''						 AS currencyName
 					  ,	      Currency.M2_DATA		 AS currencyDate
 					  ,ISNULL(Currency.M2_MOEDA1, 1) AS currencyRate
 								 
 					  FROM SM2010 AS Currency
 							
-					  WHERE Currency.M2_DATA &lt;= {0}
+					  WHERE Currency.M2_DATA &lt;= ''{0}''
 			
 					  ORDER BY M2_DATA DESC
 						  
 				  UNION
 
 				  SELECT TOP 1
-					   '2'							 AS currencyId
-					  ,'US$'						 AS currencySymbol
-					  ,'DOLAR'						 AS currencyName
+					   ''2''							 AS currencyId
+					  ,''US$''						 AS currencySymbol
+					  ,''DOLAR''						 AS currencyName
 					  ,Currency.M2_DATA				 AS currencyDate
 					  ,ISNULL(Currency.M2_MOEDA2, 1) AS currencyRate
 					  
 				  FROM SM2010 AS Currency
 				  
-				  WHERE Currency.M2_DATA &lt;= {1}
+				  WHERE Currency.M2_DATA &lt;= ''{1}''
 					AND Currency.M2_MOEDA2 &gt; 0
 						
 				  ORDER BY M2_DATA DESC) M
@@ -425,35 +425,35 @@
 				FROM
 
 				(SELECT TOP 1
-					   '1'					         AS currencyId
-					  ,'R$'							 AS currencySymbol
-					  ,'REAL'						 AS currencyName
+					   ''1''					         AS currencyId
+					  ,''R$''							 AS currencySymbol
+					  ,''REAL''						 AS currencyName
 					  ,	      Currency.M2_DATA		 AS currencyDate
 					  ,ISNULL(Currency.M2_MOEDA1, 1) AS currencyRate
 								 
 					  FROM SM2010 AS Currency
 
-					  WHERE Currency.M2_DATA &lt;= {0}
+					  WHERE Currency.M2_DATA &lt;= ''{0}''
 			
 					  ORDER BY M2_DATA DESC
 						  
 				  UNION
 
 				  SELECT TOP 1
-					   '2'							 AS currencyId
-					  ,'US$'						 AS currencySymbol
-					  ,'DOLAR'						 AS currencyName
+					   ''2''							 AS currencyId
+					  ,''US$''						 AS currencySymbol
+					  ,''DOLAR''						 AS currencyName
 					  ,Currency.M2_DATA				 AS currencyDate
 					  ,ISNULL(Currency.M2_MOEDA2, 1) AS currencyRate
 					  
 				  FROM SM2010 AS Currency
 
-				  WHERE Currency.M2_DATA &lt;= {1}
+				  WHERE Currency.M2_DATA &lt;= ''{1}''
 					AND Currency.M2_MOEDA2 &gt; 0
 								
 				  ORDER BY M2_DATA DESC) M
 			
-			WHERE M.currencyId = {2}
+			WHERE M.currencyId = ''{2}''
 		</query>
 	</proc>
 	
