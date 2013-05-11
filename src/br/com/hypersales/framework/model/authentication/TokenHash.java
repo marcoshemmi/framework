@@ -1,6 +1,8 @@
 package br.com.hypersales.framework.model.authentication;
 
-public class TokenHash {
+import java.io.Serializable;
+
+public class TokenHash implements Serializable {
 	private String code;
 	private String validDate;
 	private String validTime;
