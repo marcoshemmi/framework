@@ -352,7 +352,27 @@
 		</query>
 	</proc>
 			
-
+	<proc name="CustomerUnit_getUnitListByCustomerId">
+		<parameters>
+			<param id="0" name="customerId" type="string" size="6">
+				@customerId
+			</param>
+		</parameters>		
+		<query>
+				SELECT 	A1_LOJA as unitId, 
+						A1_CGC as cnpj, 
+						A1_NREDUZ as name, 
+						A1_MUN as city, 
+						A1_EST as state 
+				FROM SA1010 AS Customer 
+				WHERE Customer.A1_COD     = ''{0}''
+				  AND Customer.D_E_L_E_T_ != ''*''
+				ORDER BY A1_NREDUZ
+		</query>
+	</proc>
+	
+	
+	
 	<proc name="Currency_getListByDate">
 		<parameters>
 			<param id="0" name="currencyDate" type="string" size="8">

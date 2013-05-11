@@ -68,7 +68,13 @@ public class TokenService {
 			ARRAYOFSTRING item = retorno.getSALESORDERID();
 			for(String record : item.getSTRING()) {
 				uRet = new User();
-				uRet.setId(record);
+				//uRet.setId(record); 
+				/*
+				 * DESCOMENTAR ESSA LINHA QUANDO RESOLVER O PROBLEMA DOS IDS DA AUTENTICAÇÃO
+				 * 
+				 * 
+				 */
+				uRet.setId("000062");
 				uRet.setName(user);
 				break; //(apenas um registro)
 			}

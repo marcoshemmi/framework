@@ -186,7 +186,7 @@ public class SalesOrderService {
 	private List<SalesOrder> getOrderList(String sellerId,
 			String dateFrom, String dateTo, String customerId) {
 	
-		List<SalesOrder> listRet = null;
+		List<SalesOrder> listRet = new ArrayList<>();
 
 		//TODO: este metodo deveria ser generico, e nao ser replicado em todos os locais.
 		//TODO:colocar este metodo em uma camada apropriada 
