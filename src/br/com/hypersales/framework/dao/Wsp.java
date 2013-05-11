@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.logging.Logger;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -53,6 +54,10 @@ public class Wsp {
 		    }else{
 		    	query = nodesquery.item(0).getNodeValue();
 		    }
+		    
+			Logger log =  Logger.getLogger("WSP Query");
+			log.warning("query:" + query);
+		    
 	    	message = salesordersoap.getsql(query);
 	    }else{
 	    	message.responseid = "400";

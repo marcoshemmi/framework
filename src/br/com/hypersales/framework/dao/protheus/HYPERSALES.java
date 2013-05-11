@@ -43,27 +43,27 @@ public class HYPERSALES
     public HYPERSALES() {
         super(__getWsdlLocation(), HYPERSALES_QNAME);
     }
-
+/*
     public HYPERSALES(WebServiceFeature... features) {
         super(__getWsdlLocation(), HYPERSALES_QNAME, features);
     }
-
+*/
     public HYPERSALES(URL wsdlLocation) {
         super(wsdlLocation, HYPERSALES_QNAME);
     }
-
+/*
     public HYPERSALES(URL wsdlLocation, WebServiceFeature... features) {
         super(wsdlLocation, HYPERSALES_QNAME, features);
     }
-
+*/
     public HYPERSALES(URL wsdlLocation, QName serviceName) {
         super(wsdlLocation, serviceName);
     }
-
+/*
     public HYPERSALES(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
         super(wsdlLocation, serviceName, features);
     }
-
+*/
     /**
      * 
      * @return

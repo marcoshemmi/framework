@@ -15,5 +15,11 @@ public enum ReservationType {
 		public String toString() {
 			return "Encomenda";
 		}
+	},
+	SC {
+		public String toString() {
+			return "Sem Encomenda";
+		}
 	}
+
 }

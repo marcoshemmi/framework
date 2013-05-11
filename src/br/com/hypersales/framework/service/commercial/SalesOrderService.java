@@ -1,13 +1,17 @@
 package br.com.hypersales.framework.service.commercial;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.juli.logging.Log;
 import org.xml.sax.SAXException;
 
 import br.com.hypersales.framework.dao.Wsp;
@@ -29,8 +33,11 @@ public class SalesOrderService {
 	public JsonResultList<SalesOrder> getList(String hashCode, String sellerId,
 			String dateFrom, String dateTo, String customerId) {
 		
-		//JsonResultList<SalesOrder> result =  new JsonResultList<SalesOrder>(this.getOrderList(sellerId, dateFrom, dateTo, customerId));
-		JsonResultList<SalesOrder> result =  this.getOrderList(sellerId, dateFrom, dateTo, customerId);
+		JsonResultList<SalesOrder> result =  new JsonResultList<SalesOrder>(this.getOrderList(sellerId, dateFrom, dateTo, customerId));
+		result.setResponseId(RequestStatus.SUCCESS.statusCode());
+		result.setResponseMessage(RequestStatus.SUCCESS.toString());
+
+		//JsonResultList<SalesOrder> result =  this.getOrderList(sellerId, dateFrom, dateTo, customerId);
 		
 		/*
 		 * DUMMY OBJ TODO: chamar MODEL, quando estiver dispon�vel
@@ -170,68 +177,107 @@ public class SalesOrderService {
 	
 	}
 	
-	private JsonResultList<SalesOrder> getOrderList(String sellerId,
+	private List<SalesOrder> getOrderList(String sellerId,
 			String dateFrom, String dateTo, String customerId) {
 	
-		JsonResultList<SalesOrder> listRet = null;
-		
+		List<SalesOrder> listRet = null;
+
 		//TODO: este m�todo deveria ser generico, e nao ser replicado em todos os locais.
 		//TODO:colocar este m�todo em uma camada apropriada 
 
 		Wsp daoWs = new Wsp();
+
+		String[] parameters = new String[]{sellerId, dateFrom, dateTo, customerId, customerId, customerId};
+		STRUCTRETURN retorno = null;
+		try {
+			retorno = daoWs.execute("SalesOrder_getList", parameters);
+		} catch (XPathExpressionException | ParserConfigurationException
+				| SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-			String[] parameters = new String[]{sellerId, dateFrom, dateTo, customerId, customerId};
-			STRUCTRETURN retorno = null;
-			try {
-				retorno = daoWs.execute("SalesOrder_getList", parameters);
-			} catch (XPathExpressionException | ParserConfigurationException
-					| SAXException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
-				//int count = 0;
-				ARRAYOFSTRING item = retorno.getSALESORDERID();
-				//listRet = new ArrayList<SalesOrder>();
+		//Logger log =  Logger.getLogger("SalesOrderService");
+		//log.warning("erro:" + erro + ", RETORNO: " + retorno.getRESPONSEMESSAGE());
+		
+		if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+			//int count = 0;
+			ARRAYOFSTRING item = retorno.getSALESORDERID();
+			listRet = new ArrayList<SalesOrder>();
 
-				for(String record : item.getSTRING()) {
-					
-					JsonResultList<SalesOrder> x = new JsonResultList<SalesOrder>();
-					x.setResponseMessage(record);
-					return x;
-					
-					/*
-					record = record.substring(1);
-					record = record.substring(0, record.length() -2);
+			for(String record : item.getSTRING()) {
 
-					String[] keyValueRecord = record.split("\",\"");
+				record = record.substring(1);
+				record = record.substring(0, record.length() -2);
 
-					Payment pRet = new Payment();
+				String[] keyValueRecord = record.split("\",\"");
 
-					for(String kv : keyValueRecord) {
-						String[] keyValue = kv.split("\":\""); //posicao 0: name e 1:value
-						if (keyValue[0].toUpperCase().equals("PAYMENTID")) {
-							pRet.setId(keyValue[1]);
-						}
-						if (keyValue[0].toUpperCase().equals("PAYMENTDESCRIPTION")) {
-							pRet.setDescription(keyValue[1]);
+				SalesOrder soRet = new SalesOrder();
+				Customer c = new Customer();
+				CustomerUnit cUnit = new CustomerUnit();
+
+				for(String kv : keyValueRecord) {
+					String[] keyValue = kv.split("\":\""); //posicao 0: name e 1:value
+					if (keyValue[0].toUpperCase().equals("SALESORDERID") && keyValue.length > 1) {
+						soRet.setId(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("BRANCHID")  && keyValue.length > 1) {
+						//soRet.setBranchId(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("STATUSID")  && keyValue.length > 1) {
+						if(! keyValue[1].equals("")) {
+							for(SalesOrderStatus st : SalesOrderStatus.values()){
+								if(st.statusCode() == Integer.parseInt(keyValue[1])) {
+									soRet.setSalesOrderStatus(st);
+									break;									
+								}
+							}
 						}
 					}
-					//listRet.add(pRet);
-					
-					//listRet.add(pRet);
-					//count++;
-					//if(count == 5) break;
-					 * */
-				}
-			} else {
-				JsonResultList<SalesOrder> x = new JsonResultList<SalesOrder>();
-				x.setResponseMessage(retorno.getRESPONSEMESSAGE());
-				return x;
+					if (keyValue[0].toUpperCase().equals("SALEDATE") && keyValue.length > 1) {
+						soRet.setSalesOrderDate(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("RESERVATIONTYPEID") && keyValue.length > 1) {
+						
+						if(! keyValue[1].equals("")) {
+							for(ReservationType r : ReservationType.values()){
+								if(r.name().equals(keyValue[1])){
+									soRet.setReservationType(r);
+									break;
+								}
+							}
+						}
+						soRet.setReservationTypeId(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("CUSTOMERID") && keyValue.length > 1) {
+						c.setId(keyValue[1]);
+					}						
+					if (keyValue[0].toUpperCase().equals("CNPJ") && keyValue.length > 1) {
+						c.setCnpj(keyValue[1]);
+					}						
+					if (keyValue[0].toUpperCase().equals("NAME") && keyValue.length > 1) {
+						c.setName(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("INVOICEKEY") && keyValue.length > 1) {
+						soRet.setInvoiceKey(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("UNITID") && keyValue.length > 1) {
+						cUnit.setId(keyValue[1]);
+					}
+					if (keyValue[0].toUpperCase().equals("UNITNAME") && keyValue.length > 1) {
+						cUnit.setName(keyValue[1]);
+					}
 
-				
+				}
+				soRet.setCustomer(c);
+				soRet.setCustomerUnit(cUnit);
+				listRet.add(soRet);
+
+				//listRet.add(pRet);
+				//count++;
+				//if(count == 5) break;
 			}
-			
+		}
 
 		return listRet;
 

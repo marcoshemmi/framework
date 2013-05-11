@@ -43,6 +43,9 @@
 			<param id="4" name="customerId" type="string" size="6" defaultvalue="000000">
 				@customerId
 			</param>			
+			<param id="5" name="customerId" type="string" size="6" defaultvalue="000000">
+				@customerId
+			</param>			
 		</parameters>		
 		<query>
 				SELECT	DISTINCT 
@@ -63,15 +66,15 @@
 									  END 
 								 END 
 							END 
-					  END AS salesOrderStatusId, 
+					  END AS statusId, 
 
-					  salesOrder.C5_EMISSAO	AS salesOrderDate, 
+					  salesOrder.C5_EMISSAO	AS saleDate, 
 					  salesOrder.C5_XTIPO	AS reservationTypeId, 
 					  salesOrder.C5_CLIENTE	AS customerId, 
-					  salesOrder.C5_LOJACLI	AS customerUnitId, 
-					  customer.A1_CGC		AS customerCnpj, 
-					  customer.A1_NOME		AS customerName, 
-					  customer.A1_NREDUZ	AS customerUnitName, 
+					  salesOrder.C5_LOJACLI	AS unitId, 
+					  customer.A1_CGC		AS Cnpj, 
+					  customer.A1_NOME		AS Name, 
+					  customer.A1_NREDUZ	AS unitName, 
 					  invoice.F2_CHVNFE		AS invoiceKey 
 
 				FROM SC5010 AS salesOrder 
@@ -115,7 +118,7 @@
 				  AND (salesOrder.C5_NOTA IS NULL OR 
 				       invoice.F2_EMISSAO IS NULL OR invoice.F2_EMISSAO BETWEEN ''{1}'' AND ''{2}'' ) 
 				  AND (salesOrder.C5_CLIENTE = ''{3}'' OR ''{4}'' = ''{5}'') 
-				  AND (salesOrder.D_E_L_E_T_ &lt;&gt; '*') 
+				  AND (salesOrder.D_E_L_E_T_ &lt;&gt; ''*'') 
 				  AND (salesOrder.C5_FILIAL IN (''103'',''104'')) 
 
 				ORDER BY salesOrder.C5_NUM, salesOrder.C5_FILIAL 
