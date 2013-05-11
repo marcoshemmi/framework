@@ -31,7 +31,8 @@ public class SellerController {
 	JsonResult<Seller> getDataBySellerId(
 			@RequestParam("hashCode") String hashCode,
 			@RequestParam("sellerId") String sellerId) {
-		return new JsonResult<Seller>();
+		JsonResult<Seller> sellers = sellerService.getDataBySellerId(sellerId);
+		return sellers;
 	}
 
 }

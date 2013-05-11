@@ -1,12 +1,12 @@
 package br.com.hypersales.framework.model.register;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Currency {
 
 	private String id;
 	private String name;
-	private Calendar data;
+	private Date rateDate;
 	private String symbol;
 	private float rate;
 
@@ -14,10 +14,10 @@ public class Currency {
 		super();
 	}
 
-	public Currency(String name, Calendar data, String symbol, float rate) {
+	public Currency(String name, Date rateDate, String symbol, float rate) {
 		super();
 		this.name = name;
-		this.data = data;
+		this.rateDate = rateDate;
 		this.symbol = symbol;
 		this.rate = rate;
 	}
@@ -26,7 +26,7 @@ public class Currency {
 		return id;
 	}
 
-	// TODO método somente para testes
+	// TODO metodo somente para testes
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -39,12 +39,12 @@ public class Currency {
 		this.name = name;
 	}
 
-	public Calendar getData() {
-		return data;
+	public Date getRateDate() {
+		return rateDate;
 	}
 
-	public void setData(Calendar data) {
-		this.data = data;
+	public void setRateDate(Date rateDate) {
+		this.rateDate = rateDate;
 	}
 
 	public String getSymbol() {

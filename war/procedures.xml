@@ -45,6 +45,7 @@
 			</param>			
 		</parameters>		
 		<query>
+<<<<<<< HEAD
 				SELECT	DISTINCT 
 				      salesOrder.C5_NUM	   AS salesOrderId, 
 					  salesOrder.C5_FILIAL AS branchId, 
@@ -119,6 +120,67 @@
 				  AND (salesOrder.C5_FILIAL IN (''103'',''104'')) 
 
 				ORDER BY salesOrder.C5_NUM, salesOrder.C5_FILIAL 
+=======
+				SELECT	saleOrder.C5_NUM		AS saleOrderId,
+					  -- FATURADO
+					  CASE WHEN saleOrderReleased.C9_NFISCAL != '' THEN '600'
+					  ELSE
+					  		-- AGUARDANDO LIBERAÇÃO DE CRÉDITO
+							CASE WHEN saleOrderReleased.C9_BLCRED != ''  THEN '300'
+							ELSE
+								 -- AGUARDANDO CHEGADA DA MERCADORIA
+								 CASE WHEN saleOrderReleased.C9_BLEST != '' THEN '400'
+								 ELSE
+									  -- ORDEM DE SEPARAÇÃO CADASTRADA PARA O PEDIDO
+									  CASE WHEN saleOrderReleased.C9_ORDSEP != '' THEN
+										   -- SEPARAÇÃO FINALIZADA E CONDIÇÃO = RECEBIMENTO ANTECIPADO:			   
+										   -- AGUARDANDO BAIXA DO RECEBIMENTO
+										   CASE WHEN (packing.CB7_STATUS &gt;= 1
+												  AND receipt.E1_TIPO = 'RA' 
+												  AND receipt.E1_BAIXA = '') THEN
+												'200'
+										   -- EM SEPARAÇÃO
+										   ELSE
+												'500'
+										   END
+									  ELSE
+											'100'
+									  END
+								 END
+							END
+					  END AS saleOrderStatusId,
+					  saleOrder.C5_EMISSAO	AS saleOrderDate,
+					  saleOrder.C5_XTIPO	AS reservationTypeId,
+					  saleOrder.C5_CLIENTE	AS customerId,
+					  saleOrder.C5_LOJACLI	AS customerUnitId,
+					  customer.A1_CGC		AS customerCnpj,
+					  customer.A1_NOME		AS customerName,
+					  customer.A1_NREDUZ	AS customerUnitName,
+					  invoice.F2_CHVNFE		AS invoiceKey
+				FROM SC5010 AS saleOrder
+
+				LEFT JOIN SC9010 AS saleOrderReleased
+				ON saleOrderReleased.C9_PEDIDO = saleOrder.C5_NUM 
+
+				LEFT JOIN CB7010 AS packing
+				ON packing.CB7_PEDIDO = saleOrderReleased.C9_PEDIDO
+
+				LEFT JOIN SA1010 AS customer
+				ON customer.A1_COD = saleOrder.C5_CLIENTE
+
+				LEFT JOIN SF2010 AS invoice
+				ON invoice.F2_DOC = saleOrderReleased.C9_NFISCAL AND invoice.F2_SERIE = saleOrderReleased.C9_SERIENF
+
+				LEFT JOIN SE1010 AS receipt
+				ON receipt.E1_PEDIDO = C9_PEDIDO AND E1_TIPO = 'RA'
+
+				WHERE (saleOrder.C5_VEND1 = {0}) -- @sellerId
+				  AND (saleOrderReleased.C9_NFISCAL = '' OR invoice.F2_EMISSAO BETWEEN {1} AND {2}) -- @dateStart AND @dateFinish
+				  AND (saleOrder.C5_CLIENTE = {3} OR {4} = '000000') -- @customerId
+				  AND (saleOrder.D_E_L_E_T_ != '*')
+
+				ORDER BY saleOrder.C5_NUM
+>>>>>>> 9e0fbd64f508d35e4b0664b3df332da10de125eb
 		</query>
 	</proc>
 		
@@ -126,7 +188,7 @@
 	<proc name="Product_getListByProductGroupId">
 		<parameters>
 			<param id="0" name="productGroupId" type="string" size="4">
-				@productGroupIdo
+				@productGroupId
 			</param>
 		</parameters>
 		<query>
@@ -155,6 +217,7 @@
 				@productId
 			</param>
 		</parameters>
+<<<<<<< HEAD
 		<query>
 			SELECT Stock.B2_COD              AS productId, 
 				   Stock.B2_FILIAL		     AS branchId, 
@@ -225,6 +288,9 @@
 
 		    ORDER BY branchId, reservationTypeId, purchaseRequestId, purchaseRequestItemId 
 		</query>
+=======
+		<query>SELECT Stock.B2_COD AS productId,Stock.B2_FILIAL AS branchId,'PE' AS reservationTypeId,'Estoque' AS reservationTypeDescription,CAST('' AS VARCHAR(06)) AS purchaseRequestId,CAST('' AS VARCHAR(04)) AS purchaseRequestItemId,CAST('' AS VARCHAR(08)) AS purchaseRequestDate, Stock.B2_QATU - Stock.B2_RESERVA AS productQuantity FROM SB2010 AS Stock WHERE Stock.B2_COD = {0} AND Stock.D_E_L_E_T_ != '*' AND Stock.B2_FILIAL IN ('103', '104') AND Stock.B2_QATU - Stock.B2_RESERVA &gt; 0 UNION SELECT Stock.C1_PRODUTO AS productId,Stock.C1_FILIAL AS branchId,'SC' AS reservationTypeId,'S.C. ' + Stock.C1_NUM + ' ' + CONVERT(VARCHAR,CAST(Stock.C1_DATPRF AS DATE), 103) AS reservationTypeDescription,Stock.C1_NUM AS purchaseRequestId,Stock.C1_ITEM AS purchaseRequestItemId,Stock.C1_DATPRF AS purchaseRequestDate,Stock.C1_QUANT - ISNULL(SUM(Reservation.ZZ_QUANT), 0) AS productQuantity FROM SC1010 AS Stock LEFT JOIN SZZ010 AS Reservation ON Reservation.ZZ_PO_NUM = Stock.C1_NUM + Stock.C1_ITEM AND Reservation.ZZ_CANCEL != 'T' AND Reservation.D_E_L_E_T_ != '*' WHERE Stock.C1_PRODUTO = {1} AND Stock.D_E_L_E_T_ != '*' AND Stock.C1_FILIAL IN ('103', '104') GROUP BY Stock.C1_PRODUTO,Stock.C1_FILIAL,Stock.C1_NUM,Stock.C1_DATPRF,Stock.C1_ITEM,Stock.C1_DATPRF,Stock.C1_QUANT HAVING ISNULL(SUM(Reservation.ZZ_QUANT), 0) &lt; Stock.C1_QUANT UNION SELECT DISTINCT {2} AS productId,Stock.B2_FILIAL AS branchId,'EN' AS reservationTypeId,'Encomenda' AS reservationTypeDescription,CAST('' AS VARCHAR(06)) AS purchaseRequestId,CAST('' AS VARCHAR(04)) AS purchaseRequestItemId,CAST('' AS VARCHAR(08)) AS purchaseRequestDate, 0 AS productQuantity FROM SB2010 AS Stock WHERE Stock.D_E_L_E_T_ != '*' AND Stock.B2_FILIAL IN ('103', '104') ORDER BY branchId, reservationTypeId, purchaseRequestId, purchaseRequestItemId</query>
+>>>>>>> 9e0fbd64f508d35e4b0664b3df332da10de125eb
 	</proc>
 			
 

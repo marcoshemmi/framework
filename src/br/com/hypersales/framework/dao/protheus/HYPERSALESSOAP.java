@@ -53,4 +53,37 @@ public interface HYPERSALESSOAP {
         @WebParam(name = "STRUCTSETSALESORDER", targetNamespace = "http://fw.rozac.com.br:81/")
         SETSALESORDERSTRUCT structsetsalesorder);
 
+    /**
+     * Insert Token
+     * 
+     * @param structtoken
+     * @return
+     *     returns br.com.hypersales.framework.dao.protheus.STRUCTRETURN
+     */
+    @WebMethod(operationName = "INSERTTOKENS", action = "http://fw.rozac.com.br:81/INSERTTOKENS")
+    @WebResult(name = "INSERTTOKENSRESULT", targetNamespace = "http://fw.rozac.com.br:81/")
+    @RequestWrapper(localName = "INSERTTOKENS", targetNamespace = "http://fw.rozac.com.br:81/", className = "br.com.hypersales.framework.dao.protheus.INSERTTOKENS")
+    @ResponseWrapper(localName = "INSERTTOKENSRESPONSE", targetNamespace = "http://fw.rozac.com.br:81/", className = "br.com.hypersales.framework.dao.protheus.INSERTTOKENSRESPONSE")
+    public STRUCTRETURN inserttokens(
+        @WebParam(name = "STRUCTTOKEN", targetNamespace = "http://fw.rozac.com.br:81/")
+        TOKENSTRUCT structtoken);
+
+    /**
+     * Validação de usuarios	 
+     * 
+     * @param userid
+     * @param password
+     * @return
+     *     returns br.com.hypersales.framework.dao.protheus.STRUCTRETURN
+     */
+    @WebMethod(operationName = "ISUSERVALID", action = "http://fw.rozac.com.br:81/ISUSERVALID")
+    @WebResult(name = "ISUSERVALIDRESULT", targetNamespace = "http://fw.rozac.com.br:81/")
+    @RequestWrapper(localName = "ISUSERVALID", targetNamespace = "http://fw.rozac.com.br:81/", className = "br.com.hypersales.framework.dao.protheus.ISUSERVALID")
+    @ResponseWrapper(localName = "ISUSERVALIDRESPONSE", targetNamespace = "http://fw.rozac.com.br:81/", className = "br.com.hypersales.framework.dao.protheus.ISUSERVALIDRESPONSE")
+    public STRUCTRETURN isuservalid(
+        @WebParam(name = "USERID", targetNamespace = "http://fw.rozac.com.br:81/")
+        String userid,
+        @WebParam(name = "PASSWORD", targetNamespace = "http://fw.rozac.com.br:81/")
+        String password);
+
 }
