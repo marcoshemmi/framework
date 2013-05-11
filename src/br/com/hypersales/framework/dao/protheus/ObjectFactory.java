@@ -37,6 +37,13 @@ public class ObjectFactory {
         return new GETSQL();
     }
 
+    /*     * Create an instance of {@link ISUSERVALID }
+         * 
+         */
+        public ISUSERVALID createISUSERVALID() {
+            return new ISUSERVALID();
+        }
+    
     /**
      * Create an instance of {@link INSERT }
      * 
@@ -52,7 +59,22 @@ public class ObjectFactory {
     public SETSALESORDERSTRUCT createSETSALESORDERSTRUCT() {
         return new SETSALESORDERSTRUCT();
     }
-
+    /*
+         * Create an instance of {@link INSERTTOKENS }
+         * 
+         */
+        public INSERTTOKENS createINSERTTOKENS() {
+            return new INSERTTOKENS();
+        }
+    
+        /**
+         * Create an instance of {@link TOKENSTRUCT }
+         * 
+         */
+        public TOKENSTRUCT createTOKENSTRUCT() {
+            return new TOKENSTRUCT();
+        }
+    
     /**
      * Create an instance of {@link GETSQLRESPONSE }
      * 
@@ -77,6 +99,22 @@ public class ObjectFactory {
         return new INSERTRESPONSE();
     }
 
+    /**
+     * Create an instance of {@link ISUSERVALIDRESPONSE }
+     * 
+     */
+    public ISUSERVALIDRESPONSE createISUSERVALIDRESPONSE() {
+        return new ISUSERVALIDRESPONSE();
+    }
+
+    /**
+     * Create an instance of {@link INSERTTOKENSRESPONSE }
+     * 
+     */
+    public INSERTTOKENSRESPONSE createINSERTTOKENSRESPONSE() {
+        return new INSERTTOKENSRESPONSE();
+    }
+    
     /**
      * Create an instance of {@link ARRAYOFSTRING }
      * 
