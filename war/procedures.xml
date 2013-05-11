@@ -21,7 +21,7 @@
 						LTRIM(Seller.A3_NOME)	AS sellerName,
 						LTRIM(Seller.A3_NREDUZ)	AS sellerShortName
 				FROM	SA3010					AS Seller
-				WHERE	Seller.A3_COD = {0}  -- @sellerId
+				WHERE	Seller.A3_COD = {0}
 		</query>
 	</proc>
 	
@@ -135,7 +135,7 @@
 							Product.B1_UM   AS productMeasureUnit,
 							Product.B1_PRV1 AS productPrice
 				FROM		SB1010			AS Product
-				WHERE		Product.B1_GRUPO = {0}  -- @productGroupId
+				WHERE		Product.B1_GRUPO = {0}
 							AND Product.B1_TIPO = 'PA'
 							AND Product.D_E_L_E_T_ != '*'
 				ORDER BY	productDescription
@@ -156,14 +156,14 @@
 			</param>
 		</parameters>
 		<query>
-		    	SELECT       Stock.B2_COD            AS productId, 
-							 Stock.B2_FILIAL		 AS branchId, 
-							 ''PE''					 AS reservationTypeId, 
-							 ''Estoque''				 AS reservationTypeDescription, 
-							 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
-							 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
-							 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
-							 Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
+		    	SELECT Stock.B2_COD            AS productId, 
+					   Stock.B2_FILIAL		 AS branchId, 
+					   ''PE''					 AS reservationTypeId, 
+					   ''Estoque''				 AS reservationTypeDescription, 
+					   CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
+					   CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
+					   CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
+					   Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
 
 				FROM SB2010 AS Stock 
 				
@@ -269,7 +269,7 @@
 							 Customer.A1_MUN	 AS customerCity,
 							 Customer.A1_EST	 AS customerState
 				FROM SA1010 AS Customer
-				WHERE Customer.A1_COD     = {0}	-- @customerId
+				WHERE Customer.A1_COD     = {0}
 				  AND Customer.D_E_L_E_T_ != '*'
 				ORDER BY customerName
 		</query>
@@ -287,7 +287,7 @@
 							 Customer.A1_COD	AS customerId,		 
 					   LTRIM(Customer.A1_NOME)	AS customerName
 				FROM SA1010 AS Customer
-				WHERE Customer.A1_VEND = {0} -- @sellerId
+				WHERE Customer.A1_VEND = {0}
 				  AND Customer.D_E_L_E_T_ != '*'
 				ORDER BY customerName
 		</query>
@@ -342,8 +342,8 @@
 				LEFT JOIN SE4010 AS Payment ON Payment.E4_CODIGO  = Customer.A1_COND
 				LEFT JOIN SA4010 AS Carrier ON Carrier.A4_COD	  = Customer.A1_TRANSP
 				
-				WHERE Customer.A1_COD	  = {0} -- @customerId
-				  AND Customer.A1_LOJA	  = {1} -- @customerUnitId
+				WHERE Customer.A1_COD	  = {0}
+				  AND Customer.A1_LOJA	  = {1}
 				  AND Customer.D_E_L_E_T_ != '*'
 		</query>
 	</proc>
@@ -376,13 +376,12 @@
 								 
 					  FROM SM2010 AS Currency
 							
-					  WHERE Currency.M2_DATA &lt;= {0} -- @currencyDate
+					  WHERE Currency.M2_DATA &lt;= {0}
 			
 					  ORDER BY M2_DATA DESC
 						  
 				  UNION
 
-				  -- LAST DOLLAR RATE
 				  SELECT TOP 1
 					   '2'							 AS currencyId
 					  ,'US$'						 AS currencySymbol
@@ -392,7 +391,7 @@
 					  
 				  FROM SM2010 AS Currency
 				  
-				  WHERE Currency.M2_DATA &lt;= {1} -- @currencyDate
+				  WHERE Currency.M2_DATA &lt;= {1}
 					AND Currency.M2_MOEDA2 &gt; 0
 						
 				  ORDER BY M2_DATA DESC) M
@@ -430,13 +429,12 @@
 								 
 					  FROM SM2010 AS Currency
 
-					  WHERE Currency.M2_DATA &lt;= {0} -- @currencyDate
+					  WHERE Currency.M2_DATA &lt;= {0}
 			
 					  ORDER BY M2_DATA DESC
 						  
 				  UNION
 
-				  -- LAST DOLLAR RATE
 				  SELECT TOP 1
 					   '2'							 AS currencyId
 					  ,'US$'						 AS currencySymbol
@@ -446,12 +444,12 @@
 					  
 				  FROM SM2010 AS Currency
 
-				  WHERE Currency.M2_DATA &lt;= {1} -- @currencyDate
+				  WHERE Currency.M2_DATA &lt;= {1}
 					AND Currency.M2_MOEDA2 &gt; 0
 								
 				  ORDER BY M2_DATA DESC) M
 			
-			WHERE M.currencyId = {2} -- @currencyId
+			WHERE M.currencyId = {2}
 		</query>
 	</proc>
 	
@@ -483,7 +481,7 @@
 
 				FROM SA4010 AS Carrier
 				
-				WHERE Carrier.A4_COD = {0} -- @carrierId
+				WHERE Carrier.A4_COD = {0}
 		</query>
 	</proc>		
 
@@ -495,7 +493,7 @@
 		</parameters>		
 		<query>
 				SELECT A1_COD as USERID, A1_NREDUZ as NAME, A1_EMAIL as EMAIL from SA1010
-				WHERE A1_EMAIL = {0} -- @email
+				WHERE A1_EMAIL = {0}
 		</query>
 	</proc>		
 	
@@ -512,7 +510,7 @@
 
 				FROM SA4010 AS Carrier
 				
-				WHERE Carrier.A4_COD = {0} -- @carrierId
+				WHERE Carrier.A4_COD = {0}
 		</query>
 	</proc>		
 </procedures>
