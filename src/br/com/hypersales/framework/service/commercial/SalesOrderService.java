@@ -1,9 +1,18 @@
 package br.com.hypersales.framework.service.commercial;
 
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.xml.sax.SAXException;
+
+import br.com.hypersales.framework.dao.Wsp;
+import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
+import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.commercial.SalesOrder;
 import br.com.hypersales.framework.model.commercial.SalesOrderMicro;
 import br.com.hypersales.framework.model.register.Customer;
@@ -19,9 +28,14 @@ public class SalesOrderService {
 
 	public JsonResultList<SalesOrder> getList(String hashCode, String sellerId,
 			String dateFrom, String dateTo, String customerId) {
+		
+		//JsonResultList<SalesOrder> result =  new JsonResultList<SalesOrder>(this.getOrderList(sellerId, dateFrom, dateTo, customerId));
+		JsonResultList<SalesOrder> result =  this.getOrderList(sellerId, dateFrom, dateTo, customerId);
+		
 		/*
 		 * DUMMY OBJ TODO: chamar MODEL, quando estiver dispon�vel
 		 */
+		/*
 		JsonResultList<SalesOrder> result = new JsonResultList<SalesOrder>();
 
 		for (int i = 1; i < 10; i++) {
@@ -57,7 +71,7 @@ public class SalesOrderService {
 
 		result.setResponseId(RequestStatus.SUCCESS.statusCode());
 		result.setResponseMessage(RequestStatus.SUCCESS.toString());
-
+*/
 		return result;
 	}
 
@@ -156,4 +170,71 @@ public class SalesOrderService {
 	
 	}
 	
+	private JsonResultList<SalesOrder> getOrderList(String sellerId,
+			String dateFrom, String dateTo, String customerId) {
+	
+		JsonResultList<SalesOrder> listRet = null;
+		
+		//TODO: este m�todo deveria ser generico, e nao ser replicado em todos os locais.
+		//TODO:colocar este m�todo em uma camada apropriada 
+
+		Wsp daoWs = new Wsp();
+		
+			String[] parameters = new String[]{sellerId, dateFrom, dateTo, customerId, customerId};
+			STRUCTRETURN retorno = null;
+			try {
+				retorno = daoWs.execute("SalesOrder_getList", parameters);
+			} catch (XPathExpressionException | ParserConfigurationException
+					| SAXException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+				//int count = 0;
+				ARRAYOFSTRING item = retorno.getSALESORDERID();
+				//listRet = new ArrayList<SalesOrder>();
+
+				for(String record : item.getSTRING()) {
+					
+					JsonResultList<SalesOrder> x = new JsonResultList<SalesOrder>();
+					x.setResponseMessage(record);
+					return x;
+					
+					/*
+					record = record.substring(1);
+					record = record.substring(0, record.length() -2);
+
+					String[] keyValueRecord = record.split("\",\"");
+
+					Payment pRet = new Payment();
+
+					for(String kv : keyValueRecord) {
+						String[] keyValue = kv.split("\":\""); //posicao 0: name e 1:value
+						if (keyValue[0].toUpperCase().equals("PAYMENTID")) {
+							pRet.setId(keyValue[1]);
+						}
+						if (keyValue[0].toUpperCase().equals("PAYMENTDESCRIPTION")) {
+							pRet.setDescription(keyValue[1]);
+						}
+					}
+					//listRet.add(pRet);
+					
+					//listRet.add(pRet);
+					//count++;
+					//if(count == 5) break;
+					 * */
+				}
+			} else {
+				JsonResultList<SalesOrder> x = new JsonResultList<SalesOrder>();
+				x.setResponseMessage(retorno.getRESPONSEMESSAGE());
+				return x;
+
+				
+			}
+			
+
+		return listRet;
+
+	}
+
 }
