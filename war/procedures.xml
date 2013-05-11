@@ -45,9 +45,8 @@
 			</param>			
 		</parameters>		
 		<query>
-
 				SELECT	DISTINCT 
-				      salesOrder.C5_NUM	   AS salesOrderId, 
+					  salesOrder.C5_NUM	   AS salesOrderId, 
 					  salesOrder.C5_FILIAL AS branchId, 
 
 					  CASE WHEN salesOrder.C5_NOTA &lt;&gt; '''' THEN ''600'' 
@@ -110,77 +109,16 @@
 				        WHERE SC9010.C9_PEDIDO = salesOrder.C5_NUM 
 				          AND SC9010.C9_FILIAL = salesOrder.C5_FILIAL 
 				          AND SC9010.D_E_L_E_T_ &lt;&gt; ''*'' 
-				          AND SC9010.C9_ORDSEP &lt;&gt; '') OrdemDeSeparacao 
+				          AND SC9010.C9_ORDSEP &lt;&gt; '''') OrdemDeSeparacao 
 
 				WHERE (salesOrder.C5_VEND1 = ''{0}'' ) 
 				  AND (salesOrder.C5_NOTA IS NULL OR 
 				       invoice.F2_EMISSAO IS NULL OR invoice.F2_EMISSAO BETWEEN ''{1}'' AND ''{2}'' ) 
-				  AND (salesOrder.C5_CLIENTE = ''{3}'' OR @customerId = ''{4}'') 
+				  AND (salesOrder.C5_CLIENTE = ''{3}'' OR ''{4}'' = ''{5}'') 
 				  AND (salesOrder.D_E_L_E_T_ &lt;&gt; '*') 
 				  AND (salesOrder.C5_FILIAL IN (''103'',''104'')) 
 
 				ORDER BY salesOrder.C5_NUM, salesOrder.C5_FILIAL 
-=======
-				SELECT	saleOrder.C5_NUM		AS saleOrderId,
-					  -- FATURADO
-					  CASE WHEN saleOrderReleased.C9_NFISCAL != '' THEN '600'
-					  ELSE
-					  		-- AGUARDANDO LIBERAÇÃO DE CRÉDITO
-							CASE WHEN saleOrderReleased.C9_BLCRED != ''  THEN '300'
-							ELSE
-								 -- AGUARDANDO CHEGADA DA MERCADORIA
-								 CASE WHEN saleOrderReleased.C9_BLEST != '' THEN '400'
-								 ELSE
-									  -- ORDEM DE SEPARAÇÃO CADASTRADA PARA O PEDIDO
-									  CASE WHEN saleOrderReleased.C9_ORDSEP != '' THEN
-										   -- SEPARAÇÃO FINALIZADA E CONDIÇÃO = RECEBIMENTO ANTECIPADO:			   
-										   -- AGUARDANDO BAIXA DO RECEBIMENTO
-										   CASE WHEN (packing.CB7_STATUS &gt;= 1
-												  AND receipt.E1_TIPO = 'RA' 
-												  AND receipt.E1_BAIXA = '') THEN
-												'200'
-										   -- EM SEPARAÇÃO
-										   ELSE
-												'500'
-										   END
-									  ELSE
-											'100'
-									  END
-								 END
-							END
-					  END AS saleOrderStatusId,
-					  saleOrder.C5_EMISSAO	AS saleOrderDate,
-					  saleOrder.C5_XTIPO	AS reservationTypeId,
-					  saleOrder.C5_CLIENTE	AS customerId,
-					  saleOrder.C5_LOJACLI	AS customerUnitId,
-					  customer.A1_CGC		AS customerCnpj,
-					  customer.A1_NOME		AS customerName,
-					  customer.A1_NREDUZ	AS customerUnitName,
-					  invoice.F2_CHVNFE		AS invoiceKey
-				FROM SC5010 AS saleOrder
-
-				LEFT JOIN SC9010 AS saleOrderReleased
-				ON saleOrderReleased.C9_PEDIDO = saleOrder.C5_NUM 
-
-				LEFT JOIN CB7010 AS packing
-				ON packing.CB7_PEDIDO = saleOrderReleased.C9_PEDIDO
-
-				LEFT JOIN SA1010 AS customer
-				ON customer.A1_COD = saleOrder.C5_CLIENTE
-
-				LEFT JOIN SF2010 AS invoice
-				ON invoice.F2_DOC = saleOrderReleased.C9_NFISCAL AND invoice.F2_SERIE = saleOrderReleased.C9_SERIENF
-
-				LEFT JOIN SE1010 AS receipt
-				ON receipt.E1_PEDIDO = C9_PEDIDO AND E1_TIPO = 'RA'
-
-				WHERE (saleOrder.C5_VEND1 = {0}) -- @sellerId
-				  AND (saleOrderReleased.C9_NFISCAL = '' OR invoice.F2_EMISSAO BETWEEN {1} AND {2}) -- @dateStart AND @dateFinish
-				  AND (saleOrder.C5_CLIENTE = {3} OR {4} = '000000') -- @customerId
-				  AND (saleOrder.D_E_L_E_T_ != '*')
-
-				ORDER BY saleOrder.C5_NUM
->>>>>>> 9e0fbd64f508d35e4b0664b3df332da10de125eb
 		</query>
 	</proc>
 		
