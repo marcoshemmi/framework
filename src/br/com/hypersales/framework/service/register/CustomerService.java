@@ -111,82 +111,88 @@ public class CustomerService {
 							pRetUnit.setName(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCNPJ")) {
-							pRet.setName(keyValue[1]);
+							pRet.setCnpj(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATEREGISTRATION")) {
-							pRet.setName(keyValue[1]);
+							pRet.setStateRegistration(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICTREGISTRATION")) {
-							pRet.setName(keyValue[1]);
+							pRet.setDistrictRegistration(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERIDCARD")) {
-							pRet.setName(keyValue[1]);
+							pRet.setIdCard(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+							pRet.setAddress(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCITY")) {
-							pRet.setName(keyValue[1]);
+							pRet.setCity(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATE")) {
-							pRet.setName(keyValue[1]);
+							pRet.setState(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICT")) {
-							pRet.setName(keyValue[1]);
+							pRet.setDistrict(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERZIPCODE")) {
-							pRet.setName(keyValue[1]);
+							pRet.setZipCode(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERINTAREACODE")) {
-							pRet.setName(keyValue[1]);
+							pRet.setIntAreaCode(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERAREACODE")) {
-							pRet.setName(keyValue[1]);
+							pRet.setAreaCode(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERPHONENUMBER")) {
-							pRet.setName(keyValue[1]);
+							pRet.setPhoneNumber(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERFAXNUMBER")) {
-							pRet.setName(keyValue[1]);
+							pRet.setFaxNumber(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("COUNTRYID")) {
-							pRet.setName(keyValue[1]);
+							pRet.setCountryCode(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("COUNTRYNAME")) {
-							pRet.setName(keyValue[1]);
+							pRet.setCountryName(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERINOVICINGADDRESS")) {
-							pRet.setName(keyValue[1]);
+							pRet.setInovicingAddress(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDELIVERYADDRESS")) {
-							pRet.setName(keyValue[1]);
+							pRet.setDeliveryAddress(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERRECEPTIONADDRESS")) {
-							pRet.setName(keyValue[1]);
+							pRet.setReceptionAddress(keyValue[1]);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCONTACTNAME")) {
+							pRet.setContactName(keyValue[1]);
+						}
+						if (keyValue[0].toUpperCase().equals("FREIGHTTYPEID")) {
 							pRet.setName(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("CARRIERID")) {
+							pRetCarrier.setId(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("CARRIERNAME")) {
+							pRetCarrier.setName(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("PAYMENTID")) {
+							pRetPayment.setId(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("PAYMENTDESCRIPTION")) {
+							pRetPayment.setDescription(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("SELLERID")) {
+							pRetSeller.setId(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setName(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("SELLERNAME")) {
+							pRetSeller.setName(keyValue[1]);
 						}
 					}
-					
+					pRet.setCarrier(pRetCarrier);
+					pRet.setCustomerUnit(pRetUnit);
+					pRet.setPayment(pRetPayment);
+					pRet.setSeller(pRetSeller);
 					result.setObject(pRet);
 				}
 			}
