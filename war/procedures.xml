@@ -5,7 +5,7 @@
 			   SELECT	Seller.A3_COD			AS sellerId,
 			   			LTRIM(Seller.A3_NOME)	AS sellerName
 			   FROM		SA3010					AS Seller
-			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; '*'
+			   WHERE	Seller.D_E_L_E_T_ != '*'
 			   ORDER BY	sellerName
 		</query>
     </proc>
@@ -249,7 +249,7 @@
 				SELECT       Payment.E4_CODIGO	AS paymentId,		 
 					   LTRIM(Payment.E4_DESCRI)	AS paymentDescription
 				FROM SE4010 AS Payment
-				WHERE Payment.D_E_L_E_T_ &lt;&gt; '*'
+				WHERE Payment.D_E_L_E_T_ != '*'
 				ORDER BY paymentDescription
 		</query>
     </proc>
