@@ -135,8 +135,8 @@
 							Product.B1_UM   AS productMeasureUnit,
 							Product.B1_PRV1 AS productPrice
 				FROM		SB1010			AS Product
-				WHERE		Product.B1_GRUPO &gt; ''{0}''
-							AND Product.B1_TIPO &gt; ''PA''
+				WHERE		Product.B1_GRUPO = ''{0}''
+							AND Product.B1_TIPO = ''PA''
 							AND Product.D_E_L_E_T_ &lt;&gt; ''*''
 				ORDER BY	productDescription
 		</query>
