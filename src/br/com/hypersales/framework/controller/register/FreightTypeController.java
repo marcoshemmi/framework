@@ -6,29 +6,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import br.com.hypersales.framework.model.register.FreightType;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.util.enums.FreightType;
-import br.com.hypersales.framework.util.enums.RequestStatus;
+import br.com.hypersales.framework.service.register.FreightTypeService;
 
 @Controller
 @RequestMapping("/freighttype")
 public class FreightTypeController {
 
-	// FakeCustomerService fakeCustomerService = new FakeCustomerService();
+	FreightTypeService fService = new FreightTypeService();
 
 	// /freighttype/getList/?hashCode=asdf1234
 	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
 	public @ResponseBody
 	JsonResultList<FreightType> getList(
 			@RequestParam("hashCode") String hashCode) {
-		JsonResultList<FreightType> freightType = new JsonResultList<FreightType>();
-
-		freightType.setResponseId(RequestStatus.SUCCESS.statusCode());
-		freightType.setResponseMessage(RequestStatus.SUCCESS.toString());
-
-		for (FreightType ft : FreightType.values()) {
-			freightType.add(ft);
-		}
+		JsonResultList<FreightType> freightType = fService.getAllFreightTypes();
 
 		return freightType;
 	}
