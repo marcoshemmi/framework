@@ -5,9 +5,13 @@ import java.util.Calendar;
 public class PurchaseRequest {
 	private String id;
 	private String itemId;
-	private Calendar date;
+	private String date;
 
-	public PurchaseRequest(String itemId, Calendar date) {
+	public PurchaseRequest() {
+		super();
+	}
+	
+	public PurchaseRequest(String itemId, String date) {
 		super();
 		this.itemId = itemId;
 		this.date = date;
@@ -30,11 +34,11 @@ public class PurchaseRequest {
 		this.itemId = itemId;
 	}
 
-	public Calendar getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

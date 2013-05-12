@@ -22,7 +22,7 @@ public class ProductStockController {
 			@RequestParam("hashCode") String hashCode,
 			@RequestParam("productId") String productId) {
 		JsonResultList<ProductStock> products = productStockService
-				.getAllProductsStock("");
+				.getProductsStocksByProductId(hashCode, productId);
 		return products;
 	}
 

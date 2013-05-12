@@ -5,7 +5,7 @@
 			   SELECT	Seller.A3_COD			AS sellerId,
 			   			LTRIM(Seller.A3_NOME)	AS sellerName
 			   FROM		SA3010					AS Seller
-			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; ''*''
+			   WHERE	Seller.D_E_L_E_T_ != '*'
 			   ORDER BY	sellerName
 		</query>
     </proc>
@@ -235,10 +235,10 @@
 						LTRIM(ProductGroup.BM_DESC) AS description
 				FROM SB1010 AS Product
 				LEFT JOIN SBM010 AS ProductGroup
-										 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
-				WHERE Product.B1_TIPO = ''PA''
-				  AND Product.D_E_L_E_T_ &lt;&gt; ''*''
-				  AND ProductGroup.D_E_L_E_T_ &lt;&gt; ''*''
+					 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
+				WHERE Product.B1_TIPO = 'PA'
+				  AND Product.D_E_L_E_T_ != '*'
+				  AND ProductGroup.D_E_L_E_T_ != '*'
 				ORDER BY description
 		</query>
     </proc>
@@ -249,7 +249,7 @@
 				SELECT       Payment.E4_CODIGO	AS paymentId,		 
 					   LTRIM(Payment.E4_DESCRI)	AS paymentDescription
 				FROM SE4010 AS Payment
-				WHERE Payment.D_E_L_E_T_ &lt;&gt; ''*''
+				WHERE Payment.D_E_L_E_T_ != '*'
 				ORDER BY paymentDescription
 		</query>
     </proc>
@@ -459,7 +459,7 @@
 
 			FROM SA4010 AS Carrier
 			
-			WHERE Carrier.D_E_L_E_T_ &lt;&gt; ''*''
+			WHERE Carrier.D_E_L_E_T_ &lt;&gt; '*'
 			  
 			ORDER BY carrierName
 		</query>
