@@ -18,6 +18,7 @@ import br.com.hypersales.framework.model.register.Seller;
 import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.util.enums.RequestStatus;
+import br.com.hypersales.framework.util.enums.FreightType;
 
 public class CustomerService {
 
@@ -101,52 +102,52 @@ public class CustomerService {
 						if (keyValue[0].toUpperCase().equals("CUSTOMERID")) {
 							pRet.setId(customerId);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERNAME")) {
+						if (keyValue[0].toUpperCase().equals("NAME")) {
 							pRet.setName(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERUNITID")) {
+						if (keyValue[0].toUpperCase().equals("UNITID")) {
 							pRetUnit.setId(customerUnitId);
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERUNITNAME")) {
+						if (keyValue[0].toUpperCase().equals("UNITNAME")) {
 							pRetUnit.setName(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERCNPJ")) {
+						if (keyValue[0].toUpperCase().equals("CNPJ")) {
 							pRet.setCnpj(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATEREGISTRATION")) {
+						if (keyValue[0].toUpperCase().equals("STATEREGISTRATION")) {
 							pRet.setStateRegistration(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICTREGISTRATION")) {
+						if (keyValue[0].toUpperCase().equals("DISTRICTREGISTRATION")) {
 							pRet.setDistrictRegistration(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERIDCARD")) {
+						if (keyValue[0].toUpperCase().equals("IDCARD")) {
 							pRet.setIdCard(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
+						if (keyValue[0].toUpperCase().equals("ADDRESS")) {
 							pRet.setAddress(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERCITY")) {
+						if (keyValue[0].toUpperCase().equals("CITY")) {
 							pRet.setCity(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATE")) {
+						if (keyValue[0].toUpperCase().equals("STATE")) {
 							pRet.setState(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICT")) {
+						if (keyValue[0].toUpperCase().equals("DISTRICT")) {
 							pRet.setDistrict(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERZIPCODE")) {
+						if (keyValue[0].toUpperCase().equals("ZIPCODE")) {
 							pRet.setZipCode(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERINTAREACODE")) {
+						if (keyValue[0].toUpperCase().equals("INTAREACODE")) {
 							pRet.setIntAreaCode(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERAREACODE")) {
+						if (keyValue[0].toUpperCase().equals("AREACODE")) {
 							pRet.setAreaCode(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERPHONENUMBER")) {
+						if (keyValue[0].toUpperCase().equals("PHONENUMBER")) {
 							pRet.setPhoneNumber(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERFAXNUMBER")) {
+						if (keyValue[0].toUpperCase().equals("FAXNUMBER")) {
 							pRet.setFaxNumber(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("COUNTRYID")) {
@@ -155,20 +156,20 @@ public class CustomerService {
 						if (keyValue[0].toUpperCase().equals("COUNTRYNAME")) {
 							pRet.setCountryName(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERINOVICINGADDRESS")) {
+						if (keyValue[0].toUpperCase().equals("INOVICINGADDRESS")) {
 							pRet.setInovicingAddress(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERDELIVERYADDRESS")) {
+						if (keyValue[0].toUpperCase().equals("DELIVERYADDRESS")) {
 							pRet.setDeliveryAddress(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERRECEPTIONADDRESS")) {
+						if (keyValue[0].toUpperCase().equals("RECEPTIONADDRESS")) {
 							pRet.setReceptionAddress(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERCONTACTNAME")) {
+						if (keyValue[0].toUpperCase().equals("CONTACTNAME")) {
 							pRet.setContactName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("FREIGHTTYPEID")) {
-							pRet.setName(keyValue.length>1?keyValue[1]:"");
+							pRet.setFreightType(FreightType.valueOf(keyValue.length>1?keyValue[1]:"C"));
 						}
 						if (keyValue[0].toUpperCase().equals("CARRIERID")) {
 							pRetCarrier.setId(keyValue.length>1?keyValue[1]:"");
