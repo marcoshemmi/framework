@@ -235,8 +235,8 @@
 						LTRIM(ProductGroup.BM_DESC) AS description
 				FROM SB1010 AS Product
 				LEFT JOIN SBM010 AS ProductGroup
-										 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
-				WHERE Product.B1_TIPO = ''PA''
+					 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
+				WHERE Product.B1_TIPO = 'PA'
 				  AND Product.D_E_L_E_T_ != '*'
 				  AND ProductGroup.D_E_L_E_T_ != '*'
 				ORDER BY description
