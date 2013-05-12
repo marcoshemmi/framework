@@ -78,7 +78,7 @@ public class CustomerService {
 		
 		Wsp daoWs = new Wsp();
 		try {
-			STRUCTRETURN retorno = daoWs.execute("Customer_getDataByCustomerId", null);
+			STRUCTRETURN retorno = daoWs.execute("Customer_getDataByCustomerId", new String[]{customerId, customerUnitId});
 			result.setResponseId(Integer.parseInt(retorno.responseid));
 			result.setResponseMessage(retorno.responsemessage);
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
@@ -99,94 +99,94 @@ public class CustomerService {
 					for(String kv : keyValueRecord) {
 						String[] keyValue = kv.split("\":\"");
 						if (keyValue[0].toUpperCase().equals("CUSTOMERID")) {
-							pRet.setId(keyValue[1]);
-						}
-						if (keyValue[0].toUpperCase().equals("CUSTOMERUNITID")) {
-							pRetUnit.setId(keyValue[1]);
+							pRet.setId(customerId);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERNAME")) {
-							pRet.setName(keyValue[1]);
+							pRet.setName(keyValue.length>1?keyValue[1]:"");
+						}
+						if (keyValue[0].toUpperCase().equals("CUSTOMERUNITID")) {
+							pRetUnit.setId(customerUnitId);
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERUNITNAME")) {
-							pRetUnit.setName(keyValue[1]);
+							pRetUnit.setName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCNPJ")) {
-							pRet.setCnpj(keyValue[1]);
+							pRet.setCnpj(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATEREGISTRATION")) {
-							pRet.setStateRegistration(keyValue[1]);
+							pRet.setStateRegistration(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICTREGISTRATION")) {
-							pRet.setDistrictRegistration(keyValue[1]);
+							pRet.setDistrictRegistration(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERIDCARD")) {
-							pRet.setIdCard(keyValue[1]);
+							pRet.setIdCard(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERADDRESS")) {
-							pRet.setAddress(keyValue[1]);
+							pRet.setAddress(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCITY")) {
-							pRet.setCity(keyValue[1]);
+							pRet.setCity(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERSTATE")) {
-							pRet.setState(keyValue[1]);
+							pRet.setState(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDISTRICT")) {
-							pRet.setDistrict(keyValue[1]);
+							pRet.setDistrict(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERZIPCODE")) {
-							pRet.setZipCode(keyValue[1]);
+							pRet.setZipCode(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERINTAREACODE")) {
-							pRet.setIntAreaCode(keyValue[1]);
+							pRet.setIntAreaCode(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERAREACODE")) {
-							pRet.setAreaCode(keyValue[1]);
+							pRet.setAreaCode(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERPHONENUMBER")) {
-							pRet.setPhoneNumber(keyValue[1]);
+							pRet.setPhoneNumber(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERFAXNUMBER")) {
-							pRet.setFaxNumber(keyValue[1]);
+							pRet.setFaxNumber(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("COUNTRYID")) {
-							pRet.setCountryCode(keyValue[1]);
+							pRet.setCountryCode(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("COUNTRYNAME")) {
-							pRet.setCountryName(keyValue[1]);
+							pRet.setCountryName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERINOVICINGADDRESS")) {
-							pRet.setInovicingAddress(keyValue[1]);
+							pRet.setInovicingAddress(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERDELIVERYADDRESS")) {
-							pRet.setDeliveryAddress(keyValue[1]);
+							pRet.setDeliveryAddress(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERRECEPTIONADDRESS")) {
-							pRet.setReceptionAddress(keyValue[1]);
+							pRet.setReceptionAddress(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CUSTOMERCONTACTNAME")) {
-							pRet.setContactName(keyValue[1]);
+							pRet.setContactName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("FREIGHTTYPEID")) {
-							pRet.setName(keyValue[1]);
+							pRet.setName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CARRIERID")) {
-							pRetCarrier.setId(keyValue[1]);
+							pRetCarrier.setId(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("CARRIERNAME")) {
-							pRetCarrier.setName(keyValue[1]);
+							pRetCarrier.setName(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("PAYMENTID")) {
-							pRetPayment.setId(keyValue[1]);
+							pRetPayment.setId(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("PAYMENTDESCRIPTION")) {
-							pRetPayment.setDescription(keyValue[1]);
+							pRetPayment.setDescription(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("SELLERID")) {
-							pRetSeller.setId(keyValue[1]);
+							pRetSeller.setId(keyValue.length>1?keyValue[1]:"");
 						}
 						if (keyValue[0].toUpperCase().equals("SELLERNAME")) {
-							pRetSeller.setName(keyValue[1]);
+							pRetSeller.setName(keyValue.length>1?keyValue[1]:"");
 						}
 					}
 					pRet.setCarrier(pRetCarrier);
