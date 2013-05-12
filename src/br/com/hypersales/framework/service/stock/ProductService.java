@@ -24,12 +24,15 @@ public class ProductService {
 
 		Wsp daoWs = new Wsp();
 		try {
-			STRUCTRETURN retorno = daoWs.execute("Product_getListByProductGroupId", new String[] { productGroupId });
+			STRUCTRETURN retorno = daoWs.execute("Product_getListByProductGroupId",
+					new String[] { productGroupId });
+			
 			
 			result.setResponseId(Integer.parseInt(retorno.responseid));
 			result.setResponseMessage(retorno.responsemessage);
 			
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+				
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for (String record : item.getSTRING()) {
 					record = record.substring(1);
@@ -46,7 +49,8 @@ public class ProductService {
 
 						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
 							product.setId(keyValue[1]);
-						} else if (keyValue[0].toUpperCase().equals(
+						}
+						else if (keyValue[0].toUpperCase().equals(
 								"PRODUCTDESCRIPTION")) {
 							product.setDescription(keyValue[1]);
 						} else if (keyValue[0].toUpperCase().equals(

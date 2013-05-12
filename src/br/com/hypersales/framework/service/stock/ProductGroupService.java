@@ -34,7 +34,7 @@ public class ProductGroupService {
 		
 		Wsp daoWs = new Wsp();
 		try {
-			STRUCTRETURN retorno = daoWs.execute("ProductGroup_getList", new String[]{});
+			STRUCTRETURN retorno = daoWs.execute("ProductGroup_getList", null);
 
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
