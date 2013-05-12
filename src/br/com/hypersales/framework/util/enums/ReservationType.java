@@ -1,25 +1,19 @@
 package br.com.hypersales.framework.util.enums;
 
 public enum ReservationType {
-	A {
+	PE {
 		public String toString() {
 			return "Pronta Entrega";
 		}
 	},
-	B {
+	SC {
 		public String toString() {
 			return "Solicitação de Compra";
 		}
 	},
-	C {
+	EN {
 		public String toString() {
 			return "Encomenda";
 		}
 	},
-	SC {
-		public String toString() {
-			return "Sem Encomenda";
-		}
-	}
-
 }
