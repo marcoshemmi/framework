@@ -36,7 +36,7 @@ public class CustomerUnitService {
 		
 		Wsp daoWs = new Wsp();
 		try {
-			STRUCTRETURN retorno = daoWs.execute("CustomerUnit_getUnitListByCustomerId", new String[]{customerId});
+			STRUCTRETURN retorno = daoWs.execute("Customer_getUnitListByCustomerId", new String[]{customerId});
 
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
