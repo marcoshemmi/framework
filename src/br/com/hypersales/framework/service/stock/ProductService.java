@@ -13,7 +13,6 @@ import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.stock.Product;
 import br.com.hypersales.framework.model.stock.ProductGroup;
 import br.com.hypersales.framework.presentation.JsonResultList;
-import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class ProductService {
 
@@ -54,13 +53,7 @@ public class ProductService {
 
 						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
 							product.setId(keyValue[1]);
-<<<<<<< HEAD
-						} else if (keyValue[0].toUpperCase().equals("PRODUCTDESCRIPTION")) {
-=======
-						}
-						else if (keyValue[0].toUpperCase().equals(
-								"PRODUCTDESCRIPTION")) {
->>>>>>> ebdea57babb4517d9ec23139600d2036d685fee8
+						}else if (keyValue[0].toUpperCase().equals("PRODUCTDESCRIPTION")) {
 							product.setDescription(keyValue[1]);
 						} else if (keyValue[0].toUpperCase().equals("PRODUCTMEASUREUNIT")) {
 							product.setMeasureUnit(keyValue[1]);
