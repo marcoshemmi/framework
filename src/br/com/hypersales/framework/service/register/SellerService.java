@@ -22,8 +22,10 @@ public class SellerService {
 		Wsp daoWs = new Wsp();
 		try {
 			STRUCTRETURN retorno = daoWs.execute("Seller_getList", null);
+			
 			result.setResponseId(Integer.parseInt(retorno.responseid));
 			result.setResponseMessage(retorno.responsemessage);
+			
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for(String record : item.getSTRING()) {

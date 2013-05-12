@@ -16,19 +16,8 @@ public class ProductController {
 
 	ProductService productService = new ProductService();
 	
-	// /products/getlist/?hashCode=asfd1234&productGroupId=00001
-	@RequestMapping(value = "/getlist", method = RequestMethod.GET)
-	public @ResponseBody JsonResultList<Product> getList(
-										@RequestParam("hashCode") String hashCode,
-										@RequestParam("productGroupId") String productGroupId
-										) {
-		JsonResultList<Product> products = productService.getAllProducts("");
-		return products;
-	}
-	
-	
 	// /products/getListByProductGroupId/?hashCode=asfd1234&productGroupId=00001
-		@RequestMapping(value = "/getListByProductGroupId", method = RequestMethod.GET)
+		@RequestMapping(value = "/getlistbyproductgroupid", method = RequestMethod.GET)
 		public @ResponseBody JsonResultList<Product> getListByProductGroupId(
 											@RequestParam("hashCode") String hashCode,
 											@RequestParam("productGroupId") String productGroupId
