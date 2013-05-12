@@ -11,6 +11,7 @@ import br.com.hypersales.framework.dao.Wsp;
 import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
 import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.stock.Product;
+import br.com.hypersales.framework.model.stock.ProductGroup;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
@@ -38,6 +39,10 @@ public class ProductService {
 					String[] keyValueRecord = record.split("\",\"");
 
 					Product product = new Product();
+					ProductGroup productGroup = new ProductGroup();
+					productGroup.setId(productGroupId);
+					productGroup.setName("");
+					product.setProductGroup(productGroup);
 
 					for (String kv : keyValueRecord) {
 
@@ -46,14 +51,11 @@ public class ProductService {
 
 						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
 							product.setId(keyValue[1]);
-						} else if (keyValue[0].toUpperCase().equals(
-								"PRODUCTDESCRIPTION")) {
+						} else if (keyValue[0].toUpperCase().equals("PRODUCTDESCRIPTION")) {
 							product.setDescription(keyValue[1]);
-						} else if (keyValue[0].toUpperCase().equals(
-								"PRODUCTMEASUREUNIT")) {
+						} else if (keyValue[0].toUpperCase().equals("PRODUCTMEASUREUNIT")) {
 							product.setMeasureUnit(keyValue[1]);
-						} else if (keyValue[0].toUpperCase().equals(
-								"PRODUCTPRICE")) {
+						} else if (keyValue[0].toUpperCase().equals("PRODUCTPRICE")) {
 							product.setPrice(Double.parseDouble(keyValue[1]));
 						}
 
