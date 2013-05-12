@@ -459,7 +459,7 @@
 
 			FROM SA4010 AS Carrier
 			
-			WHERE Carrier.D_E_L_E_T_ &lt;&gt; ''*''
+			WHERE Carrier.D_E_L_E_T_ &lt;&gt; '*'
 			  
 			ORDER BY carrierName
 		</query>
