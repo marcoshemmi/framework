@@ -36,6 +36,9 @@ public class SalesOrderController {
 									@RequestParam("dateTo") String dateTo,
 									@RequestParam("customerId") String customerId
 									) {
+		
+		if(customerId.equals("")) customerId = "000000";
+		
 		JsonResultList<SalesOrder> salesOrders = salesOrderService.getList(hashCode, sellerId, dateFrom, dateTo, customerId);
 		return salesOrders;
 	}
