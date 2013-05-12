@@ -256,29 +256,6 @@
 				ORDER BY paymentDescription
 		</query>
     </proc>
-		
-
-	<proc name="Seller_getDataBySellerId">
-		<parameters>
-			<param id="0" name="customerId" type="string" size="6">
-				@customerId
-			</param>
-		</parameters>		
-		<query>
-				SELECT       Customer.A1_COD	 AS customerId,		 
-							 Customer.A1_LOJA	 AS customerUnitId,
-							 Customer.A1_CGC	 AS customerCnpj,
-					   LTRIM(Customer.A1_NOME)	 AS customerName,
-					   LTRIM(Customer.A1_NREDUZ) AS customerUnitName,
-							 Customer.A1_MUN	 AS customerCity,
-							 Customer.A1_EST	 AS customerState
-				FROM SA1010 AS Customer
-				WHERE Customer.A1_COD     = ''{0}''
-				  AND Customer.D_E_L_E_T_ != '*'
-				ORDER BY customerName
-		</query>
-	</proc>
-			
 
 	<proc name="Customer_getListBySellerId">
 		<parameters>
@@ -296,7 +273,7 @@
 				ORDER BY customerName
 		</query>
 	</proc>
-			
+						
 	<proc name="Customer_getUnitListByCustomerId">
 		<parameters>
 			<param id="0" name="customerId" type="string" size="6">
@@ -304,19 +281,17 @@
 			</param>
 		</parameters>		
 		<query>
-			SELECT       Customer.A1_COD	 AS customerId, 
-						 Customer.A1_LOJA	 AS customerUnitId, 
-						 Customer.A1_CGC	 AS customerCnpj, 
-				   LTRIM(Customer.A1_NOME)	 AS customerName, 
-				   LTRIM(Customer.A1_NREDUZ) AS customerUnitName, 
-						 Customer.A1_MUN	 AS customerCity, 
-						 Customer.A1_EST	 AS customerState 
+			SELECT       Customer.A1_LOJA	 AS unitId, 
+						 Customer.A1_CGC	 AS cnpj, 
+				   LTRIM(Customer.A1_NREDUZ) AS name, 
+						 Customer.A1_MUN	 AS city, 
+						 Customer.A1_EST	 AS state 
 				   
 			FROM SA1010 AS Customer 
 			
 			WHERE Customer.A1_COD = ''{0}'' 
 			  AND Customer.D_E_L_E_T_ &lt;&gt; '*' 
-			ORDER BY customerName 
+			ORDER BY name 
 		</query>
 	</proc>
 	
@@ -331,28 +306,28 @@
 		</parameters>		
 		<query>
 				SELECT 		Customer.A1_COD			AS customerId,
-							Customer.A1_LOJA		AS customerUnitId,
-					  LTRIM(Customer.A1_NOME)		AS customerName,
-					  LTRIM(Customer.A1_NREDUZ)		AS customerUnitName,
-							Customer.A1_CGC			AS customerCnpj,
-							Customer.A1_INSCR		AS customerStateRegistration,
-							Customer.A1_INSCRM		AS customerDistrictRegistration,
-							Customer.A1_PFISICA		AS customerIdCard,
-							Customer.A1_END			AS customerAddress,
-							Customer.A1_MUN			AS customerCity,
-							Customer.A1_EST			AS customerState,
-							Customer.A1_BAIRRO		AS customerDistrict,
-							Customer.A1_CEP			AS customerZipCode,
-							Customer.A1_DDI			AS customerIntAreaCode,
-							Customer.A1_DDD			AS customerAreaCode,
-							Customer.A1_TEL			AS customerPhoneNumber,
-							Customer.A1_FAX			AS customerFaxNumber,
+							Customer.A1_LOJA		AS unitId,
+					  LTRIM(Customer.A1_NOME)		AS name,
+					  LTRIM(Customer.A1_NREDUZ)		AS unitName,
+							Customer.A1_CGC			AS cnpj,
+							Customer.A1_INSCR		AS stateRegistration,
+							Customer.A1_INSCRM		AS districtRegistration,
+							Customer.A1_PFISICA		AS idCard,
+							Customer.A1_END			AS address,
+							Customer.A1_MUN			AS city,
+							Customer.A1_EST			AS state,
+							Customer.A1_BAIRRO		AS district,
+							Customer.A1_CEP			AS zipCode,
+							Customer.A1_DDI			AS intAreaCode,
+							Customer.A1_DDD			AS areaCode,
+							Customer.A1_TEL			AS phoneNumber,
+							Customer.A1_FAX			AS faxNumber,
 							Customer.A1_PAIS		AS countryId,
 							Country.YA_DESCR		AS countryName,
-							Customer.A1_ENDCOB		AS customerInovicingAddress,
-							Customer.A1_ENDENT		AS customerDeliveryAddress,
-							Customer.A1_ENDREC		AS customerReceptionAddress,
-							Customer.A1_CONTATO		AS customerContactName,
+							Customer.A1_ENDCOB		AS inovicingAddress,
+							Customer.A1_ENDENT		AS deliveryAddress,
+							Customer.A1_ENDREC		AS receptionAddress,
+							Customer.A1_CONTATO		AS contactName,
 							Customer.A1_TPFRET		AS freightTypeId,
 							Customer.A1_TRANSP		AS carrierId,
 							Carrier.A4_NOME			AS carrierName,
@@ -374,27 +349,7 @@
 		</query>
 	</proc>
 			
-	<proc name="CustomerUnit_getUnitListByCustomerId">
-		<parameters>
-			<param id="0" name="customerId" type="string" size="6">
-				@customerId
-			</param>
-		</parameters>		
-		<query>
-				SELECT 	A1_LOJA as unitId, 
-						A1_CGC as cnpj, 
-						A1_NREDUZ as name, 
-						A1_MUN as city, 
-						A1_EST as state 
-				FROM SA1010 AS Customer 
-				WHERE Customer.A1_COD     = ''{0}''
-				  AND Customer.D_E_L_E_T_ != ''*''
-				ORDER BY A1_NREDUZ
-		</query>
-	</proc>
-	
-	
-	
+
 	<proc name="Currency_getListByDate">
 		<parameters>
 			<param id="0" name="currencyDate" type="string" size="8">
