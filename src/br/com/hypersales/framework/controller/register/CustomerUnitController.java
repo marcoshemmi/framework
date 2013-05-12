@@ -14,7 +14,7 @@ import br.com.hypersales.framework.service.register.CustomerUnitService;
 @RequestMapping("/customersunit")
 public class CustomerUnitController {
 
-	CustomerUnitService fakeCustomerUnitService = new CustomerUnitService();
+	CustomerUnitService customerUnitService = new CustomerUnitService();
 
 	// /customerunit/getunitlistbycustomerid/?hashCode=asdf1234&customerId=00001
 	@RequestMapping(value = "/getunitlistbycustomerid", method = RequestMethod.GET)
@@ -22,7 +22,7 @@ public class CustomerUnitController {
 										@RequestParam("hashCode") String hashCode,
 										@RequestParam("customerId") String customerId
 										) {
-		JsonResultList<CustomerUnit> customers = fakeCustomerUnitService.getUnitListByCustomerId(hashCode, customerId);
+		JsonResultList<CustomerUnit> customers = customerUnitService.getUnitListByCustomerId(hashCode, customerId);
 		return customers;
 	}
 
