@@ -145,16 +145,16 @@
 
 	<proc name="ProductStock_getListByProductId">
 		<parameters>
-			<param id="0" name="productId" type="string" size="4">
+			<param id="0" name="productId" type="string" size="14">
 				@productId
 			</param>
-			<param id="1" name="productId" type="string" size="4">
+			<param id="1" name="productId" type="string" size="14">
 				@productId
 			</param>
-			<param id="2" name="productId" type="string" size="4">
+			<param id="2" name="productId" type="string" size="14">
 				@productId
 			</param>
-			<param id="3" name="productId" type="string" size="4">
+			<param id="3" name="productId" type="string" size="14">
 				@productId
 			</param>
 		</parameters>

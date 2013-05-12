@@ -51,16 +51,19 @@ public class ProductStockService {
 					String[] keyValueRecord = record.split("\",\"");
 
 					ProductStock pRet = new ProductStock();
+					pRet.setDescription("");
+					pRet.setMeasureUnit("");
 					PurchaseRequest purchase = new PurchaseRequest();
 
 					for(String kv : keyValueRecord) {
 						String[] keyValue = kv.split("\":\"");
-						if (keyValue[0].toUpperCase().equals("PRODUCTID")  && keyValue.length > 1) {
-							pRet.setId(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
+							pRet.setId(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("BRANCHID")  && keyValue.length > 1) {
+						if (keyValue[0].toUpperCase().equals("BRANCHID")) {
 							Branch b = new Branch();
-							b.setId(keyValue[1]);
+							b.setId(keyValue.length>1?keyValue[1]:"");
+							b.setName("");
 							pRet.setBranch(b);
 						}
 						if (keyValue[0].toUpperCase().equals("TYPEID") && keyValue.length > 1) {
@@ -74,20 +77,21 @@ public class ProductStockService {
 							}
 						}
 						
-						if (keyValue[0].toUpperCase().equals("REQUESTID")  && keyValue.length > 1) {
-							purchase.setId(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("REQUESTID")) {
+							purchase.setId(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("REQUESTITEMID")  && keyValue.length > 1) {
-							purchase.setItemId(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("REQUESTITEMID")) {
+							purchase.setItemId(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("REQUESTDATE")  && keyValue.length > 1) {
-							purchase.setDate(keyValue[1]);
+						if (keyValue[0].toUpperCase().equals("REQUESTDATE")) {
+							purchase.setDate(keyValue.length>1?keyValue[1]:"");
 						}
-						if (keyValue[0].toUpperCase().equals("PRODUCTQUANTITY")  && keyValue.length > 1) {
-							pRet.setQuantity(Integer.parseInt(keyValue[1]));
+						if (keyValue[0].toUpperCase().equals("PRODUCTQUANTITY")) {
+							pRet.setQuantity(Integer.parseInt(keyValue.length>1?keyValue[1]:"0"));
 						}
 
 					}
+					pRet.setPurchaseRequest(purchase);
 					result.add(pRet);
 				}
 			}
