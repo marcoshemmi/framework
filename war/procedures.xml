@@ -533,13 +533,17 @@
 
 	<proc name="Authentication_getUserByEmail">
 		<parameters>
-			<param id="0" name="email" type="string" size="60">
-				@email
+			<param id="0" name="email" type="string" size="80">
+				@sellerEmail
 			</param>
 		</parameters>		
 		<query>
-				SELECT A1_COD as USERID, A1_NREDUZ as NAME, A1_EMAIL as EMAIL from SA1010
-				WHERE A1_EMAIL = {0}
+			   SELECT	Seller.A3_COD			AS sellerId,
+			   			LTRIM(Seller.A3_NOME)	AS sellerName,
+						Seller.A3_XSENHA		AS sellerPassword
+			   FROM		SA3010					AS Seller
+			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; '*'
+			     AND    Seller.A3_EMAIL = @sellerEmail	
 		</query>
 	</proc>		
 	
