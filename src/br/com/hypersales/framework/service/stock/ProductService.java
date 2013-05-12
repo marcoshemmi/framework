@@ -50,7 +50,7 @@ public class ProductService {
 						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
 							product.setId(keyValue[1]);
 						}
-						/*else if (keyValue[0].toUpperCase().equals(
+						else if (keyValue[0].toUpperCase().equals(
 								"PRODUCTDESCRIPTION")) {
 							product.setDescription(keyValue[1]);
 						} else if (keyValue[0].toUpperCase().equals(
@@ -59,7 +59,7 @@ public class ProductService {
 						} else if (keyValue[0].toUpperCase().equals(
 								"PRODUCTPRICE")) {
 							product.setPrice(Double.parseDouble(keyValue[1]));
-						}*/
+						}
 
 					}
 					result.add(product);
