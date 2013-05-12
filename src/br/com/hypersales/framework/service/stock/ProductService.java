@@ -1,7 +1,16 @@
 package br.com.hypersales.framework.service.stock;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.xml.sax.SAXException;
+
+import br.com.hypersales.framework.dao.Wsp;
+import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
+import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.stock.Product;
-import br.com.hypersales.framework.model.stock.ProductGroup;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
@@ -9,38 +18,56 @@ public class ProductService {
 
 	JsonResultList<Product> products = new JsonResultList<Product>();
 
-	public ProductService() {
-		ProductGroup pg1 = new ProductGroup("name1");
-		pg1.setId("000001");
-		ProductGroup pg2 = new ProductGroup("name2");
-		pg2.setId("000002");
-
-		for (int i = 1; i < 10; i++) {
-			Product p = new Product("description" + i, "measureUnit" + i,
-					100 + i, i % 2 == 1 ? pg1 : pg2);
-			p.setId("00000" + i);
-		}
-	}
-
-	public JsonResultList<Product> getAllProducts(String hashcode) {
-		products.setResponseId(RequestStatus.SUCCESS.statusCode());
-		products.setResponseMessage(RequestStatus.SUCCESS.toString());
-
-		return products;
-	}
-
 	public JsonResultList<Product> getListByProductGroupId(String hashCode,
 			String productGroupId) {
 		JsonResultList<Product> result = new JsonResultList<Product>();
 
-		result.setResponseId(RequestStatus.SUCCESS.statusCode());
-		result.setResponseMessage(RequestStatus.SUCCESS.toString());
+		Wsp daoWs = new Wsp();
+		try {
+			STRUCTRETURN retorno = daoWs.execute("Product_getListByProductGroupId", new String[] { productGroupId });
+			
+			result.setResponseId(Integer.parseInt(retorno.responseid));
+			result.setResponseMessage(retorno.responsemessage);
+			
+			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
+				ARRAYOFSTRING item = retorno.getSALESORDERID();
+				for (String record : item.getSTRING()) {
+					record = record.substring(1);
+					record = record.substring(0, record.length() - 2);
 
-		for (Product p : products.getList()) {
-			if (p.getProductGroup().getId().equals(productGroupId.trim())) {
-				result.add(p);
+					String[] keyValueRecord = record.split("\",\"");
+
+					Product product = new Product();
+
+					for (String kv : keyValueRecord) {
+
+						// posicao 0: name e 1:value
+						String[] keyValue = kv.split("\":\"");
+
+						if (keyValue[0].toUpperCase().equals("PRODUCTID")) {
+							product.setId(keyValue[1]);
+						} else if (keyValue[0].toUpperCase().equals(
+								"PRODUCTDESCRIPTION")) {
+							product.setDescription(keyValue[1]);
+						} else if (keyValue[0].toUpperCase().equals(
+								"PRODUCTMEASUREUNIT")) {
+							product.setMeasureUnit(keyValue[1]);
+						} else if (keyValue[0].toUpperCase().equals(
+								"PRODUCTPRICE")) {
+							product.setPrice(Double.parseDouble(keyValue[1]));
+						}
+
+					}
+					result.add(product);
+				}
 			}
+			
+		} catch (XPathExpressionException | ParserConfigurationException
+				| SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		return result;
 	}
 }
