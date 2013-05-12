@@ -94,8 +94,8 @@ public class SalesOrderService {
 		so.setSalesOrderStatus(SalesOrderStatus.PROCESSING);
 		so.setSalesOrderDate("20130303"); // TODO: usar FormatFrameworkDate do
 											// datehelper
-		so.setReservationType(ReservationType.C);
-		so.setReservationTypeId(ReservationType.C.name());
+		//so.setReservationType(ReservationType.C);
+		//so.setReservationTypeId(ReservationType.C.name());
 
 		Customer c = new Customer();
 		c.setId("00001");
