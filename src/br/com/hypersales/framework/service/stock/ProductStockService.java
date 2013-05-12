@@ -40,7 +40,7 @@ public class ProductStockService {
 		
 		Wsp daoWs = new Wsp();
 		try {
-			STRUCTRETURN retorno = daoWs.execute("ProductStock_getListByProductId", new String[]{productId, productId, productId});
+			STRUCTRETURN retorno = daoWs.execute("ProductStock_getListByProductId", new String[]{productId, productId, productId, productId});
 
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();

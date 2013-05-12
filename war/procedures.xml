@@ -154,6 +154,9 @@
 			<param id="2" name="productId" type="string" size="4">
 				@productId
 			</param>
+			<param id="3" name="productId" type="string" size="4">
+				@productId
+			</param>
 		</parameters>
 
 		<query>
@@ -222,6 +225,7 @@
 			FROM SB2010 AS Stock 
 			
 			WHERE Stock.D_E_L_E_T_ &lt;&gt; ''*''
+			  AND Stock.B2_COD = ''{3}''
 			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
 
 		    ORDER BY branchId, typeId, requestId, requestItemId 
