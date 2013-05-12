@@ -162,11 +162,11 @@
 		<query>
 			SELECT Stock.B2_COD              AS productId, 
 				   Stock.B2_FILIAL		     AS branchId, 
-				   ''PE''					 AS reservationTypeId, 
-				   ''Estoque''				 AS reservationTypeDescription, 
-				   CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
-				   CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
-				   CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
+				   ''PE''					 AS typeId, 
+				   ''Estoque''				 AS typeDescription, 
+				   CAST('''' AS VARCHAR(06)) AS requestId, 
+				   CAST('''' AS VARCHAR(04)) AS requestItemId, 
+				   CAST('''' AS VARCHAR(08)) AS requestDate, 
 				   Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
 
 			FROM SB2010 AS Stock 
@@ -179,14 +179,14 @@
 			UNION 
 			SELECT       Stock.C1_PRODUTO					  AS productId, 
 						 Stock.C1_FILIAL					  AS branchId, 
-						 ''SC''								  AS reservationTypeId, 
+						 ''SC''								  AS typeId, 
 						 ''S.C. '' + 
 						  Stock.C1_NUM + '' '' + 
 						 CONVERT(VARCHAR, 
-						 CAST(Stock.C1_DATPRF AS DATE), 103)  AS reservationTypeDescription, 
-						 Stock.C1_NUM						  AS purchaseRequestId, 
-						 Stock.C1_ITEM						  AS purchaseRequestItemId, 
-						 Stock.C1_DATPRF 					  AS purchaseRequestDate, 
+						 CAST(Stock.C1_DATPRF AS DATE), 103)  AS typeDescription, 
+						 Stock.C1_NUM						  AS requestId, 
+						 Stock.C1_ITEM						  AS requestItemId, 
+						 Stock.C1_DATPRF 					  AS requestDate, 
 						 Stock.C1_QUANT - 
 						 ISNULL(SUM(Reservation.ZZ_QUANT), 0) AS productQuantity 
 
@@ -215,11 +215,11 @@
 			SELECT       DISTINCT 
 						 ''{2}''             	 AS productId, 
 						 Stock.B2_FILIAL		 AS branchId, 
-						 ''EN''					 AS reservationTypeId, 
-						 ''Encomenda''			 AS reservationTypeDescription, 
-						 CAST('''' AS VARCHAR(06)) AS purchaseRequestId, 
-						 CAST('''' AS VARCHAR(04)) AS purchaseRequestItemId, 
-						 CAST('''' AS VARCHAR(08)) AS purchaseRequestDate, 
+						 ''EN''					 AS typeId, 
+						 ''Encomenda''			 AS typeDescription, 
+						 CAST('''' AS VARCHAR(06)) AS requestId, 
+						 CAST('''' AS VARCHAR(04)) AS requestItemId, 
+						 CAST('''' AS VARCHAR(08)) AS requestDate, 
 						 0						 AS productQuantity 
 
 			FROM SB2010 AS Stock 
@@ -227,7 +227,7 @@
 			WHERE Stock.D_E_L_E_T_ != ''*'' 
 			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
 
-		    ORDER BY branchId, reservationTypeId, purchaseRequestId, purchaseRequestItemId 
+		    ORDER BY branchId, typeId, requestId, requestItemId 
 		</query>
 	</proc>
 			
@@ -235,14 +235,14 @@
     <proc name="ProductGroup_getList">
         <query>
 				SELECT DISTINCT Product.B1_GRUPO    AS productGroupId,		 
-						LTRIM(ProductGroup.BM_DESC) AS productGroupDescription
+						LTRIM(ProductGroup.BM_DESC) AS description
 				FROM SB1010 AS Product
 				LEFT JOIN SBM010 AS ProductGroup
 										 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
 				WHERE Product.B1_TIPO = 'PA'
 				  AND Product.D_E_L_E_T_ != '*'
 				  AND ProductGroup.D_E_L_E_T_ != '*'
-				ORDER BY productGroupDescription
+				ORDER BY description
 		</query>
     </proc>
 	
