@@ -13,6 +13,7 @@ import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
 import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.register.Carrier;
 import br.com.hypersales.framework.presentation.JsonResultList;
+import br.com.hypersales.framework.util.enums.RequestStatus;
 
 public class CarrierService {
 
@@ -22,6 +23,10 @@ public class CarrierService {
 		Wsp daoWs = new Wsp();
 		try {
 			STRUCTRETURN retorno = daoWs.execute("Carrier_getList", null);
+			
+			result.setResponseId(Integer.parseInt(retorno.responseid));
+			result.setResponseMessage(retorno.responsemessage);
+			
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for (String record : item.getSTRING()) {
@@ -48,6 +53,7 @@ public class CarrierService {
 					result.add(carrier);
 				}
 			}
+			
 		} catch (XPathExpressionException | ParserConfigurationException
 				| SAXException | IOException e) {
 			// TODO Auto-generated catch block
@@ -66,6 +72,10 @@ public class CarrierService {
 		try {
 			STRUCTRETURN retorno = daoWs.execute("Carrier_getDataByCarrierId",
 					new String[] { carrierId });
+			
+			result.setResponseId(Integer.parseInt(retorno.responseid));
+			result.setResponseMessage(retorno.responsemessage);
+			
 			if (retorno.getRESPONSEMESSAGE().equals("OK")) {
 				ARRAYOFSTRING item = retorno.getSALESORDERID();
 				for (String record : item.getSTRING()) {
@@ -89,19 +99,19 @@ public class CarrierService {
 						} else if (keyValue[0].toUpperCase().equals(
 								"CARRIERSHORTNAME")) {
 							carrier.setShortName(keyValue[1]);
-
 						}
 
 					}
 					result.add(carrier);
 				}
 			}
+			
 		} catch (XPathExpressionException | ParserConfigurationException
 				| SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return result;
 	}
 }
