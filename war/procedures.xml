@@ -542,8 +542,8 @@
 			   			LTRIM(Seller.A3_NOME)	AS sellerName,
 						Seller.A3_XSENHA		AS sellerPassword
 			   FROM		SA3010					AS Seller
-			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; '*'
-			     AND    Seller.A3_EMAIL = @sellerEmail	
+			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; ''*''
+			     AND    UPPER(Seller.A3_EMAIL) = UPPER(''{0}'')
 		</query>
 	</proc>		
 	
