@@ -1,3 +1,526 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<procedures>
+    <proc name="Seller_getList">
+        <query>
+			   SELECT	Seller.A3_COD			AS sellerId,
+			   			LTRIM(Seller.A3_NOME)	AS sellerName
+			   FROM		SA3010					AS Seller
+			   WHERE	Seller.D_E_L_E_T_ != '*'
+			   ORDER BY	sellerName
+		</query>
+    </proc>
+
+	<proc name="Seller_getDataBySellerId">
+		<parameters>
+			<param id="0" name="sellerId" type="string" size="6">
+				@sellerId
+			</param>
+		</parameters>		
+		<query>
+				SELECT	Seller.A3_COD			AS sellerId,
+						LTRIM(Seller.A3_NOME)	AS sellerName,
+						LTRIM(Seller.A3_NREDUZ)	AS sellerShortName
+				FROM	SA3010					AS Seller
+				WHERE	Seller.A3_COD = ''{0}''
+		</query>
+	</proc>
+	
+
+	<proc name="SalesOrder_getList">
+		<parameters>
+			<param id="0" name="sellerId" type="string" size="6">
+				@sellerId
+			</param>
+			<param id="1" name="dateStart" type="string" size="8" format="yyyymmdd">
+				@dateStart
+			</param>
+			<param id="2" name="dateFinish" type="string" size="8" format="yyyymmdd">
+				@dateFinish
+			</param>
+			<param id="3" name="customerId" type="string" size="6" defaultvalue="000000">
+				@customerId
+			</param>
+			<param id="4" name="customerId" type="string" size="6" defaultvalue="000000">
+				@customerId
+			</param>			
+		</parameters>		
+		<query>
+				SELECT	DISTINCT 
+					  salesOrder.C5_NUM	   AS salesOrderId, 
+					  salesOrder.C5_FILIAL AS branchId, 
+
+					  CASE WHEN salesOrder.C5_NOTA &lt;&gt; '''' THEN ''600'' 
+					  ELSE 
+
+							CASE WHEN ISNULL(BloqueioCredito.Situacao, 0) = 1  THEN ''300'' 
+							ELSE 
+								 CASE WHEN ISNULL(BloqueioEstoque.Situacao, 0) = 1 THEN ''400'' 
+								 ELSE 
+									  CASE WHEN ISNULL(OrdemDeSeparacao.Situacao, 0) = 1 THEN 
+											''500'' 
+									  ELSE 
+											''100'' 
+									  END 
+								 END 
+							END 
+					  END AS statusId, 
+
+					  salesOrder.C5_EMISSAO	AS saleDate, 
+					  salesOrder.C5_XTIPO	AS reservationTypeId, 
+					  salesOrder.C5_CLIENTE	AS customerId, 
+					  salesOrder.C5_LOJACLI	AS unitId, 
+					  customer.A1_CGC		AS Cnpj, 
+					  customer.A1_NOME		AS Name, 
+					  customer.A1_NREDUZ	AS unitName, 
+					  invoice.F2_CHVNFE		AS invoiceKey 
+
+				FROM SC5010 AS salesOrder 
+
+				LEFT JOIN SA1010 AS customer 
+				ON customer.A1_COD = salesOrder.C5_CLIENTE 
+				AND customer.A1_LOJA = salesOrder.C5_LOJACLI 
+
+				LEFT JOIN SF2010 AS invoice 
+				ON invoice.F2_DOC = salesOrder.C5_NOTA 
+				AND invoice.F2_SERIE = salesOrder.C5_SERIE 
+				AND invoice.F2_FILIAL =  salesOrder.C5_FILIAL 
+				AND invoice.D_E_L_E_T_ &lt;&gt; ''*''
+
+				LEFT JOIN SE1010 AS receipt 
+				ON receipt.E1_PEDIDO = C5_NUM AND E1_TIPO = ''RA'' AND E1_FILIAL = C5_FILIAL 
+				AND receipt.D_E_L_E_T_ &lt;&gt; ''*'' 
+
+				OUTER APPLY 
+				(SELECT TOP 1 1 AS Situacao FROM SC9010 
+				        WHERE SC9010.C9_PEDIDO = salesOrder.C5_NUM 
+				          AND SC9010.C9_FILIAL = salesOrder.C5_FILIAL 
+				          AND SC9010.D_E_L_E_T_ &lt;&gt; ''*'' 
+				          AND SC9010.C9_BLCRED &lt;&gt; '''') BloqueioCredito 
+				
+				OUTER APPLY 
+				(SELECT TOP 1 1 AS Situacao FROM SC9010 
+				        WHERE SC9010.C9_PEDIDO = salesOrder.C5_NUM 
+				          AND SC9010.C9_FILIAL = salesOrder.C5_FILIAL 
+				          AND SC9010.D_E_L_E_T_ &lt;&gt; ''*'' 
+				          AND SC9010.C9_BLEST &lt;&gt; '''') BloqueioEstoque 
+
+				OUTER APPLY 
+				(SELECT TOP 1 1 AS Situacao FROM SC9010 
+				        WHERE SC9010.C9_PEDIDO = salesOrder.C5_NUM 
+				          AND SC9010.C9_FILIAL = salesOrder.C5_FILIAL 
+				          AND SC9010.D_E_L_E_T_ &lt;&gt; ''*'' 
+				          AND SC9010.C9_ORDSEP &lt;&gt; '''') OrdemDeSeparacao 
+
+				WHERE (salesOrder.C5_VEND1 = ''{0}'' ) 
+				  AND (salesOrder.C5_NOTA IS NULL OR 
+				       invoice.F2_EMISSAO IS NULL OR invoice.F2_EMISSAO BETWEEN ''{1}'' AND ''{2}'' ) 
+				  AND (salesOrder.C5_CLIENTE = ''{3}'' OR ''{4}'' = ''000000'') 
+				  AND (salesOrder.D_E_L_E_T_ &lt;&gt; ''*'') 
+				  AND (salesOrder.C5_FILIAL IN (''103'',''104'')) 
+
+				ORDER BY salesOrder.C5_NUM, salesOrder.C5_FILIAL 
+		</query>
+	</proc>
+		
+
+	<proc name="Product_getListByProductGroupId">
+		<parameters>
+			<param id="0" name="productGroupId" type="string" size="4">
+				@productGroupId
+			</param>
+		</parameters>
+		<query>
+				SELECT		Product.B1_COD  AS productId,
+							Product.B1_DESC AS productDescription,
+							Product.B1_UM   AS productMeasureUnit,
+							Product.B1_PRV1 AS productPrice
+				FROM		SB1010			AS Product
+				WHERE		Product.B1_GRUPO = ''{0}''
+							AND Product.B1_TIPO = ''PA''
+							AND Product.D_E_L_E_T_ &lt;&gt; ''*''
+				ORDER BY	productDescription
+		</query>
+	</proc>
+			
+
+	<proc name="ProductStock_getListByProductId">
+		<parameters>
+			<param id="0" name="productId" type="string" size="14">
+				@productId
+			</param>
+			<param id="1" name="productId" type="string" size="14">
+				@productId
+			</param>
+			<param id="2" name="productId" type="string" size="14">
+				@productId
+			</param>
+			<param id="3" name="productId" type="string" size="14">
+				@productId
+			</param>
+		</parameters>
+
+		<query>
+			SELECT Stock.B2_COD              AS productId, 
+				   Stock.B2_FILIAL		     AS branchId, 
+				   ''PE''					 AS typeId, 
+				   ''Estoque''				 AS typeDescription, 
+				   CAST('''' AS VARCHAR(06)) AS requestId, 
+				   CAST('''' AS VARCHAR(04)) AS requestItemId, 
+				   CAST('''' AS VARCHAR(08)) AS requestDate, 
+				   Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA AS productQuantity 
+
+			FROM SB2010 AS Stock 
+			
+			WHERE Stock.B2_COD = ''{0}'' 
+			  AND Stock.D_E_L_E_T_ &lt;&gt; ''*''
+			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
+			  AND Stock.B2_QATU - Stock.B2_QACLASS - Stock.B2_RESERVA &gt; 0 
+
+			UNION 
+			SELECT       Stock.C1_PRODUTO					  AS productId, 
+						 Stock.C1_FILIAL					  AS branchId, 
+						 ''SC''								  AS typeId, 
+						 ''S.C. '' + 
+						  Stock.C1_NUM + '' '' + 
+						 CONVERT(VARCHAR, 
+						 CAST(Stock.C1_DATPRF AS DATE), 103)  AS typeDescription, 
+						 Stock.C1_NUM						  AS requestId, 
+						 Stock.C1_ITEM						  AS requestItemId, 
+						 Stock.C1_DATPRF 					  AS requestDate, 
+						 Stock.C1_QUANT - 
+						 ISNULL(SUM(Reservation.ZZ_QUANT), 0) AS productQuantity 
+
+			FROM SC1010 AS Stock 
+			
+			LEFT JOIN SZZ010 AS Reservation 
+			ON Reservation.ZZ_PO_NUM = Stock.C1_NUM + Stock.C1_ITEM 
+			AND Reservation.ZZ_CANCEL &lt;&gt; ''T'' 
+			AND Reservation.D_E_L_E_T_ &lt;&gt; ''*''
+			
+			WHERE Stock.C1_PRODUTO = ''{1}'' 
+			  AND Stock.D_E_L_E_T_ &lt;&gt; ''*''
+			  AND Stock.C1_FILIAL IN (''103'', ''104'') 
+
+			GROUP BY  Stock.C1_PRODUTO, 
+					  Stock.C1_FILIAL, 
+					  Stock.C1_NUM, 
+					  Stock.C1_DATPRF, 
+					  Stock.C1_ITEM, 
+					  Stock.C1_DATPRF, 
+					  Stock.C1_QUANT 
+
+			HAVING ISNULL(SUM(Reservation.ZZ_QUANT), 0) &lt; Stock.C1_QUANT 
+			
+			UNION 
+			SELECT       DISTINCT 
+						 ''{2}''             	 AS productId, 
+						 Stock.B2_FILIAL		 AS branchId, 
+						 ''EN''					 AS typeId, 
+						 ''Encomenda''			 AS typeDescription, 
+						 CAST('''' AS VARCHAR(06)) AS requestId, 
+						 CAST('''' AS VARCHAR(04)) AS requestItemId, 
+						 CAST('''' AS VARCHAR(08)) AS requestDate, 
+						 0						 AS productQuantity 
+
+			FROM SB2010 AS Stock 
+			
+			WHERE Stock.D_E_L_E_T_ &lt;&gt; ''*''
+			  AND Stock.B2_COD = ''{3}''
+			  AND Stock.B2_FILIAL IN (''103'', ''104'') 
+
+		    ORDER BY branchId, typeId, requestId, requestItemId 
+		</query>
+	</proc>
+			
+
+    <proc name="ProductGroup_getList">
+        <query>
+				SELECT DISTINCT Product.B1_GRUPO    AS productGroupId,		 
+						LTRIM(ProductGroup.BM_DESC) AS description
+				FROM SB1010 AS Product
+				LEFT JOIN SBM010 AS ProductGroup
+					 ON ProductGroup.BM_GRUPO = Product.B1_GRUPO
+				WHERE Product.B1_TIPO = 'PA'
+				  AND Product.D_E_L_E_T_ != '*'
+				  AND ProductGroup.D_E_L_E_T_ != '*'
+				ORDER BY description
+		</query>
+    </proc>
+	
+
+    <proc name="Payment_getList">
+        <query>
+				SELECT       Payment.E4_CODIGO	AS paymentId,		 
+					   LTRIM(Payment.E4_DESCRI)	AS paymentDescription
+				FROM SE4010 AS Payment
+				WHERE Payment.D_E_L_E_T_ != '*'
+				ORDER BY paymentDescription
+		</query>
+    </proc>
+
+	<proc name="Customer_getListBySellerId">
+		<parameters>
+			<param id="0" name="sellerId" type="string" size="6">
+				@sellerId
+			</param>
+		</parameters>		
+		<query>
+				SELECT DISTINCT
+							 Customer.A1_COD	AS customerId,		 
+					   LTRIM(Customer.A1_NOME)	AS customerName
+				FROM SA1010 AS Customer
+				WHERE Customer.A1_VEND = ''{0}''
+				  AND Customer.D_E_L_E_T_ &lt;&gt; ''*''
+				ORDER BY customerName
+		</query>
+	</proc>
+						
+	<proc name="Customer_getUnitListByCustomerId">
+		<parameters>
+			<param id="0" name="customerId" type="string" size="6">
+				@customerId
+			</param>
+		</parameters>		
+		<query>
+			SELECT       Customer.A1_LOJA	 AS unitId, 
+						 Customer.A1_CGC	 AS cnpj, 
+				   LTRIM(Customer.A1_NREDUZ) AS name, 
+						 Customer.A1_MUN	 AS city, 
+						 Customer.A1_EST	 AS state 
+				   
+			FROM SA1010 AS Customer 
+			
+			WHERE Customer.A1_COD = ''{0}'' 
+			  AND Customer.D_E_L_E_T_ &lt;&gt; ''*''
+			ORDER BY name 
+		</query>
+	</proc>
+	
+	<proc name="Customer_getDataByCustomerId">
+		<parameters>
+			<param id="0" name="customerId" type="string" size="6">
+				@customerId
+			</param>
+			<param id="1" name="customerUnitId" type="string" size="2">
+				@customerUnitId
+			</param>
+		</parameters>		
+		<query>
+				SELECT 		Customer.A1_COD			AS customerId,
+							Customer.A1_LOJA		AS unitId,
+					  LTRIM(Customer.A1_NOME)		AS name,
+					  LTRIM(Customer.A1_NREDUZ)		AS unitName,
+							Customer.A1_CGC			AS cnpj,
+							Customer.A1_INSCR		AS stateRegistration,
+							Customer.A1_INSCRM		AS districtRegistration,
+							Customer.A1_PFISICA		AS idCard,
+							Customer.A1_END			AS address,
+							Customer.A1_MUN			AS city,
+							Customer.A1_EST			AS state,
+							Customer.A1_BAIRRO		AS district,
+							Customer.A1_CEP			AS zipCode,
+							Customer.A1_DDI			AS intAreaCode,
+							Customer.A1_DDD			AS areaCode,
+							Customer.A1_TEL			AS phoneNumber,
+							Customer.A1_FAX			AS faxNumber,
+							Customer.A1_PAIS		AS countryId,
+							Country.YA_DESCR		AS countryName,
+							Customer.A1_ENDCOB		AS inovicingAddress,
+							Customer.A1_ENDENT		AS deliveryAddress,
+							Customer.A1_ENDREC		AS receptionAddress,
+							Customer.A1_CONTATO		AS contactName,
+							Customer.A1_TPFRET		AS freightTypeId,
+							Customer.A1_TRANSP		AS carrierId,
+							Carrier.A4_NOME			AS carrierName,
+							Customer.A1_COND		AS paymentId,
+							Payment.E4_DESCRI		AS paymentDescription,
+							Customer.A1_VEND		AS sellerId,
+							Seller.A3_NOME			AS sellerName
+					   
+				FROM	  SA1010 AS Customer
+					
+				LEFT JOIN SYA010 AS Country ON Country.YA_CODGI   = Customer.A1_PAIS
+				LEFT JOIN SA3010 AS Seller  ON Seller.A3_COD	  = Customer.A1_VEND
+				LEFT JOIN SE4010 AS Payment ON Payment.E4_CODIGO  = Customer.A1_COND
+				LEFT JOIN SA4010 AS Carrier ON Carrier.A4_COD	  = Customer.A1_TRANSP
+				
+				WHERE Customer.A1_COD	  = ''{0}''
+				  AND Customer.A1_LOJA	  = ''{1}''
+				  AND Customer.D_E_L_E_T_ &lt;&gt; ''*''
+		</query>
+	</proc>
+			
+
+	<proc name="Currency_getListByDate">
+		<parameters>
+			<param id="0" name="currencyDate" type="string" size="8">
+				@currencyDate
+			</param>
+			<param id="1" name="currencyDate" type="string" size="8">
+				@currencyDate
+			</param>
+		</parameters>		
+		<query>
+				SELECT M.currencyId,
+					   M.currencySymbol,
+					   M.currencyName,
+					   M.currencyDate,
+					   M.currencyRate
+
+				FROM
+
+				(SELECT TOP 1
+					   ''1''					         AS currencyId
+					  ,''R$''							 AS currencySymbol
+					  ,''REAL''						 AS currencyName
+					  ,	      Currency.M2_DATA		 AS currencyDate
+					  ,ISNULL(Currency.M2_MOEDA1, 1) AS currencyRate
+								 
+					  FROM SM2010 AS Currency
+							
+					  WHERE Currency.M2_DATA &lt;= ''{0}''
+			
+					  ORDER BY M2_DATA DESC
+						  
+				  UNION
+
+				  SELECT TOP 1
+					   ''2''							 AS currencyId
+					  ,''US$''						 AS currencySymbol
+					  ,''DOLAR''						 AS currencyName
+					  ,Currency.M2_DATA				 AS currencyDate
+					  ,ISNULL(Currency.M2_MOEDA2, 1) AS currencyRate
+					  
+				  FROM SM2010 AS Currency
+				  
+				  WHERE Currency.M2_DATA &lt;= ''{1}''
+					AND Currency.M2_MOEDA2 &gt; 0
+						
+				  ORDER BY M2_DATA DESC) M
+		</query>
+	</proc>
+	
+
+	<proc name="Currency_getDataByCurrencyId">
+		<parameters>
+			<param id="0" name="currencyDate" type="string" size="8">
+				@currencyDate
+			</param>
+			<param id="1" name="currencyDate" type="string" size="8">
+				@currencyDate
+			</param>
+			<param id="2" name="currencyId" type="string" size="8">
+				@currencyId
+			</param>
+		</parameters>		
+		<query>
+				SELECT M.currencyId,
+					   M.currencySymbol,
+					   M.currencyName,
+					   M.currencyDate,
+					   M.currencyRate
+
+				FROM
+
+				(SELECT TOP 1
+					   ''1''					         AS currencyId
+					  ,''R$''							 AS currencySymbol
+					  ,''REAL''						 AS currencyName
+					  ,	      Currency.M2_DATA		 AS currencyDate
+					  ,ISNULL(Currency.M2_MOEDA1, 1) AS currencyRate
+								 
+					  FROM SM2010 AS Currency
+
+					  WHERE Currency.M2_DATA &lt;= ''{0}''
+			
+					  ORDER BY M2_DATA DESC
+						  
+				  UNION
+
+				  SELECT TOP 1
+					   ''2''							 AS currencyId
+					  ,''US$''						 AS currencySymbol
+					  ,''DOLAR''						 AS currencyName
+					  ,Currency.M2_DATA				 AS currencyDate
+					  ,ISNULL(Currency.M2_MOEDA2, 1) AS currencyRate
+					  
+				  FROM SM2010 AS Currency
+
+				  WHERE Currency.M2_DATA &lt;= ''{1}''
+					AND Currency.M2_MOEDA2 &gt; 0
+								
+				  ORDER BY M2_DATA DESC) M
+			
+			WHERE M.currencyId = ''{2}''
+		</query>
+	</proc>
+	
+
+    <proc name="Carrier_getList">
+        <query>
+			SELECT       Carrier.A4_COD		AS carrierId,		 
+				   LTRIM(Carrier.A4_NOME)	AS carrierName
+
+			FROM SA4010 AS Carrier
+			
+			WHERE Carrier.D_E_L_E_T_ &lt;&gt; '*'
+			  
+			ORDER BY carrierName
+		</query>
+    </proc>
+		
+
+	<proc name="Carrier_getDataByCarrierId">
+		<parameters>
+			<param id="0" name="carrierId" type="string" size="6">
+				@carrierId
+			</param>
+		</parameters>		
+		<query>
+				SELECT       Carrier.A4_COD		AS carrierId,		 
+					   LTRIM(Carrier.A4_NOME)	AS carrierName,
+				   	LTRIM(Carrier.A4_NREDUZ)	AS carrierShortName
+
+				FROM SA4010 AS Carrier
+				
+				WHERE Carrier.A4_COD = ''{0}''
+		</query>
+	</proc>		
+
+	<proc name="Authentication_getUserByEmail">
+		<parameters>
+			<param id="0" name="email" type="string" size="80">
+				@sellerEmail
+			</param>
+		</parameters>		
+		<query>
+			   SELECT	Seller.A3_COD			AS sellerId,
+			   			LTRIM(Seller.A3_NOME)	AS sellerName,
+						Seller.A3_XSENHA		AS sellerPassword
+			   FROM		SA3010					AS Seller
+			   WHERE	Seller.D_E_L_E_T_ &lt;&gt; ''*''
+			     AND    UPPER(Seller.A3_EMAIL) = UPPER(''{0}'')
+		</query>
+	</proc>		
+	
+	<proc name="Authentication_getHash">
+		<parameters>
+			<param id="0" name="email" type="string" size="60">
+				@email
+			</param>
+		</parameters>		
+		<query>
+				SELECT       Carrier.A4_COD		AS carrierId,		 
+					   LTRIM(Carrier.A4_NOME)	AS carrierName,
+					   LTRIM(Carrier.A4_NREDUZ)	AS carrierShortName
+
+				FROM SA4010 AS Carrier
+				
+				WHERE Carrier.A4_COD = ''{0}''
+		</query>
+	</proc>		
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <procedures>
     <proc name="Seller_getList">
@@ -519,4 +1042,5 @@
 				WHERE Carrier.A4_COD = ''{0}''
 		</query>
 	</proc>		
+>>>>>>> 560dbf1a91891a5543e4679303e2cd335582a106
 </procedures>

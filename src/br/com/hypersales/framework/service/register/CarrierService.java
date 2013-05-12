@@ -12,6 +12,7 @@ import br.com.hypersales.framework.dao.Wsp;
 import br.com.hypersales.framework.dao.protheus.ARRAYOFSTRING;
 import br.com.hypersales.framework.dao.protheus.STRUCTRETURN;
 import br.com.hypersales.framework.model.register.Carrier;
+import br.com.hypersales.framework.presentation.JsonResult;
 import br.com.hypersales.framework.presentation.JsonResultList;
 import br.com.hypersales.framework.util.enums.RequestStatus;
 
@@ -47,6 +48,9 @@ public class CarrierService {
 						} else if (keyValue[0].toUpperCase().equals(
 								"CARRIERNAME")) {
 							carrier.setName(keyValue[1]);
+						} else if (keyValue[0].toUpperCase().equals(
+								"CARRIERSHORTNAME")) {
+							carrier.setShortName(keyValue[1]);
 						}
 
 					}
@@ -63,10 +67,9 @@ public class CarrierService {
 		return result;
 	}
 
-	public JsonResultList<Carrier> getDataByCarrierId(String hashCode,
-			String carrierId) {
+	public JsonResult<Carrier> getDataByCarrierId(String carrierId) {
 
-		JsonResultList<Carrier> result = new JsonResultList<Carrier>();
+		JsonResult<Carrier> result = new JsonResult<Carrier>();
 
 		Wsp daoWs = new Wsp();
 		try {
@@ -102,7 +105,7 @@ public class CarrierService {
 						}
 
 					}
-					result.add(carrier);
+					result.setObject(carrier);
 				}
 			}
 			

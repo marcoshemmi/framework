@@ -32,7 +32,9 @@ public class CarrierController {
 	JsonResult<Carrier> getDataByCarrierId(
 			@RequestParam("hashCode") String hashCode,
 			@RequestParam("carrierId") String carrierId) {
-		return new JsonResult<Carrier>();
+		
+		JsonResult<Carrier> carriers = carrierService.getDataByCarrierId(carrierId);
+		return carriers;
 	}
 
 }
