@@ -51,7 +51,7 @@ public class ProductGroupService {
 						if (keyValue[0].toUpperCase().equals("PRODUCTGROUPID")) {
 							pRet.setId(keyValue[1]);
 						}
-						if (keyValue[0].toUpperCase().equals("PRODUCTGROUPDESCRIPTION")) {
+						if (keyValue[0].toUpperCase().equals("DESCRIPTION")) {
 							pRet.setName(keyValue[1]);
 						}
 					}

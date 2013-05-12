@@ -290,7 +290,7 @@
 			FROM SA1010 AS Customer 
 			
 			WHERE Customer.A1_COD = ''{0}'' 
-			  AND Customer.D_E_L_E_T_ &lt;&gt; '*' 
+			  AND Customer.D_E_L_E_T_ &lt;&gt; ''*''
 			ORDER BY name 
 		</query>
 	</proc>
